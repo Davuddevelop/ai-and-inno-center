@@ -4,7 +4,7 @@
 
 export const site = {
   orgName: "AI & Innovation Center",
-  schoolName: "[Your School Name]", // TODO: real school name + correct transliteration
+  schoolName: "Baku European Lyceum",
   location: "Baku, Azerbaijan",
   eyebrow: "FIRST OF ITS KIND — BAKU",
 
@@ -16,7 +16,7 @@ export const site = {
 
   hero: {
     headline: "The first AI center built by high schoolers, for high schoolers.",
-    sub: "We're a student-run center inside [Your School Name], teaching, building, and shipping real AI projects — before anyone told us we were old enough to.",
+    sub: "We're a student-run center inside Baku European Lyceum, teaching, building, and shipping real AI projects — before anyone told us we were old enough to.",
     primaryCta: { label: "Apply to Join", href: "/apply" },
     secondaryCta: { label: "Read the Manifesto", href: "#manifesto" },
   },
@@ -90,9 +90,9 @@ export const site = {
     kicker: "04 — LEADERSHIP",
     title: "Run by the people doing the work.",
     people: [
-      { role: "President & Co-Founder", name: "[Your Name]" },
-      { role: "Vice President", name: "[VP Name]" },
-      { role: "Vice President", name: "[VP Name]" },
+      { role: "President & Co-Founder", name: "Davud Ali" },
+      { role: "Vice President", name: "Sevinj İsrafilova" },
+      { role: "Vice President", name: "Tofiq Taghisadeh" },
     ],
   },
 
