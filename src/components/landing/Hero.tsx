@@ -11,7 +11,7 @@ export function Hero() {
       {/* Ambient glow + the logomark, blurred large, standing in for a stock
           illustration or gradient blob. */}
       <div className="pointer-events-none absolute -right-40 top-0 h-[560px] w-[560px] sm:-right-20">
-        <div className="absolute inset-10 rounded-full bg-accent/35 blur-[100px]" />
+        <div className="absolute -inset-32 bg-[radial-gradient(closest-side,rgba(185,255,75,0.4),rgba(185,255,75,0)_72%)]" />
         <motion.div
           initial={{ opacity: 0, scale: 0.9, rotate: -6 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -22,7 +22,7 @@ export function Hero() {
             src="/logo-mark.png"
             alt=""
             fill
-            className="object-contain opacity-25 mix-blend-screen"
+            className="object-contain opacity-90"
             priority
           />
         </motion.div>
