@@ -1,0 +1,25 @@
+import { Nav } from "@/components/landing/Nav";
+import { Hero } from "@/components/landing/Hero";
+import { Manifesto } from "@/components/landing/Manifesto";
+import { Programs } from "@/components/landing/Programs";
+import { Gazette } from "@/components/landing/Gazette";
+import { Leadership } from "@/components/landing/Leadership";
+import { JoinBand } from "@/components/landing/JoinBand";
+import { Footer } from "@/components/landing/Footer";
+
+export default function Home() {
+  return (
+    <div className="grain flex flex-1 flex-col">
+      <Nav />
+      <main className="flex-1">
+        <Hero />
+        <Manifesto />
+        <Programs />
+        <Gazette />
+        <Leadership />
+        <JoinBand />
+      </main>
+      <Footer />
+    </div>
+  );
+}
