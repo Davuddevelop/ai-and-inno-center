@@ -48,7 +48,10 @@ export default function ApplyPage() {
         // runs on a different domain (local dev vs. production).
         // window.location.origin is always the domain the signup actually
         // happened on, so this is correct everywhere with no configuration.
-        emailRedirectTo: `${window.location.origin}/login`,
+        // Points at /auth/callback, not /login directly -- that page is
+        // what actually consumes the session token Supabase attaches to
+        // this URL; landing anywhere else just strands it unread.
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
         data: {
           full_name: fullName,
           grade,
