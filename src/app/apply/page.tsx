@@ -42,6 +42,13 @@ export default function ApplyPage() {
       email,
       password,
       options: {
+        // Without this, Supabase falls back to the project's Site URL
+        // setting for the confirmation-email redirect -- correct only by
+        // coincidence, and wrong the moment that setting is stale or this
+        // runs on a different domain (local dev vs. production).
+        // window.location.origin is always the domain the signup actually
+        // happened on, so this is correct everywhere with no configuration.
+        emailRedirectTo: `${window.location.origin}/login`,
         data: {
           full_name: fullName,
           grade,
