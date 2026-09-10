@@ -33,4 +33,16 @@ deploying — every route 404s at the edge even though the build logs look
 completely clean. Set it to "Next.js" and push again.
 
 Required environment variables (Project Settings → Environment Variables):
-`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
+`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. If these
+are scoped to Production only (Vercel's env var UI lets you check
+Production/Preview/Development independently), preview deployments will
+build fine but every server-rendered page that touches Supabase (`/admin`,
+`/dashboard`, `/pending`) will 500 with "Your project's URL and Key are
+required to create a Supabase client" — that's expected there, not a bug,
+unless you also want preview deployments to work against Supabase, in which
+case check Preview (and Development) too.
+
+Also: environment variables only apply to builds created *after* they're
+saved. Adding or changing one doesn't retroactively fix an existing
+deployment — you need a new build (a new commit push, since redeploying an
+old deployment reuses its original build).
