@@ -1,22 +1,11 @@
 import { redirect } from "next/navigation";
 import { AuthHeader } from "@/components/auth/AuthHeader";
-import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/lib/supabase/actions";
-import type { Profile } from "@/lib/supabase/types";
+import { getCurrentUserAndProfile } from "@/lib/supabase/profile";
 
 export default async function PendingPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { user, profile } = await getCurrentUserAndProfile();
   if (!user) redirect("/login");
-
-  const { data } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", user.id)
-    .single();
-  const profile = data as Profile | null;
 
   if (profile?.status === "active") redirect("/dashboard");
   const rejected = profile?.status === "rejected";

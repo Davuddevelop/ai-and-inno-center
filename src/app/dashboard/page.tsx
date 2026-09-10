@@ -1,24 +1,15 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { AuthHeader } from "@/components/auth/AuthHeader";
-import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/lib/supabase/actions";
-import { RANK_LABELS, type Profile } from "@/lib/supabase/types";
+import { getCurrentUserAndProfile, isAdmin } from "@/lib/supabase/profile";
+import { RANK_LABELS } from "@/lib/supabase/types";
 
 // Placeholder — proves the signup -> approval -> access pipeline works.
 // The real member dashboard (projects, documents, attendance) is next.
 export default async function DashboardPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { user, profile } = await getCurrentUserAndProfile();
   if (!user) redirect("/login");
-
-  const { data } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", user.id)
-    .single();
-  const profile = data as Profile | null;
   if (!profile || profile.status !== "active") redirect("/pending");
 
   return (
@@ -35,14 +26,24 @@ export default async function DashboardPage() {
           Rank: {RANK_LABELS[profile.rank]}. Projects, documents, and
           attendance land here next.
         </p>
-        <form action={signOut} className="mt-8">
-          <button
-            type="submit"
-            className="rounded-full border border-border-strong px-6 py-3 font-mono text-[13px] uppercase tracking-[0.1em] text-foreground transition-colors hover:border-foreground"
-          >
-            Log out
-          </button>
-        </form>
+        <div className="mt-8 flex flex-wrap gap-4">
+          {isAdmin(profile) ? (
+            <Link
+              href="/admin"
+              className="rounded-full bg-foreground px-6 py-3 font-mono text-[13px] uppercase tracking-[0.1em] text-background transition-colors hover:bg-accent"
+            >
+              Admin Console
+            </Link>
+          ) : null}
+          <form action={signOut}>
+            <button
+              type="submit"
+              className="rounded-full border border-border-strong px-6 py-3 font-mono text-[13px] uppercase tracking-[0.1em] text-foreground transition-colors hover:border-foreground"
+            >
+              Log out
+            </button>
+          </form>
+        </div>
       </main>
     </div>
   );

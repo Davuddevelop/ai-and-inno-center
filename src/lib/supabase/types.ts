@@ -13,9 +13,10 @@ export type MemberRank =
 export type MemberStatus = "pending" | "active" | "rejected";
 
 export interface ApplicationAnswers {
+  phone?: string | null;
   why_join?: string;
   experience?: string;
-  portfolio?: string;
+  portfolio?: string | null;
 }
 
 export interface Profile {
