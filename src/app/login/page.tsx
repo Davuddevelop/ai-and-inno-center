@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { AuthHeader } from "@/components/auth/AuthHeader";
-import { Field, TextInput } from "@/components/auth/Field";
+import { Field, TextInput } from "@/components/ui/Field";
 import { createClient } from "@/lib/supabase/client";
 import type { Profile } from "@/lib/supabase/types";
 

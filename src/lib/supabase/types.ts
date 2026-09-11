@@ -19,6 +19,11 @@ export interface ApplicationAnswers {
   portfolio?: string | null;
 }
 
+export interface PortfolioLink {
+  label: string;
+  url: string;
+}
+
 export interface Profile {
   id: string;
   email: string;
@@ -28,7 +33,7 @@ export interface Profile {
   status: MemberStatus;
   bio: string | null;
   photo_url: string | null;
-  portfolio_links: unknown[];
+  portfolio_links: PortfolioLink[];
   application_answers: ApplicationAnswers;
   created_at: string;
 }

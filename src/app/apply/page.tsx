@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { AuthHeader } from "@/components/auth/AuthHeader";
-import { Field, TextInput, TextArea } from "@/components/auth/Field";
+import { Field, TextInput, TextArea } from "@/components/ui/Field";
 import { createClient } from "@/lib/supabase/client";
 
 export default function ApplyPage() {

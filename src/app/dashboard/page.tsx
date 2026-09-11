@@ -27,10 +27,16 @@ export default async function DashboardPage() {
           attendance land here next.
         </p>
         <div className="mt-8 flex flex-wrap gap-4">
+          <Link
+            href="/profile"
+            className="rounded-full bg-foreground px-6 py-3 font-mono text-[13px] uppercase tracking-[0.1em] text-background transition-colors hover:bg-accent"
+          >
+            My Profile
+          </Link>
           {isAdmin(profile) ? (
             <Link
               href="/admin"
-              className="rounded-full bg-foreground px-6 py-3 font-mono text-[13px] uppercase tracking-[0.1em] text-background transition-colors hover:bg-accent"
+              className="rounded-full border border-border-strong px-6 py-3 font-mono text-[13px] uppercase tracking-[0.1em] text-foreground transition-colors hover:border-foreground"
             >
               Admin Console
             </Link>
