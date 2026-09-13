@@ -20,13 +20,14 @@ export function Leadership() {
           {leadership.people.map((person, i) => (
             <Reveal key={`${person.role}-${i}`} delay={i * 0.06}>
               <div className="h-full bg-background p-8">
-                <div className="h-12 w-12 overflow-hidden rounded-full border border-border-strong">
+                <div className="h-16 w-16 overflow-hidden rounded-full border border-border-strong">
                   {person.image ? (
                     <Image
                       src={person.image}
                       alt=""
-                      width={48}
-                      height={48}
+                      width={256}
+                      height={256}
+                      quality={90}
                       className="h-full w-full object-cover"
                     />
                   ) : null}
