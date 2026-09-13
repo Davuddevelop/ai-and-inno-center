@@ -21,7 +21,6 @@ export function ProfileForm({ profile }: { profile: Profile }) {
   const [photoPreview, setPhotoPreview] = useState<string | null>(profile.photo_url);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [saved, setSaved] = useState(false);
 
   function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -65,7 +64,6 @@ export function ProfileForm({ profile }: { profile: Profile }) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    setSaved(false);
     setSaving(true);
 
     const supabase = createClient();
@@ -102,13 +100,14 @@ export function ProfileForm({ profile }: { profile: Profile }) {
       })
       .eq("id", profile.id);
 
-    setSaving(false);
     if (updateError) {
+      setSaving(false);
       setError(updateError.message);
       return;
     }
-    setSaved(true);
-    router.refresh();
+    // Stay in the "saving" state (button disabled, no flash back to idle)
+    // until the navigation away from this form actually completes.
+    router.push("/dashboard");
   }
 
   return (
@@ -236,11 +235,6 @@ export function ProfileForm({ profile }: { profile: Profile }) {
       {error ? (
         <p className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
           {error}
-        </p>
-      ) : null}
-      {saved ? (
-        <p className="rounded-lg border border-accent/30 bg-accent/10 px-4 py-3 text-sm text-accent">
-          Saved.
         </p>
       ) : null}
 

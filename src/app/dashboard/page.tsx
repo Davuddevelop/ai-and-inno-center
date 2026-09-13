@@ -1,60 +1,59 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { AuthHeader } from "@/components/auth/AuthHeader";
+import { ProfileView } from "@/components/profile/ProfileView";
+import { ProjectsSection } from "@/components/profile/ProjectsSection";
 import { signOut } from "@/lib/supabase/actions";
 import { getCurrentUserAndProfile, isAdmin } from "@/lib/supabase/profile";
-import { RANK_LABELS } from "@/lib/supabase/types";
+import { getMemberActivity } from "@/lib/supabase/member-activity";
 
-// Placeholder — proves the signup -> approval -> access pipeline works.
-// The real member dashboard (projects, documents, attendance) is next.
 export default async function DashboardPage() {
   const { user, profile } = await getCurrentUserAndProfile();
   if (!user) redirect("/login");
   if (!profile || profile.status !== "active") redirect("/pending");
 
+  const { projects, attended } = await getMemberActivity(profile.id);
+
   return (
     <div className="flex min-h-screen flex-col">
       <AuthHeader />
-      <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-16">
-        <p className="font-mono text-[13px] uppercase tracking-[0.14em] text-accent">
-          Dashboard
-        </p>
-        <h1 className="mt-3 font-display text-4xl">
-          Welcome, {profile.full_name.split(" ")[0]}.
-        </h1>
-        <p className="mt-3 text-muted">
-          Rank: {RANK_LABELS[profile.rank]}. Projects, documents, and
-          attendance land here next.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-4">
+      <main className="mx-auto w-full max-w-xl flex-1 px-6 py-16 sm:px-10">
+        <div className="flex flex-wrap items-center justify-between gap-4">
           <Link
             href="/profile"
-            className="rounded-full bg-foreground px-6 py-3 font-mono text-[13px] uppercase tracking-[0.1em] text-background transition-colors hover:bg-accent"
+            className="rounded-full bg-foreground px-6 py-2.5 font-mono text-[12px] uppercase tracking-[0.1em] text-background transition-colors hover:bg-accent"
           >
-            My Profile
+            Edit Profile
           </Link>
-          <Link
-            href="/members"
-            className="rounded-full border border-border-strong px-6 py-3 font-mono text-[13px] uppercase tracking-[0.1em] text-foreground transition-colors hover:border-foreground"
-          >
-            Directory
-          </Link>
-          {isAdmin(profile) ? (
+          <div className="flex items-center gap-5">
             <Link
-              href="/admin"
-              className="rounded-full border border-border-strong px-6 py-3 font-mono text-[13px] uppercase tracking-[0.1em] text-foreground transition-colors hover:border-foreground"
+              href="/members"
+              className="font-mono text-[12px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-foreground"
             >
-              Admin Console
+              Directory
             </Link>
-          ) : null}
-          <form action={signOut}>
-            <button
-              type="submit"
-              className="rounded-full border border-border-strong px-6 py-3 font-mono text-[13px] uppercase tracking-[0.1em] text-foreground transition-colors hover:border-foreground"
-            >
-              Log out
-            </button>
-          </form>
+            {isAdmin(profile) ? (
+              <Link
+                href="/admin"
+                className="font-mono text-[12px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-foreground"
+              >
+                Admin
+              </Link>
+            ) : null}
+            <form action={signOut}>
+              <button
+                type="submit"
+                className="font-mono text-[12px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-foreground"
+              >
+                Log out
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div className="mt-10">
+          <ProfileView member={profile} attended={attended} />
+          <ProjectsSection projects={projects} />
         </div>
       </main>
     </div>
