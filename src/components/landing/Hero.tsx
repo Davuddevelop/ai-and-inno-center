@@ -10,8 +10,8 @@ export function Hero() {
     <section className="relative overflow-hidden px-6 pb-24 pt-20 sm:px-10 sm:pt-28">
       {/* Ambient glow + the logomark, blurred large, standing in for a stock
           illustration or gradient blob. */}
-      <div className="pointer-events-none absolute -right-40 top-0 h-[560px] w-[560px] sm:-right-20">
-        <div className="absolute -inset-32 bg-[radial-gradient(closest-side,rgba(185,255,75,0.4),rgba(185,255,75,0)_72%)]" />
+      <div className="pointer-events-none absolute -right-4 top-0 h-16 w-16 sm:-right-20 sm:top-0 sm:h-[560px] sm:w-[560px]">
+        <div className="absolute -inset-4 bg-[radial-gradient(closest-side,rgba(185,255,75,0.4),rgba(185,255,75,0)_72%)] sm:-inset-32" />
         <motion.div
           initial={{ opacity: 0, scale: 0.9, rotate: -6 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
