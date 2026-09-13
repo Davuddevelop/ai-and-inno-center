@@ -34,7 +34,57 @@ export interface Profile {
   bio: string | null;
   photo_url: string | null;
   portfolio_links: PortfolioLink[];
+  skills: string[];
   application_answers: ApplicationAnswers;
+  created_at: string;
+}
+
+// Safe, peer-visible slice of Profile (the member_directory view) --
+// deliberately excludes email and application_answers.
+export interface MemberDirectoryEntry {
+  id: string;
+  full_name: string;
+  grade: string | null;
+  rank: MemberRank;
+  bio: string | null;
+  photo_url: string | null;
+  portfolio_links: PortfolioLink[];
+  skills: string[];
+  created_at: string;
+}
+
+export type ProjectStatus = "planned" | "in_progress" | "completed";
+
+export const PROJECT_STATUS_LABELS: Record<ProjectStatus, string> = {
+  planned: "Planned",
+  in_progress: "In Progress",
+  completed: "Completed",
+};
+
+export interface Project {
+  id: string;
+  title: string;
+  description: string | null;
+  link: string | null;
+  cover_image_url: string | null;
+  status: ProjectStatus;
+  created_by: string | null;
+  created_at: string;
+}
+
+export interface Meeting {
+  id: string;
+  title: string;
+  meeting_date: string;
+  created_by: string | null;
+  created_at: string;
+}
+
+export interface AttendanceRecord {
+  id: string;
+  meeting_id: string;
+  profile_id: string;
+  marked_by: string | null;
   created_at: string;
 }
 

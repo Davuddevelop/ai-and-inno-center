@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { AuthHeader } from "@/components/auth/AuthHeader";
-import { MemberRankSelect } from "@/components/admin/MemberRankSelect";
+import { InlineSelect } from "@/components/ui/InlineSelect";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUserAndProfile, isAdmin } from "@/lib/supabase/profile";
 import {
@@ -10,7 +10,16 @@ import {
   updateMemberRank,
 } from "@/lib/supabase/admin-actions";
 import { RANK_LABELS, RANK_ORDER } from "@/lib/supabase/types";
-import type { Profile } from "@/lib/supabase/types";
+import type { MemberRank, Profile } from "@/lib/supabase/types";
+
+const RANK_OPTIONS: MemberRank[] = [
+  "president",
+  "vice_president",
+  "executive_member",
+  "senior_member",
+  "member",
+  "trainee",
+];
 
 export default async function AdminPage() {
   const { user, profile } = await getCurrentUserAndProfile();
@@ -48,12 +57,20 @@ export default async function AdminPage() {
               Pending applications ({applicants.length})
             </h1>
           </div>
-          <Link
-            href="/dashboard"
-            className="font-mono text-[13px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-foreground"
-          >
-            ← Dashboard
-          </Link>
+          <div className="flex gap-4">
+            <Link
+              href="/admin/meetings"
+              className="font-mono text-[13px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-foreground"
+            >
+              Meetings →
+            </Link>
+            <Link
+              href="/dashboard"
+              className="font-mono text-[13px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-foreground"
+            >
+              ← Dashboard
+            </Link>
+          </div>
         </div>
 
         {applicants.length === 0 ? (
@@ -165,10 +182,12 @@ export default async function AdminPage() {
                               {RANK_LABELS[member.rank]}
                             </span>
                           ) : (
-                            <MemberRankSelect
-                              profileId={member.id}
-                              rank={member.rank}
-                              onChange={updateMemberRank}
+                            <InlineSelect
+                              id={member.id}
+                              value={member.rank}
+                              options={RANK_OPTIONS}
+                              labels={RANK_LABELS}
+                              action={updateMemberRank}
                             />
                           )}
                         </td>

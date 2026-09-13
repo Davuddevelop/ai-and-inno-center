@@ -33,6 +33,12 @@ export default async function DashboardPage() {
           >
             My Profile
           </Link>
+          <Link
+            href="/members"
+            className="rounded-full border border-border-strong px-6 py-3 font-mono text-[13px] uppercase tracking-[0.1em] text-foreground transition-colors hover:border-foreground"
+          >
+            Directory
+          </Link>
           {isAdmin(profile) ? (
             <Link
               href="/admin"

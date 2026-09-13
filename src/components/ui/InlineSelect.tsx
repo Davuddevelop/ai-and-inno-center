@@ -1,41 +1,39 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { RANK_LABELS } from "@/lib/supabase/types";
-import type { MemberRank } from "@/lib/supabase/types";
 
-const RANK_OPTIONS: MemberRank[] = [
-  "president",
-  "vice_president",
-  "executive_member",
-  "senior_member",
-  "member",
-  "trainee",
-];
-
-export function MemberRankSelect({
-  profileId,
-  rank,
-  onChange,
+// A <select> bound to a Server Action that takes (id, newValue) and applies
+// optimistically, reverting on failure. Shared by any "pick from an enum,
+// save immediately" control -- member rank, project status, etc.
+export function InlineSelect<T extends string>({
+  id,
+  value,
+  options,
+  labels,
+  action,
+  disabled,
 }: {
-  profileId: string;
-  rank: MemberRank;
-  onChange: (profileId: string, rank: MemberRank) => Promise<void>;
+  id: string;
+  value: T;
+  options: readonly T[];
+  labels: Record<T, string>;
+  action: (id: string, value: T) => Promise<void>;
+  disabled?: boolean;
 }) {
-  const [value, setValue] = useState(rank);
+  const [current, setCurrent] = useState(value);
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
 
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const next = e.target.value as MemberRank;
-    const previous = value;
-    setValue(next);
+    const next = e.target.value as T;
+    const previous = current;
+    setCurrent(next);
     setError(null);
     startTransition(async () => {
       try {
-        await onChange(profileId, next);
+        await action(id, next);
       } catch (err) {
-        setValue(previous);
+        setCurrent(previous);
         setError(err instanceof Error ? err.message : "Failed to update.");
       }
     });
@@ -44,14 +42,14 @@ export function MemberRankSelect({
   return (
     <div>
       <select
-        value={value}
+        value={current}
         onChange={handleChange}
-        disabled={pending}
+        disabled={disabled || pending}
         className="rounded-lg border border-border bg-transparent px-3 py-1.5 font-mono text-[12px] uppercase tracking-[0.08em] text-foreground outline-none transition-colors focus:border-accent disabled:opacity-50"
       >
-        {RANK_OPTIONS.map((option) => (
+        {options.map((option) => (
           <option key={option} value={option} className="bg-background text-foreground">
-            {RANK_LABELS[option]}
+            {labels[option]}
           </option>
         ))}
       </select>

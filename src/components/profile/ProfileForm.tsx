@@ -15,6 +15,8 @@ export function ProfileForm({ profile }: { profile: Profile }) {
   const [links, setLinks] = useState<PortfolioLink[]>(
     profile.portfolio_links.length ? profile.portfolio_links : [{ label: "", url: "" }],
   );
+  const [skills, setSkills] = useState<string[]>(profile.skills ?? []);
+  const [skillInput, setSkillInput] = useState("");
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(profile.photo_url);
   const [saving, setSaving] = useState(false);
@@ -40,6 +42,24 @@ export function ProfileForm({ profile }: { profile: Profile }) {
 
   function removeLink(index: number) {
     setLinks((prev) => prev.filter((_, i) => i !== index));
+  }
+
+  function addSkill() {
+    const value = skillInput.trim();
+    if (!value) return;
+    setSkills((prev) => (prev.includes(value) ? prev : [...prev, value]));
+    setSkillInput("");
+  }
+
+  function removeSkill(skill: string) {
+    setSkills((prev) => prev.filter((s) => s !== skill));
+  }
+
+  function handleSkillKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+      addSkill();
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -78,6 +98,7 @@ export function ProfileForm({ profile }: { profile: Profile }) {
         bio,
         photo_url: photoUrl,
         portfolio_links: cleanLinks,
+        skills,
       })
       .eq("id", profile.id);
 
@@ -132,6 +153,46 @@ export function ProfileForm({ profile }: { profile: Profile }) {
       <Field label="Bio" hint="a couple sentences, shown on your profile">
         <TextArea rows={4} value={bio} onChange={(e) => setBio(e.target.value)} />
       </Field>
+
+      <div>
+        <span className="font-mono text-[12px] uppercase tracking-[0.1em] text-muted">
+          Tools &amp; skills
+        </span>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {skills.map((skill) => (
+            <span
+              key={skill}
+              className="flex items-center gap-2 rounded-full border border-border-strong px-3 py-1.5 text-sm text-foreground"
+            >
+              {skill}
+              <button
+                type="button"
+                onClick={() => removeSkill(skill)}
+                className="text-muted transition-colors hover:text-red-400"
+                aria-label={`Remove ${skill}`}
+              >
+                ✕
+              </button>
+            </span>
+          ))}
+        </div>
+        <div className="mt-3 flex gap-3">
+          <input
+            placeholder="e.g. Python, Figma, TensorFlow"
+            value={skillInput}
+            onChange={(e) => setSkillInput(e.target.value)}
+            onKeyDown={handleSkillKeyDown}
+            className="flex-1 rounded-lg border border-border bg-transparent px-4 py-2.5 text-foreground outline-none transition-colors placeholder:text-muted/50 focus:border-accent"
+          />
+          <button
+            type="button"
+            onClick={addSkill}
+            className="rounded-lg border border-border-strong px-4 font-mono text-[12px] uppercase tracking-[0.1em] text-foreground transition-colors hover:border-foreground"
+          >
+            Add
+          </button>
+        </div>
+      </div>
 
       <div>
         <span className="font-mono text-[12px] uppercase tracking-[0.1em] text-muted">
