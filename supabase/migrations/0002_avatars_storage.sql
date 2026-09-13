@@ -5,7 +5,10 @@ insert into storage.buckets (id, name, public)
 values ('avatars', 'avatars', true)
 on conflict (id) do nothing;
 
-alter table storage.objects enable row level security;
+-- storage.objects is owned by Supabase's internal supabase_storage_admin
+-- role and already has RLS enabled by default -- our postgres role isn't
+-- the owner, so we can't (and don't need to) ALTER TABLE it ourselves.
+-- We only add policies on top of the RLS that's already there.
 
 -- Photos are shown on profiles other members (and eventually the public
 -- site) can see, so read access is public rather than gated by RLS.
