@@ -1,9 +1,15 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { AuthHeader } from "@/components/auth/AuthHeader";
+import { MemberRankSelect } from "@/components/admin/MemberRankSelect";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUserAndProfile, isAdmin } from "@/lib/supabase/profile";
-import { approveApplication, rejectApplication } from "@/lib/supabase/admin-actions";
+import {
+  approveApplication,
+  rejectApplication,
+  updateMemberRank,
+} from "@/lib/supabase/admin-actions";
+import { RANK_LABELS, RANK_ORDER } from "@/lib/supabase/types";
 import type { Profile } from "@/lib/supabase/types";
 
 export default async function AdminPage() {
@@ -12,12 +18,22 @@ export default async function AdminPage() {
   if (!isAdmin(profile)) redirect("/dashboard");
 
   const supabase = await createClient();
-  const { data } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("status", "pending")
-    .order("created_at", { ascending: true });
-  const applicants = (data ?? []) as Profile[];
+  const [{ data: pendingData }, { data: memberData }] = await Promise.all([
+    supabase
+      .from("profiles")
+      .select("*")
+      .eq("status", "pending")
+      .order("created_at", { ascending: true }),
+    supabase
+      .from("profiles")
+      .select("*")
+      .eq("status", "active")
+      .order("created_at", { ascending: true }),
+  ]);
+  const applicants = (pendingData ?? []) as Profile[];
+  const members = ((memberData ?? []) as Profile[]).sort(
+    (a, b) => RANK_ORDER[a.rank] - RANK_ORDER[b.rank] || a.full_name.localeCompare(b.full_name),
+  );
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -111,6 +127,59 @@ export default async function AdminPage() {
             ))}
           </div>
         )}
+
+        <div className="mt-16">
+          <h2 className="font-display text-2xl">Members ({members.length})</h2>
+
+          {members.length === 0 ? (
+            <p className="mt-6 text-muted">No active members yet.</p>
+          ) : (
+            <div className="mt-6 overflow-x-auto rounded-2xl border border-border">
+              <table className="w-full min-w-[560px] text-left text-sm">
+                <thead>
+                  <tr className="border-b border-border font-mono text-[11px] uppercase tracking-[0.1em] text-muted">
+                    <th className="px-5 py-3 font-normal">Name</th>
+                    <th className="px-5 py-3 font-normal">Grade</th>
+                    <th className="px-5 py-3 font-normal">Joined</th>
+                    <th className="px-5 py-3 font-normal">Rank</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {members.map((member) => {
+                    const isSelf = member.id === profile!.id;
+                    return (
+                      <tr key={member.id} className="border-b border-border last:border-0">
+                        <td className="px-5 py-4">
+                          {member.full_name}
+                          {isSelf ? (
+                            <span className="ml-2 text-xs text-muted">(you)</span>
+                          ) : null}
+                        </td>
+                        <td className="px-5 py-4 text-muted">{member.grade || "—"}</td>
+                        <td className="px-5 py-4 text-muted">
+                          {new Date(member.created_at).toLocaleDateString()}
+                        </td>
+                        <td className="px-5 py-4">
+                          {isSelf ? (
+                            <span className="font-mono text-[12px] uppercase tracking-[0.08em] text-muted">
+                              {RANK_LABELS[member.rank]}
+                            </span>
+                          ) : (
+                            <MemberRankSelect
+                              profileId={member.id}
+                              rank={member.rank}
+                              onChange={updateMemberRank}
+                            />
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </main>
     </div>
   );

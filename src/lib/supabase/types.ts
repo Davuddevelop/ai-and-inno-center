@@ -46,3 +46,13 @@ export const RANK_LABELS: Record<MemberRank, string> = {
   vice_president: "Vice President",
   president: "President",
 };
+
+// Leadership-first ordering, for displaying member lists.
+export const RANK_ORDER: Record<MemberRank, number> = {
+  president: 0,
+  vice_president: 1,
+  executive_member: 2,
+  senior_member: 3,
+  member: 4,
+  trainee: 5,
+};
