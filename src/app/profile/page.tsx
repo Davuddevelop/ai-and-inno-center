@@ -12,7 +12,7 @@ export default async function ProfilePage() {
   return (
     <div className="flex min-h-screen flex-col">
       <AuthHeader />
-      <main className="mx-auto w-full max-w-xl flex-1 px-6 py-16 sm:px-10">
+      <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16 sm:px-10">
         <Link
           href="/dashboard"
           className="font-mono text-[12px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-foreground"

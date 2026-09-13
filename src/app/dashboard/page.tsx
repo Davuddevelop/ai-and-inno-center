@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { ProfileView } from "@/components/profile/ProfileView";
 import { ProjectsSection } from "@/components/profile/ProjectsSection";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 import { signOut } from "@/lib/supabase/actions";
 import { getCurrentUserAndProfile, isAdmin } from "@/lib/supabase/profile";
 import { getMemberActivity } from "@/lib/supabase/member-activity";
@@ -17,7 +18,7 @@ export default async function DashboardPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <AuthHeader />
-      <main className="mx-auto w-full max-w-xl flex-1 px-6 py-16 sm:px-10">
+      <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16 sm:px-10">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <Link
             href="/profile"
@@ -41,12 +42,12 @@ export default async function DashboardPage() {
               </Link>
             ) : null}
             <form action={signOut}>
-              <button
-                type="submit"
-                className="font-mono text-[12px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-foreground"
+              <SubmitButton
+                pendingText="Logging out…"
+                className="font-mono text-[12px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-foreground disabled:opacity-50"
               >
                 Log out
-              </button>
+              </SubmitButton>
             </form>
           </div>
         </div>

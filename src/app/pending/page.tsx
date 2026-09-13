@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { AuthHeader } from "@/components/auth/AuthHeader";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 import { signOut } from "@/lib/supabase/actions";
 import { getCurrentUserAndProfile } from "@/lib/supabase/profile";
 
@@ -28,12 +29,12 @@ export default async function PendingPage() {
             : "A president or VP reviews new applications — you'll get access as soon as yours is approved."}
         </p>
         <form action={signOut} className="mt-8">
-          <button
-            type="submit"
-            className="rounded-full border border-border-strong px-6 py-3 font-mono text-[13px] uppercase tracking-[0.1em] text-foreground transition-colors hover:border-foreground"
+          <SubmitButton
+            pendingText="Logging out…"
+            className="rounded-full border border-border-strong px-6 py-3 font-mono text-[13px] uppercase tracking-[0.1em] text-foreground transition-colors hover:border-foreground disabled:opacity-50"
           >
             Log out
-          </button>
+          </SubmitButton>
         </form>
       </main>
     </div>

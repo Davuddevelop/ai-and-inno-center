@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { InlineSelect } from "@/components/ui/InlineSelect";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUserAndProfile, isAdmin } from "@/lib/supabase/profile";
 import {
@@ -47,7 +48,7 @@ export default async function AdminPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <AuthHeader />
-      <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-16 sm:px-10">
+      <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-16 sm:px-10">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="font-mono text-[13px] uppercase tracking-[0.14em] text-accent">
@@ -94,20 +95,20 @@ export default async function AdminPage() {
                   </div>
                   <div className="flex gap-3">
                     <form action={approveApplication.bind(null, applicant.id)}>
-                      <button
-                        type="submit"
-                        className="rounded-full bg-foreground px-5 py-2 font-mono text-[12px] uppercase tracking-[0.1em] text-background transition-colors hover:bg-accent"
+                      <SubmitButton
+                        pendingText="Approving…"
+                        className="rounded-full bg-foreground px-5 py-2 font-mono text-[12px] uppercase tracking-[0.1em] text-background transition-colors hover:bg-accent disabled:opacity-50"
                       >
                         Approve
-                      </button>
+                      </SubmitButton>
                     </form>
                     <form action={rejectApplication.bind(null, applicant.id)}>
-                      <button
-                        type="submit"
-                        className="rounded-full border border-border-strong px-5 py-2 font-mono text-[12px] uppercase tracking-[0.1em] text-foreground transition-colors hover:border-red-400 hover:text-red-400"
+                      <SubmitButton
+                        pendingText="Rejecting…"
+                        className="rounded-full border border-border-strong px-5 py-2 font-mono text-[12px] uppercase tracking-[0.1em] text-foreground transition-colors hover:border-red-400 hover:text-red-400 disabled:opacity-50"
                       >
                         Reject
-                      </button>
+                      </SubmitButton>
                     </form>
                   </div>
                 </div>

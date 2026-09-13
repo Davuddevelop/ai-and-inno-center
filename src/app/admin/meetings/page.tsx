@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { AuthHeader } from "@/components/auth/AuthHeader";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUserAndProfile, isAdmin } from "@/lib/supabase/profile";
 import { createMeeting } from "@/lib/supabase/meeting-actions";
@@ -21,7 +22,7 @@ export default async function AdminMeetingsPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <AuthHeader />
-      <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-16 sm:px-10">
+      <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16 sm:px-10">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="font-mono text-[13px] uppercase tracking-[0.14em] text-accent">
@@ -62,12 +63,12 @@ export default async function AdminMeetingsPage() {
               className="mt-2 rounded-lg border border-border bg-transparent px-4 py-2.5 text-foreground outline-none transition-colors focus:border-accent"
             />
           </div>
-          <button
-            type="submit"
-            className="rounded-full bg-foreground px-6 py-2.5 font-mono text-[12px] uppercase tracking-[0.1em] text-background transition-colors hover:bg-accent"
+          <SubmitButton
+            pendingText="Creating…"
+            className="rounded-full bg-foreground px-6 py-2.5 font-mono text-[12px] uppercase tracking-[0.1em] text-background transition-colors hover:bg-accent disabled:opacity-50"
           >
             Create
-          </button>
+          </SubmitButton>
         </form>
 
         <div className="mt-10 space-y-3">

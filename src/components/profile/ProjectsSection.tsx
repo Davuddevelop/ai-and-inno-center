@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { InlineSelect } from "@/components/ui/InlineSelect";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 import {
   createProject,
   deleteProject,
@@ -51,13 +52,13 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
                     action={updateProjectStatus}
                   />
                   <form action={deleteProject.bind(null, project.id)}>
-                    <button
-                      type="submit"
-                      className="text-muted transition-colors hover:text-red-400"
+                    <SubmitButton
+                      pendingText="…"
                       aria-label="Delete project"
+                      className="text-muted transition-colors hover:text-red-400 disabled:opacity-50"
                     >
                       ✕
-                    </button>
+                    </SubmitButton>
                   </form>
                 </div>
               </div>
@@ -112,12 +113,12 @@ function NewProjectForm() {
         className="w-full rounded-lg border border-border bg-transparent px-4 py-2.5 text-foreground outline-none transition-colors placeholder:text-muted/50 focus:border-accent"
       />
       <div className="flex gap-3">
-        <button
-          type="submit"
-          className="rounded-full bg-foreground px-5 py-2 font-mono text-[12px] uppercase tracking-[0.1em] text-background transition-colors hover:bg-accent"
+        <SubmitButton
+          pendingText="Adding…"
+          className="rounded-full bg-foreground px-5 py-2 font-mono text-[12px] uppercase tracking-[0.1em] text-background transition-colors hover:bg-accent disabled:opacity-50"
         >
           Add
-        </button>
+        </SubmitButton>
         <button
           type="button"
           onClick={() => setOpen(false)}
