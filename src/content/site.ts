@@ -95,8 +95,12 @@ export const site = {
         name: "Davud Ali",
         image: "/founders/davud-ali.jpg",
       },
-      { role: "Vice President", name: "Sevinj İsrafilova" },
-      { role: "Vice President", name: "Tofiq Taghisadeh" },
+      {
+        role: "Vice President & Co-Founder",
+        name: "Sevinj İsrafilova",
+        image: "/founders/sevinj-israfilova.png",
+      },
+      { role: "Vice President & Co-Founder", name: "Tofiq Taghisadeh" },
     ] as { role: string; name: string; image?: string }[],
   },
 
