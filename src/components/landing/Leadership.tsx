@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
 import { site } from "@/content/site";
 
@@ -19,7 +20,17 @@ export function Leadership() {
           {leadership.people.map((person, i) => (
             <Reveal key={`${person.role}-${i}`} delay={i * 0.06}>
               <div className="h-full bg-background p-8">
-                <div className="h-12 w-12 rounded-full border border-border-strong" />
+                <div className="h-12 w-12 overflow-hidden rounded-full border border-border-strong">
+                  {person.image ? (
+                    <Image
+                      src={person.image}
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : null}
+                </div>
                 <p className="mt-6 font-display text-lg">{person.name}</p>
                 <p className="mt-1 font-mono text-[12px] uppercase tracking-[0.1em] text-muted">
                   {person.role}

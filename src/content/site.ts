@@ -90,10 +90,14 @@ export const site = {
     kicker: "04 — LEADERSHIP",
     title: "Run by the people doing the work.",
     people: [
-      { role: "President & Co-Founder", name: "Davud Ali" },
+      {
+        role: "President & Co-Founder",
+        name: "Davud Ali",
+        image: "/founders/davud-ali.jpg",
+      },
       { role: "Vice President", name: "Sevinj İsrafilova" },
       { role: "Vice President", name: "Tofiq Taghisadeh" },
-    ],
+    ] as { role: string; name: string; image?: string }[],
   },
 
   join: {
