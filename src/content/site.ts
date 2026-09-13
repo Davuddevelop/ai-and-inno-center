@@ -100,7 +100,11 @@ export const site = {
         name: "Sevinj İsrafilova",
         image: "/founders/sevinj-israfilova.png",
       },
-      { role: "Vice President & Co-Founder", name: "Tofiq Taghisadeh" },
+      {
+        role: "Vice President & Co-Founder",
+        name: "Tofiq Taghisadeh",
+        image: "/founders/tofiq-taghisadeh.jpg",
+      },
     ] as { role: string; name: string; image?: string }[],
   },
 
