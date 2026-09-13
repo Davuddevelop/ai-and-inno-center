@@ -167,7 +167,12 @@ export default async function AdminPage() {
                     return (
                       <tr key={member.id} className="border-b border-border last:border-0">
                         <td className="px-5 py-4">
-                          {member.full_name}
+                          <Link
+                            href={`/members/${member.id}`}
+                            className="transition-colors hover:text-accent"
+                          >
+                            {member.full_name}
+                          </Link>
                           {isSelf ? (
                             <span className="ml-2 text-xs text-muted">(you)</span>
                           ) : null}
