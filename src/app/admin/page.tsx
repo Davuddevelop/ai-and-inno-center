@@ -1,15 +1,11 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { AuthHeader } from "@/components/auth/AuthHeader";
+import { ApplicantsList } from "@/components/admin/ApplicantsList";
 import { InlineSelect } from "@/components/ui/InlineSelect";
-import { SubmitButton } from "@/components/ui/SubmitButton";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUserAndProfile, isAdmin } from "@/lib/supabase/profile";
-import {
-  approveApplication,
-  rejectApplication,
-  updateMemberRank,
-} from "@/lib/supabase/admin-actions";
+import { updateMemberRank } from "@/lib/supabase/admin-actions";
 import { RANK_LABELS, RANK_ORDER } from "@/lib/supabase/types";
 import type { MemberRank, Profile } from "@/lib/supabase/types";
 
@@ -74,77 +70,7 @@ export default async function AdminPage() {
           </div>
         </div>
 
-        {applicants.length === 0 ? (
-          <p className="mt-12 text-muted">Nothing waiting on you right now.</p>
-        ) : (
-          <div className="mt-10 space-y-6">
-            {applicants.map((applicant) => (
-              <article
-                key={applicant.id}
-                className="rounded-2xl border border-border p-6"
-              >
-                <div className="flex flex-wrap items-start justify-between gap-4">
-                  <div>
-                    <h2 className="font-display text-xl">{applicant.full_name}</h2>
-                    <p className="mt-1 font-mono text-[12px] uppercase tracking-[0.1em] text-muted">
-                      {applicant.grade || "Grade not given"} · {applicant.email}
-                      {applicant.application_answers.phone
-                        ? ` · ${applicant.application_answers.phone}`
-                        : ""}
-                    </p>
-                  </div>
-                  <div className="flex gap-3">
-                    <form action={approveApplication.bind(null, applicant.id)}>
-                      <SubmitButton
-                        pendingText="Approving…"
-                        className="rounded-full bg-foreground px-5 py-2 font-mono text-[12px] uppercase tracking-[0.1em] text-background transition-colors hover:bg-accent disabled:opacity-50"
-                      >
-                        Approve
-                      </SubmitButton>
-                    </form>
-                    <form action={rejectApplication.bind(null, applicant.id)}>
-                      <SubmitButton
-                        pendingText="Rejecting…"
-                        className="rounded-full border border-border-strong px-5 py-2 font-mono text-[12px] uppercase tracking-[0.1em] text-foreground transition-colors hover:border-red-400 hover:text-red-400 disabled:opacity-50"
-                      >
-                        Reject
-                      </SubmitButton>
-                    </form>
-                  </div>
-                </div>
-
-                <dl className="mt-5 space-y-4 border-t border-border pt-5">
-                  <div>
-                    <dt className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted">
-                      Why do you want to join?
-                    </dt>
-                    <dd className="mt-1 text-sm text-foreground">
-                      {applicant.application_answers.why_join || "—"}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted">
-                      Experience with programming or AI
-                    </dt>
-                    <dd className="mt-1 text-sm text-foreground">
-                      {applicant.application_answers.experience || "—"}
-                    </dd>
-                  </div>
-                  {applicant.application_answers.portfolio ? (
-                    <div>
-                      <dt className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted">
-                        Portfolio
-                      </dt>
-                      <dd className="mt-1 text-sm text-foreground">
-                        {applicant.application_answers.portfolio}
-                      </dd>
-                    </div>
-                  ) : null}
-                </dl>
-              </article>
-            ))}
-          </div>
-        )}
+        <ApplicantsList applicants={applicants} />
 
         <div className="mt-16">
           <h2 className="font-display text-2xl">Members ({members.length})</h2>
