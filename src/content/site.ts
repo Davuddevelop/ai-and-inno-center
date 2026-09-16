@@ -62,7 +62,9 @@ export const site = {
   gazette: {
     kicker: "03 — THE GAZETTE",
     title: "Recent wins from the floor.",
-    viewAllHref: "/gazette",
+    // No viewAllHref: every post there is already shown on the landing page,
+    // so a "view all" link would either 404 (it did) or lead to a duplicate.
+    // Restore it when the Gazette holds more posts than fit here.
     // Placeholder posts — replace with real entries once the Gazette composer ships.
     posts: [
       {
