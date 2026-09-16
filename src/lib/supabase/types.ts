@@ -118,3 +118,17 @@ export function isAdmin(profile: Pick<Profile, "status" | "rank"> | null | undef
     (profile.rank === "vice_president" || profile.rank === "president")
   );
 }
+
+// gazette_posts has existed since 0001 (public read, admin write) but
+// nothing in the app ever read or wrote it -- the landing page rendered
+// three hardcoded placeholders instead.
+export interface GazettePost {
+  id: string;
+  title: string;
+  body: string;
+  tag: string | null;
+  cover_image_url: string | null;
+  author_id: string | null;
+  related_profile_id: string | null;
+  published_at: string;
+}

@@ -11,7 +11,10 @@ export const site = {
   nav: [
     { label: "Manifesto", href: "#manifesto" },
     { label: "Programs", href: "#programs" },
-    { label: "Gazette", href: "#gazette" },
+    // A real page now, not an in-page anchor: the landing section is
+    // hidden when nothing is published, which would leave #gazette
+    // pointing at nothing.
+    { label: "Gazette", href: "/gazette" },
   ],
 
   hero: {
@@ -62,30 +65,9 @@ export const site = {
   gazette: {
     kicker: "03 — THE GAZETTE",
     title: "Recent wins from the floor.",
-    // No viewAllHref: every post there is already shown on the landing page,
-    // so a "view all" link would either 404 (it did) or lead to a duplicate.
-    // Restore it when the Gazette holds more posts than fit here.
-    // Placeholder posts — replace with real entries once the Gazette composer ships.
-    posts: [
-      {
-        tag: "Competition",
-        title: "First placement at a national robotics & AI challenge",
-        excerpt: "A three-person team from our build sprint track placed in their first outside competition.",
-        date: "TBD",
-      },
-      {
-        tag: "Build Sprint",
-        title: "Member-built attendance tracker now used internally",
-        excerpt: "What started as a sprint project is now the tool the center runs on.",
-        date: "TBD",
-      },
-      {
-        tag: "Workshop",
-        title: "First neural network, trained from scratch, in one sitting",
-        excerpt: "Twelve members went from theory to a working classifier in a single workshop.",
-        date: "TBD",
-      },
-    ],
+    // Posts live in the gazette_posts table and are written at
+    // /admin/gazette. The placeholder entries that used to sit here were
+    // rendered on the public landing page as if they had happened.
   },
 
   leadership: {

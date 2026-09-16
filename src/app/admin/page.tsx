@@ -57,9 +57,14 @@ export default async function AdminPage() {
           {/* "← Dashboard" lived here; the header's My profile does that
               from every page now. Meetings stays: it is a child section of
               Admin, and nothing else links to it. */}
-          <ButtonLink href="/admin/meetings" variant="secondary">
-            Meetings →
-          </ButtonLink>
+          <div className="flex flex-wrap gap-3">
+            <ButtonLink href="/admin/meetings" variant="secondary">
+              Meetings →
+            </ButtonLink>
+            <ButtonLink href="/admin/gazette" variant="secondary">
+              Gazette →
+            </ButtonLink>
+          </div>
         </div>
 
         <ApplicantsList applicants={applicants} />
