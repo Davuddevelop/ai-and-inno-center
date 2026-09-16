@@ -27,7 +27,10 @@ export function AuthHeader({ profile }: { profile?: Profile | null }) {
       // landing nav greets them as a stranger and invites them to apply.
       homeHref={active ? "/dashboard" : "/"}
       links={links}
-      showLogout={!!profile}
+      // A pending or rejected member only ever sees /pending, and that page
+      // is a centred status screen whose single action is Log out. Showing
+      // it in the header too would put the same button on screen twice.
+      showLogout={active}
       // A pending member has no profile page to represent yet, so showing
       // them an avatar in the header promises something that is not there.
       showAvatar={active}

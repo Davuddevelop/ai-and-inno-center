@@ -2,12 +2,12 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { ApplicantsList } from "@/components/admin/ApplicantsList";
+import { ButtonLink } from "@/components/ui/Button";
 import { InlineSelect } from "@/components/ui/InlineSelect";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUserAndProfile } from "@/lib/supabase/profile";
-import { isAdmin } from "@/lib/supabase/types";
 import { updateMemberRank } from "@/lib/supabase/admin-actions";
-import { RANK_LABELS, RANK_ORDER } from "@/lib/supabase/types";
+import { isAdmin, RANK_LABELS, RANK_ORDER } from "@/lib/supabase/types";
 import type { MemberRank, Profile } from "@/lib/supabase/types";
 
 const RANK_OPTIONS: MemberRank[] = [
@@ -55,20 +55,12 @@ export default async function AdminPage() {
               Pending applications ({applicants.length})
             </h1>
           </div>
-          <div className="flex gap-4">
-            <Link
-              href="/admin/meetings"
-              className="font-mono text-[13px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-foreground"
-            >
-              Meetings →
-            </Link>
-            <Link
-              href="/dashboard"
-              className="font-mono text-[13px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-foreground"
-            >
-              ← Dashboard
-            </Link>
-          </div>
+          {/* "← Dashboard" lived here; the header's My profile does that
+              from every page now. Meetings stays: it is a child section of
+              Admin, and nothing else links to it. */}
+          <ButtonLink href="/admin/meetings" variant="secondary">
+            Meetings →
+          </ButtonLink>
         </div>
 
         <ApplicantsList applicants={applicants} />

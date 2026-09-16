@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Button, ButtonLink } from "@/components/ui/Button";
 import { Field, TextInput, TextArea } from "@/components/ui/Field";
 import { createClient } from "@/lib/supabase/client";
 import type { PortfolioLink, Profile } from "@/lib/supabase/types";
@@ -238,13 +239,17 @@ export function ProfileForm({ profile }: { profile: Profile }) {
         </p>
       ) : null}
 
-      <button
-        type="submit"
-        disabled={saving}
-        className="rounded-full bg-foreground px-6 py-3 font-mono text-[13px] uppercase tracking-[0.1em] text-background transition-colors hover:bg-accent disabled:opacity-50"
-      >
-        {saving ? "Saving…" : "Save Profile"}
-      </button>
+      {/* Cancel sits next to Save rather than as a back link at the top of
+          the page: leaving an edit form is a decision about the edits, and
+          the place you make it is where the edits end. */}
+      <div className="flex flex-wrap items-center gap-3">
+        <Button type="submit" disabled={saving}>
+          {saving ? "Saving…" : "Save profile"}
+        </Button>
+        <ButtonLink href="/dashboard" variant="secondary">
+          Cancel
+        </ButtonLink>
+      </div>
     </form>
   );
 }

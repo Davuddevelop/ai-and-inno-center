@@ -1,5 +1,4 @@
 import { notFound, redirect } from "next/navigation";
-import Link from "next/link";
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { ProfileView } from "@/components/profile/ProfileView";
 import { ProjectsReadOnly } from "@/components/profile/ProjectsReadOnly";
@@ -35,14 +34,10 @@ export default async function MemberProfilePage({
     <div className="flex min-h-screen flex-col">
       <AuthHeader profile={profile} />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16 sm:px-10">
-        <Link
-          href="/members"
-          className="font-mono text-[12px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-foreground"
-        >
-          ← Directory
-        </Link>
-
-        <div className="mt-6">
+        {/* The old "← Directory" link always went to the directory even
+            when you arrived from the admin members table. The header has a
+            Directory link that is correct from everywhere. */}
+        <div>
           <ProfileView member={member} attended={attended} />
           <ProjectsReadOnly projects={projects} />
         </div>

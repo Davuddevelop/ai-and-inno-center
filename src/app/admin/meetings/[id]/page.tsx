@@ -1,6 +1,6 @@
 import { notFound, redirect } from "next/navigation";
-import Link from "next/link";
 import { AuthHeader } from "@/components/auth/AuthHeader";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { AttendanceCheckbox } from "@/components/meetings/AttendanceCheckbox";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUserAndProfile } from "@/lib/supabase/profile";
@@ -41,13 +41,14 @@ export default async function MeetingAttendancePage({
     <div className="flex min-h-screen flex-col">
       <AuthHeader profile={profile} />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16 sm:px-10">
-        <Link
-          href="/admin/meetings"
-          className="font-mono text-[12px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-foreground"
-        >
-          ← Meetings
-        </Link>
-        <h1 className="mt-3 font-display text-4xl">{meeting.title}</h1>
+        <Breadcrumbs
+          trail={[
+            { label: "Admin", href: "/admin" },
+            { label: "Meetings", href: "/admin/meetings" },
+            { label: meeting.title },
+          ]}
+        />
+        <h1 className="mt-2 font-display text-4xl">{meeting.title}</h1>
         <p className="mt-2 text-muted">
           {new Date(meeting.meeting_date).toLocaleDateString()}
         </p>

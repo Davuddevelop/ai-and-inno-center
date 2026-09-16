@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { AuthHeader } from "@/components/auth/AuthHeader";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUserAndProfile } from "@/lib/supabase/profile";
@@ -24,20 +25,10 @@ export default async function AdminMeetingsPage() {
     <div className="flex min-h-screen flex-col">
       <AuthHeader profile={profile} />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16 sm:px-10">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="font-mono text-[13px] uppercase tracking-[0.14em] text-accent">
-              Admin
-            </p>
-            <h1 className="mt-3 font-display text-4xl">Meetings</h1>
-          </div>
-          <Link
-            href="/admin"
-            className="font-mono text-[13px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-foreground"
-          >
-            ← Admin
-          </Link>
-        </div>
+        <Breadcrumbs
+          trail={[{ label: "Admin", href: "/admin" }, { label: "Meetings" }]}
+        />
+        <h1 className="mt-2 font-display text-4xl">Meetings</h1>
 
         <form
           action={createMeeting}
