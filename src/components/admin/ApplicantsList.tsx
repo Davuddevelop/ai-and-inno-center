@@ -1,6 +1,7 @@
 "use client";
 
 import { useOptimistic, useState, useTransition } from "react";
+import { Button } from "@/components/ui/Button";
 import { approveApplication, rejectApplication } from "@/lib/supabase/admin-actions";
 import type { Profile } from "@/lib/supabase/types";
 
@@ -17,9 +18,13 @@ export function ApplicantsList({ applicants }: { applicants: Profile[] }) {
   );
   const [, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  // Approving is easy to undo (demote or re-reject); rejecting sends someone
+  // out of the queue entirely, so it asks first.
+  const [confirmingId, setConfirmingId] = useState<string | null>(null);
 
   function handle(id: string, action: (id: string) => Promise<void>) {
     setError(null);
+    setConfirmingId(null);
     startTransition(async () => {
       removeApplicant(id);
       try {
@@ -49,22 +54,36 @@ export function ApplicantsList({ applicants }: { applicants: Profile[] }) {
                   : ""}
               </p>
             </div>
-            <div className="flex gap-3">
-              <button
-                type="button"
-                onClick={() => handle(applicant.id, approveApplication)}
-                className="rounded-full bg-foreground px-5 py-2 font-mono text-[12px] uppercase tracking-[0.1em] text-background transition-colors hover:bg-accent"
-              >
-                Approve
-              </button>
-              <button
-                type="button"
-                onClick={() => handle(applicant.id, rejectApplication)}
-                className="rounded-full border border-border-strong px-5 py-2 font-mono text-[12px] uppercase tracking-[0.1em] text-foreground transition-colors hover:border-red-400 hover:text-red-400"
-              >
-                Reject
-              </button>
-            </div>
+            {confirmingId === applicant.id ? (
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="font-mono text-[12px] uppercase tracking-[0.1em] text-muted">
+                  Reject {applicant.full_name.split(" ")[0]}?
+                </span>
+                <Button
+                  variant="secondary"
+                  onClick={() => handle(applicant.id, rejectApplication)}
+                  className="border-red-400/50 text-red-400 hover:border-red-400"
+                >
+                  Yes, reject
+                </Button>
+                <Button variant="ghost" onClick={() => setConfirmingId(null)}>
+                  Keep
+                </Button>
+              </div>
+            ) : (
+              <div className="flex flex-wrap gap-3">
+                <Button onClick={() => handle(applicant.id, approveApplication)}>
+                  Approve
+                </Button>
+                <Button
+                  variant="secondary"
+                  onClick={() => setConfirmingId(applicant.id)}
+                  className="hover:border-red-400 hover:text-red-400"
+                >
+                  Reject
+                </Button>
+              </div>
+            )}
           </div>
 
           <dl className="mt-5 space-y-4 border-t border-border pt-5">

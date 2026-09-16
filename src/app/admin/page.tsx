@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { ApplicantsList } from "@/components/admin/ApplicantsList";
 import { MembersTable } from "@/components/admin/MembersTable";
+import { RejectedList } from "@/components/admin/RejectedList";
 import { ButtonLink } from "@/components/ui/Button";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUserAndProfile } from "@/lib/supabase/profile";
@@ -14,19 +15,28 @@ export default async function AdminPage() {
   if (!isAdmin(profile)) redirect("/dashboard");
 
   const supabase = await createClient();
-  const [{ data: pendingData }, { data: memberData }] = await Promise.all([
-    supabase
-      .from("profiles")
-      .select("*")
-      .eq("status", "pending")
-      .order("created_at", { ascending: true }),
-    supabase
-      .from("profiles")
-      .select("*")
-      .eq("status", "active")
-      .order("created_at", { ascending: true }),
-  ]);
+  const [{ data: pendingData }, { data: memberData }, { data: rejectedData }] =
+    await Promise.all([
+      supabase
+        .from("profiles")
+        .select("*")
+        .eq("status", "pending")
+        .order("created_at", { ascending: true }),
+      supabase
+        .from("profiles")
+        .select("*")
+        .eq("status", "active")
+        .order("created_at", { ascending: true }),
+      // Fetched so a rejection stays recoverable. Runs in the same
+      // Promise.all, so it costs no extra round trip.
+      supabase
+        .from("profiles")
+        .select("*")
+        .eq("status", "rejected")
+        .order("created_at", { ascending: false }),
+    ]);
   const applicants = (pendingData ?? []) as Profile[];
+  const rejected = (rejectedData ?? []) as Profile[];
   const members = ((memberData ?? []) as Profile[]).sort(
     (a, b) => RANK_ORDER[a.rank] - RANK_ORDER[b.rank] || a.full_name.localeCompare(b.full_name),
   );
@@ -59,6 +69,8 @@ export default async function AdminPage() {
 
           <MembersTable members={members} currentProfileId={profile!.id} />
         </div>
+
+        <RejectedList rejected={rejected} />
       </main>
     </div>
   );

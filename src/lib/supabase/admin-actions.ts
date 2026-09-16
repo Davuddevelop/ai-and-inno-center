@@ -49,6 +49,20 @@ export async function rejectApplication(profileId: string) {
   revalidatePath("/admin");
 }
 
+// Rejecting used to be a one-way door: /admin only ever queried pending
+// profiles, so a misclick removed someone from the queue with no way to
+// get them back short of editing the database by hand.
+export async function restoreApplication(profileId: string) {
+  await requireAdmin();
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("profiles")
+    .update({ status: "pending" })
+    .eq("id", profileId);
+  if (error) throw new Error(error.message);
+  revalidatePath("/admin");
+}
+
 export async function updateMemberRank(profileId: string, rank: MemberRank) {
   const admin = await requireAdmin();
   if (admin!.id === profileId) {
