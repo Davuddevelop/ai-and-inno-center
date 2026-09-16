@@ -13,7 +13,7 @@ export default async function PendingPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <AuthHeader />
+      <AuthHeader profile={profile} />
       <main className="mx-auto flex max-w-md flex-1 flex-col justify-center px-6 py-16 text-center">
         <p className="font-mono text-[13px] uppercase tracking-[0.14em] text-accent">
           {rejected ? "Application" : "Pending Review"}

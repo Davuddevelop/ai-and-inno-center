@@ -3,7 +3,8 @@ import Link from "next/link";
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { createClient } from "@/lib/supabase/server";
-import { getCurrentUserAndProfile, isAdmin } from "@/lib/supabase/profile";
+import { getCurrentUserAndProfile } from "@/lib/supabase/profile";
+import { isAdmin } from "@/lib/supabase/types";
 import { createMeeting } from "@/lib/supabase/meeting-actions";
 import type { Meeting } from "@/lib/supabase/types";
 
@@ -21,7 +22,7 @@ export default async function AdminMeetingsPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <AuthHeader />
+      <AuthHeader profile={profile} />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16 sm:px-10">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>

@@ -106,3 +106,15 @@ export const RANK_ORDER: Record<MemberRank, number> = {
   member: 4,
   trainee: 5,
 };
+
+// Pure rank logic, deliberately kept out of profile.ts: that module builds a
+// server-only Supabase client, so importing it from any component that can
+// render on the client (the header, which appears on the client-rendered
+// login and apply pages) drags the server client into the browser bundle.
+export function isAdmin(profile: Pick<Profile, "status" | "rank"> | null | undefined): boolean {
+  return (
+    !!profile &&
+    profile.status === "active" &&
+    (profile.rank === "vice_president" || profile.rank === "president")
+  );
+}

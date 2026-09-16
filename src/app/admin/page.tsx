@@ -4,7 +4,8 @@ import { AuthHeader } from "@/components/auth/AuthHeader";
 import { ApplicantsList } from "@/components/admin/ApplicantsList";
 import { InlineSelect } from "@/components/ui/InlineSelect";
 import { createClient } from "@/lib/supabase/server";
-import { getCurrentUserAndProfile, isAdmin } from "@/lib/supabase/profile";
+import { getCurrentUserAndProfile } from "@/lib/supabase/profile";
+import { isAdmin } from "@/lib/supabase/types";
 import { updateMemberRank } from "@/lib/supabase/admin-actions";
 import { RANK_LABELS, RANK_ORDER } from "@/lib/supabase/types";
 import type { MemberRank, Profile } from "@/lib/supabase/types";
@@ -43,7 +44,7 @@ export default async function AdminPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <AuthHeader />
+      <AuthHeader profile={profile} />
       <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-16 sm:px-10">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>

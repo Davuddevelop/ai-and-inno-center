@@ -11,7 +11,7 @@ export default async function ProfilePage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <AuthHeader />
+      <AuthHeader profile={profile} />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16 sm:px-10">
         <Link
           href="/dashboard"

@@ -20,7 +20,7 @@ export default async function MembersPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <AuthHeader />
+      <AuthHeader profile={profile} />
       <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-16 sm:px-10">
         <p className="font-mono text-[13px] uppercase tracking-[0.14em] text-accent">
           Directory

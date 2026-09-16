@@ -3,7 +3,8 @@ import Link from "next/link";
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { AttendanceCheckbox } from "@/components/meetings/AttendanceCheckbox";
 import { createClient } from "@/lib/supabase/server";
-import { getCurrentUserAndProfile, isAdmin } from "@/lib/supabase/profile";
+import { getCurrentUserAndProfile } from "@/lib/supabase/profile";
+import { isAdmin } from "@/lib/supabase/types";
 import { setAttendance } from "@/lib/supabase/meeting-actions";
 import { RANK_ORDER } from "@/lib/supabase/types";
 import type { Meeting, Profile } from "@/lib/supabase/types";
@@ -38,7 +39,7 @@ export default async function MeetingAttendancePage({
 
   return (
     <div className="flex min-h-screen flex-col">
-      <AuthHeader />
+      <AuthHeader profile={profile} />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16 sm:px-10">
         <Link
           href="/admin/meetings"

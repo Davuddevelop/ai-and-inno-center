@@ -5,7 +5,8 @@ import { ProfileView } from "@/components/profile/ProfileView";
 import { ProjectsSection } from "@/components/profile/ProjectsSection";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { signOut } from "@/lib/supabase/actions";
-import { getCurrentUserAndProfile, isAdmin } from "@/lib/supabase/profile";
+import { getCurrentUserAndProfile } from "@/lib/supabase/profile";
+import { isAdmin } from "@/lib/supabase/types";
 import { getMemberActivity } from "@/lib/supabase/member-activity";
 
 export default async function DashboardPage() {
@@ -17,7 +18,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <AuthHeader />
+      <AuthHeader profile={profile} />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16 sm:px-10">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <Link

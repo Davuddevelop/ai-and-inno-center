@@ -2,7 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
-import { getCurrentUserAndProfile, isAdmin } from "@/lib/supabase/profile";
+import { getCurrentUserAndProfile } from "@/lib/supabase/profile";
+import { isAdmin } from "@/lib/supabase/types";
 
 async function requireAdmin() {
   const { profile } = await getCurrentUserAndProfile();

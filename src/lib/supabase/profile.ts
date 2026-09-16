@@ -16,11 +16,3 @@ export async function getCurrentUserAndProfile() {
 
   return { user, profile: data as Profile | null };
 }
-
-export function isAdmin(profile: Profile | null): boolean {
-  return (
-    !!profile &&
-    profile.status === "active" &&
-    (profile.rank === "vice_president" || profile.rank === "president")
-  );
-}
