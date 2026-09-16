@@ -13,6 +13,16 @@ async function requireActiveUser() {
   return { user, profile };
 }
 
+// Projects render in exactly two places: your own copy on /dashboard (with
+// edit controls) and everyone else's read-only copy on /members/[id]. These
+// used to revalidate /profile, which has shown only the edit form since the
+// dashboard restructure -- so the list people actually look at was never
+// invalidated after a change.
+function revalidateProjectViews() {
+  revalidatePath("/dashboard");
+  revalidatePath("/members/[id]", "page");
+}
+
 export async function createProject(formData: FormData) {
   const { profile } = await requireActiveUser();
   const title = String(formData.get("title") ?? "").trim();
@@ -41,7 +51,7 @@ export async function createProject(formData: FormData) {
     .insert({ project_id: project.id, profile_id: profile.id });
   if (memberError) throw new Error(memberError.message);
 
-  revalidatePath("/profile");
+  revalidateProjectViews();
 }
 
 export async function updateProjectStatus(projectId: string, status: ProjectStatus) {
@@ -52,7 +62,7 @@ export async function updateProjectStatus(projectId: string, status: ProjectStat
     .update({ status })
     .eq("id", projectId);
   if (error) throw new Error(error.message);
-  revalidatePath("/profile");
+  revalidateProjectViews();
 }
 
 export async function deleteProject(projectId: string) {
@@ -60,5 +70,5 @@ export async function deleteProject(projectId: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("projects").delete().eq("id", projectId);
   if (error) throw new Error(error.message);
-  revalidatePath("/profile");
+  revalidateProjectViews();
 }

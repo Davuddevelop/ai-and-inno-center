@@ -16,6 +16,15 @@ async function requireAdmin() {
   return profile;
 }
 
+// Approving someone and changing a rank both change what the member
+// directory renders, and an admin very often goes straight from /admin to
+// /members to check the result. Rejecting does not need this: a rejected
+// applicant was never in the directory to begin with.
+function revalidateDirectory() {
+  revalidatePath("/members");
+  revalidatePath("/members/[id]", "page");
+}
+
 export async function approveApplication(profileId: string) {
   await requireAdmin();
   const supabase = await createClient();
@@ -25,6 +34,7 @@ export async function approveApplication(profileId: string) {
     .eq("id", profileId);
   if (error) throw new Error(error.message);
   revalidatePath("/admin");
+  revalidateDirectory();
 }
 
 export async function rejectApplication(profileId: string) {
@@ -50,4 +60,5 @@ export async function updateMemberRank(profileId: string, rank: MemberRank) {
     .eq("id", profileId);
   if (error) throw new Error(error.message);
   revalidatePath("/admin");
+  revalidateDirectory();
 }
