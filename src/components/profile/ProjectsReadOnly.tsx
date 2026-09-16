@@ -1,9 +1,16 @@
 import { PROJECT_STATUS_LABELS } from "@/lib/supabase/types";
-import type { Project } from "@/lib/supabase/types";
+import type { Project, PublicProject } from "@/lib/supabase/types";
 
 // Like ProjectsSection, but for viewing someone else's projects -- no add
-// form, no status editing, no delete (you don't own these).
-export function ProjectsReadOnly({ projects }: { projects: Project[] }) {
+// form, no status editing, no delete (you don't own these). Typed as the
+// fields it actually reads so it serves both the internal Project rows and
+// the narrower public_projects view without a cast at the call site.
+type ReadOnlyProject = Pick<
+  Project & PublicProject,
+  "id" | "title" | "link" | "description" | "status"
+>;
+
+export function ProjectsReadOnly({ projects }: { projects: ReadOnlyProject[] }) {
   return (
     <div className="mt-10 border-t border-border pt-10">
       <span className="font-mono text-[12px] uppercase tracking-[0.1em] text-muted">

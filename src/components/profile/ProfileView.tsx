@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { RANK_LABELS } from "@/lib/supabase/types";
-import type { MemberDirectoryEntry, Meeting } from "@/lib/supabase/types";
+import type { Meeting, PublicProfile } from "@/lib/supabase/types";
 
 // Read-only rendering of a profile's identity (bio/skills/links) and
 // attendance -- used both for viewing your own profile (dashboard) and
@@ -11,8 +11,11 @@ export function ProfileView({
   member,
   attended,
 }: {
-  member: MemberDirectoryEntry;
-  attended: Meeting[];
+  member: PublicProfile & { grade?: string | null };
+  // Omitted entirely for the public view of a profile. Passing an empty
+  // array instead would render "Attendance (0) / No meetings attended yet",
+  // which tells a stranger something untrue about that member.
+  attended?: Meeting[];
 }) {
   return (
     <>
@@ -69,6 +72,7 @@ export function ProfileView({
         </div>
       ) : null}
 
+      {attended === undefined ? null : (
       <div className="mt-10 border-t border-border pt-10">
         <span className="font-mono text-[12px] uppercase tracking-[0.1em] text-muted">
           Attendance ({attended.length})
@@ -91,6 +95,7 @@ export function ProfileView({
           </ul>
         )}
       </div>
+      )}
     </>
   );
 }

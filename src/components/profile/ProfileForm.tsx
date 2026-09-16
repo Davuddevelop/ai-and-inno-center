@@ -20,6 +20,7 @@ export function ProfileForm({ profile }: { profile: Profile }) {
   const [skillInput, setSkillInput] = useState("");
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(profile.photo_url);
+  const [isPublic, setIsPublic] = useState(profile.is_public);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -98,6 +99,7 @@ export function ProfileForm({ profile }: { profile: Profile }) {
         photo_url: photoUrl,
         portfolio_links: cleanLinks,
         skills,
+        is_public: isPublic,
       })
       .eq("id", profile.id);
 
@@ -238,6 +240,29 @@ export function ProfileForm({ profile }: { profile: Profile }) {
           {error}
         </p>
       ) : null}
+
+      <div className="rounded-2xl border border-border p-5">
+        <label className="flex cursor-pointer items-start gap-3">
+          <input
+            type="checkbox"
+            checked={isPublic}
+            onChange={(e) => setIsPublic(e.target.checked)}
+            className="mt-1 h-4 w-4 shrink-0 accent-accent"
+          />
+          <span>
+            <span className="font-mono text-[12px] uppercase tracking-[0.1em] text-foreground">
+              Show my profile publicly
+            </span>
+            <span className="mt-2 block text-sm text-muted">
+              Lets you share your profile link with anyone — useful for
+              university applications. Your name, photo, bio, skills, links
+              and projects are shown. Your email, grade and meeting
+              attendance are never public either way. Turn this off and your
+              link only works for center members.
+            </span>
+          </span>
+        </label>
+      </div>
 
       {/* Cancel sits next to Save rather than as a back link at the top of
           the page: leaving an edit form is a decision about the edits, and

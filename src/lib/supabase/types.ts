@@ -36,21 +36,42 @@ export interface Profile {
   portfolio_links: PortfolioLink[];
   skills: string[];
   application_answers: ApplicationAnswers;
+  is_public: boolean;
   created_at: string;
 }
 
-// Safe, peer-visible slice of Profile (the member_directory view) --
-// deliberately excludes email and application_answers.
-export interface MemberDirectoryEntry {
+// The public_profiles view: readable by anyone, including logged-out
+// visitors. Every field here is on the open web, so adding one is a
+// privacy decision, not a typing convenience. Note what is absent --
+// email, grade, application_answers, status, attendance.
+export interface PublicProfile {
   id: string;
   full_name: string;
-  grade: string | null;
   rank: MemberRank;
   bio: string | null;
   photo_url: string | null;
   portfolio_links: PortfolioLink[];
   skills: string[];
   created_at: string;
+}
+
+// The member_directory view: what one active member sees of another. Adds
+// grade on top of the public slice; still excludes email and
+// application_answers.
+export type MemberDirectoryEntry = PublicProfile & {
+  grade: string | null;
+};
+
+// The public_projects view. Carries profile_id so a profile page can select
+// the projects belonging to the member being viewed.
+export interface PublicProject {
+  id: string;
+  title: string;
+  description: string | null;
+  link: string | null;
+  status: ProjectStatus;
+  created_at: string;
+  profile_id: string;
 }
 
 export type ProjectStatus = "planned" | "in_progress" | "completed";
