@@ -1,3 +1,4 @@
+import { isOverdue } from "@/components/profile/DueDateControl";
 import { PROJECT_STATUS_LABELS } from "@/lib/supabase/types";
 import type { Project } from "@/lib/supabase/types";
 
@@ -32,9 +33,22 @@ export function ProjectsReadOnly({ projects }: { projects: Project[] }) {
                     <p className="mt-2 text-sm text-muted">{project.description}</p>
                   ) : null}
                 </div>
-                <span className="font-mono text-[12px] uppercase tracking-[0.08em] text-muted">
-                  {PROJECT_STATUS_LABELS[project.status]}
-                </span>
+                <div className="text-right">
+                  <span className="block font-mono text-[12px] uppercase tracking-[0.08em] text-muted">
+                    {PROJECT_STATUS_LABELS[project.status]}
+                  </span>
+                  {project.due_date ? (
+                    <span
+                      className={`mt-1 block font-mono text-[11px] uppercase tracking-[0.08em] ${
+                        isOverdue(project.due_date, project.status)
+                          ? "text-red-400"
+                          : "text-muted"
+                      }`}
+                    >
+                      Due {new Date(project.due_date).toLocaleDateString()}
+                    </span>
+                  ) : null}
+                </div>
               </div>
             </div>
           ))}

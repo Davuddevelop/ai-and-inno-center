@@ -28,6 +28,7 @@ export async function createProject(formData: FormData) {
   const title = String(formData.get("title") ?? "").trim();
   const link = String(formData.get("link") ?? "").trim();
   const description = String(formData.get("description") ?? "").trim();
+  const dueDate = String(formData.get("due_date") ?? "").trim();
   if (!title) throw new Error("A project needs a title.");
 
   const supabase = await createClient();
@@ -37,6 +38,7 @@ export async function createProject(formData: FormData) {
       title,
       link: link || null,
       description: description || null,
+      due_date: dueDate || null,
       created_by: profile.id,
     })
     .select("id")
@@ -60,6 +62,17 @@ export async function updateProjectStatus(projectId: string, status: ProjectStat
   const { error } = await supabase
     .from("projects")
     .update({ status })
+    .eq("id", projectId);
+  if (error) throw new Error(error.message);
+  revalidateProjectViews();
+}
+
+export async function updateProjectDueDate(projectId: string, dueDate: string) {
+  await requireActiveUser();
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("projects")
+    .update({ due_date: dueDate || null })
     .eq("id", projectId);
   if (error) throw new Error(error.message);
   revalidateProjectViews();

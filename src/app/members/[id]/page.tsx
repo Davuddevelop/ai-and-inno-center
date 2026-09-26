@@ -2,9 +2,11 @@ import { notFound, redirect } from "next/navigation";
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { ProfileView } from "@/components/profile/ProfileView";
 import { ProjectsReadOnly } from "@/components/profile/ProjectsReadOnly";
+import { MemberFeedbackPanel } from "@/components/meetings/MemberFeedbackPanel";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUserAndProfile } from "@/lib/supabase/profile";
 import { getMemberActivity } from "@/lib/supabase/member-activity";
+import { isAdmin } from "@/lib/supabase/types";
 import type { MemberDirectoryEntry } from "@/lib/supabase/types";
 
 export default async function MemberProfilePage({
@@ -40,6 +42,7 @@ export default async function MemberProfilePage({
         <div>
           <ProfileView member={member} attended={attended} />
           <ProjectsReadOnly projects={projects} />
+          {isAdmin(profile) ? <MemberFeedbackPanel profileId={id} /> : null}
         </div>
       </main>
     </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { DueDateControl } from "@/components/profile/DueDateControl";
 import { InlineSelect } from "@/components/ui/InlineSelect";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import {
@@ -43,7 +44,12 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
                     <p className="mt-2 text-sm text-muted">{project.description}</p>
                   ) : null}
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-3">
+                  <DueDateControl
+                    projectId={project.id}
+                    dueDate={project.due_date}
+                    status={project.status}
+                  />
                   <InlineSelect
                     id={project.id}
                     value={project.status}
@@ -112,6 +118,16 @@ function NewProjectForm() {
         placeholder="What is it?"
         className="w-full rounded-lg border border-border bg-transparent px-4 py-2.5 text-foreground outline-none transition-colors placeholder:text-muted/50 focus:border-accent"
       />
+      <label className="flex flex-wrap items-center gap-2">
+        <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted">
+          Due date (optional)
+        </span>
+        <input
+          type="date"
+          name="due_date"
+          className="h-11 rounded-lg border border-border bg-transparent px-3 text-sm text-foreground outline-none transition-colors focus:border-accent"
+        />
+      </label>
       <div className="flex gap-3">
         <SubmitButton
           pendingText="Adding…"

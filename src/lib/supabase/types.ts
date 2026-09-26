@@ -68,6 +68,7 @@ export interface Project {
   link: string | null;
   cover_image_url: string | null;
   status: ProjectStatus;
+  due_date: string | null;
   created_by: string | null;
   created_at: string;
 }
@@ -76,15 +77,70 @@ export interface Meeting {
   id: string;
   title: string;
   meeting_date: string;
+  // Schedule fields: every active member can read the meetings table, so
+  // these are deliberately the member-visible half of a session -- the
+  // plan, not the record of what happened.
+  starts_at: string | null;
+  location: string | null;
+  agenda: string | null;
   created_by: string | null;
   created_at: string;
 }
+
+export type ArrivalStatus = "present" | "late" | "excused";
+
+export const ARRIVAL_LABELS: Record<ArrivalStatus, string> = {
+  present: "On time",
+  late: "Late",
+  excused: "Excused",
+};
 
 export interface AttendanceRecord {
   id: string;
   meeting_id: string;
   profile_id: string;
   marked_by: string | null;
+  arrival_status: ArrivalStatus;
+  minutes_late: number | null;
+  created_at: string;
+}
+
+// What actually happened in a session. A separate admin-only table rather
+// than a column on meetings, which the whole membership can read.
+export interface SessionRecord {
+  id: string;
+  meeting_id: string;
+  notes: string;
+  updated_by: string | null;
+  updated_at: string;
+}
+
+export interface SessionFile {
+  id: string;
+  meeting_id: string;
+  title: string;
+  file_path: string;
+  uploaded_by: string | null;
+  uploaded_at: string;
+}
+
+// Admin-only. Holds both halves; the member never receives this row.
+export interface MemberFeedback {
+  id: string;
+  profile_id: string;
+  meeting_id: string | null;
+  author_id: string | null;
+  shared_note: string | null;
+  private_note: string | null;
+  created_at: string;
+}
+
+// The my_feedback view -- what the member themselves can read. private_note
+// is absent by construction, not by a filter in application code.
+export interface MyFeedback {
+  id: string;
+  meeting_id: string | null;
+  shared_note: string;
   created_at: string;
 }
 
