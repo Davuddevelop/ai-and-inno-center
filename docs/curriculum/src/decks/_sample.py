@@ -40,4 +40,5 @@ DECK.add(
     slide("What to do _tonight_", B(CALLOUT("Do these in order. Do not skip the first one.", kind="warn", title="Before Thursday"), P("Everything you need is in the links below the checklist.", muted=True)),
           kicker="Next", notes=n("callout warn")),
     task_slide("Week 0 tasks", "Wed, Dec 2", ["Install **Git** and run `git --version`", "Create a GitHub account with **two-factor authentication** on", ("Make a repo called `hello-yourname`", "Add a README with three lines about you"), "Post the repo link in the group"], "t-demo", evaluates="Git fluency, follow-through", notes=n("task slide")),
+    slide("The pitch _clock_", TIMER(180, "3-minute pitch"), kicker="Demo day", notes=n("timer")),
 )

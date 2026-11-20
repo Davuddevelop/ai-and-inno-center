@@ -173,7 +173,7 @@ DECK.add(
                     do=["Post the folder name exactly: `week4/yourname/`. Wrong folders waste your Friday."])),
 
     slide("Next week: _interfaces_ and deploying", B(
-        UL(["What users see first: layout, flow, and why demos are won on the interface.", "Putting a project online with Vercel, and getting a preview link on every PR.", "Keys and environment variables, done properly.", "Bring `app.py` or any small project. We will deploy it."]),
+        UL(["What users see first: layout, flow, and why demos are won on the interface.", "Putting a page and a Python app on real URLs you can open on your phone.", "Keys and environment variables, done properly, online.", "Bring `app.py` and your `hello-yourname` repo. We will deploy both."]),
         CALLOUT("We meet on Dec 24 unless the school says otherwise. Dec 31 is a public holiday, so that week is the take-home sprint.")),
         kicker="Next", mins=2,
         notes=NOTES(say=["Next week is the one that makes the project real: it stops living on your laptop."],

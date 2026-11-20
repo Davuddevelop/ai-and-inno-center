@@ -417,6 +417,14 @@ body.handout .flow .fa i { width: 40px; }
 .flow.tight .fb span { font-size: 17px; }
 
 .term.xs pre { font-size: 16px; line-height: 1.45; padding: 10px 16px; }
+
+/* timer widget */
+.timer { display: flex; align-items: center; gap: 36px; }
+.timer .digits { font-family: var(--display); font-size: 170px; line-height: 0.9; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.timer.low .digits { color: var(--warn); }
+.timer.out .digits { color: var(--bad); }
+.timer .tl2 { font-family: var(--mono); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+body.handout .timer .digits { font-size: 80px; }
 </style></head>
 <body>
 <div class="deck"><div class="stage">
@@ -512,7 +520,7 @@ key = os.environ[&quot;MODEL_API_KEY&quot;]">copy</button></div><pre>import os
 from dotenv import load_dotenv
 
 load_dotenv()
-key = os.environ["MODEL_API_KEY"]</pre></div></div><div class="col"><ul class="list sm"><li>Keys live in <code>.env</code>, and <code>.env</code> is in <code>.gitignore</code> <b>before</b> the first commit</li><li><code>pip install python-dotenv</code> reads it</li><li>Online, the same value goes in the host's environment settings. We do that in Week 5</li></ul><div class="callout "><span class="ct">Next time</span>Today's API needs no key. The moment you use one that does, this is how it goes in.</div></div></div></div></div><aside class="notes"><h4>Say</h4><ul><li>Week 2's secrets slide, applied. It looks small. It is the difference between a safe project and a leaked key.</li></ul><h4>Watch for</h4><ul><li>Someone will paste a real key into the slide's example. Do not let it happen. Tell them to make one up.</li></ul></aside></section><section class="slide std" data-title="Week 4 tasks" data-section="Tasks" data-mins="4" data-kind="std"><div class="inner"><div class="kicker">Your tasks</div><h2 class="title">Week 4 <em>tasks</em></h2><div class="body"><div class="task-head"><span class="due">Due Wed, Dec 23</span><span class=eval>Shows: AI skill, logic, follow-through</span></div><ul class="check" data-key="w4-tasks"><li><label><input type="checkbox"><span><code>weather.py</code> working, with a different city or API<small>Submit as a PR to <code>ai-innovation-center/classwork</code>, in <code>week4/yourname/</code>.</small></span></label></li><li><label><input type="checkbox"><span>The Streamlit page running on your computer<small>Screenshot in your PR description.</small></span></label></li><li><label><input type="checkbox"><span>An AI log: three things the AI got wrong or you had to fix<small>One line each. What was wrong, how you noticed.</small></span></label></li><li><label><input type="checkbox"><span>A five-line spec for a feature you could build for the hackathon<small>Use the 'Done when' format. It does not have to be your final idea.</small></span></label></li><li><label><input type="checkbox"><span>Review one classmate's PR<small>Run their code. Leave one <code>question:</code> and one <code>nit:</code>.</small></span></label></li></ul></div></div><aside class="notes"><h4>Say</h4><ul><li>The AI log is the most important task. It proves you read the code. If your log says 'nothing went wrong', I will not believe you.</li><li>The spec for a hackathon feature is a rehearsal for Week 7. Do not overthink it.</li></ul><h4>Do</h4><ul><li>Post the folder name exactly: <code>week4/yourname/</code>. Wrong folders waste your Friday.</li></ul></aside></section><section class="slide std" data-title="Next week: interfaces and deploying" data-section="Next" data-mins="2" data-kind="std"><div class="inner"><div class="kicker">Next</div><h2 class="title">Next week: <em>interfaces</em> and deploying</h2><div class="body"><ul class="list "><li>What users see first: layout, flow, and why demos are won on the interface.</li><li>Putting a project online with Vercel, and getting a preview link on every PR.</li><li>Keys and environment variables, done properly.</li><li>Bring <code>app.py</code> or any small project. We will deploy it.</li></ul><div class="callout ">We meet on Dec 24 unless the school says otherwise. Dec 31 is a public holiday, so that week is the take-home sprint.</div></div></div><aside class="notes"><h4>Say</h4><ul><li>Next week is the one that makes the project real: it stops living on your laptop.</li></ul><h4>Do</h4><ul><li>Check whether the school is open on Dec 24 and tell them today. Remind them Dec 31 is the take-home sprint.</li></ul></aside></section>
+key = os.environ["MODEL_API_KEY"]</pre></div></div><div class="col"><ul class="list sm"><li>Keys live in <code>.env</code>, and <code>.env</code> is in <code>.gitignore</code> <b>before</b> the first commit</li><li><code>pip install python-dotenv</code> reads it</li><li>Online, the same value goes in the host's environment settings. We do that in Week 5</li></ul><div class="callout "><span class="ct">Next time</span>Today's API needs no key. The moment you use one that does, this is how it goes in.</div></div></div></div></div><aside class="notes"><h4>Say</h4><ul><li>Week 2's secrets slide, applied. It looks small. It is the difference between a safe project and a leaked key.</li></ul><h4>Watch for</h4><ul><li>Someone will paste a real key into the slide's example. Do not let it happen. Tell them to make one up.</li></ul></aside></section><section class="slide std" data-title="Week 4 tasks" data-section="Tasks" data-mins="4" data-kind="std"><div class="inner"><div class="kicker">Your tasks</div><h2 class="title">Week 4 <em>tasks</em></h2><div class="body"><div class="task-head"><span class="due">Due Wed, Dec 23</span><span class=eval>Shows: AI skill, logic, follow-through</span></div><ul class="check" data-key="w4-tasks"><li><label><input type="checkbox"><span><code>weather.py</code> working, with a different city or API<small>Submit as a PR to <code>ai-innovation-center/classwork</code>, in <code>week4/yourname/</code>.</small></span></label></li><li><label><input type="checkbox"><span>The Streamlit page running on your computer<small>Screenshot in your PR description.</small></span></label></li><li><label><input type="checkbox"><span>An AI log: three things the AI got wrong or you had to fix<small>One line each. What was wrong, how you noticed.</small></span></label></li><li><label><input type="checkbox"><span>A five-line spec for a feature you could build for the hackathon<small>Use the 'Done when' format. It does not have to be your final idea.</small></span></label></li><li><label><input type="checkbox"><span>Review one classmate's PR<small>Run their code. Leave one <code>question:</code> and one <code>nit:</code>.</small></span></label></li></ul></div></div><aside class="notes"><h4>Say</h4><ul><li>The AI log is the most important task. It proves you read the code. If your log says 'nothing went wrong', I will not believe you.</li><li>The spec for a hackathon feature is a rehearsal for Week 7. Do not overthink it.</li></ul><h4>Do</h4><ul><li>Post the folder name exactly: <code>week4/yourname/</code>. Wrong folders waste your Friday.</li></ul></aside></section><section class="slide std" data-title="Next week: interfaces and deploying" data-section="Next" data-mins="2" data-kind="std"><div class="inner"><div class="kicker">Next</div><h2 class="title">Next week: <em>interfaces</em> and deploying</h2><div class="body"><ul class="list "><li>What users see first: layout, flow, and why demos are won on the interface.</li><li>Putting a page and a Python app on real URLs you can open on your phone.</li><li>Keys and environment variables, done properly, online.</li><li>Bring <code>app.py</code> and your <code>hello-yourname</code> repo. We will deploy both.</li></ul><div class="callout ">We meet on Dec 24 unless the school says otherwise. Dec 31 is a public holiday, so that week is the take-home sprint.</div></div></div><aside class="notes"><h4>Say</h4><ul><li>Next week is the one that makes the project real: it stops living on your laptop.</li></ul><h4>Do</h4><ul><li>Check whether the school is open on Dec 24 and tell them today. Remind them Dec 31 is the take-home sprint.</li></ul></aside></section>
 <div class="chrome bottom"><span id="c-sec"></span><span>AI as a teammate</span></div>
 <div class="progress"></div>
 </div></div>
@@ -793,10 +801,37 @@ key = os.environ["MODEL_API_KEY"]</pre></div></div><div class="col"><ul class="l
     root.addEventListener('input', calc); calc();
   }
 
+
+  function timerWidget(root) {
+    // Counts against a wall-clock deadline, not by decrementing once per tick:
+    // browsers throttle timers in background tabs, which would make a ticked clock run slow.
+    var total = parseInt(root.dataset.seconds, 10), left = total, end = 0, tick = null;
+    root.innerHTML = '<div class="widget"><div class="timer"><div><div class="tl2"></div><div class="digits">0:00</div></div>' +
+      '<div class="wbtns"><button class="btn p" data-t="go">start</button><button class="btn" data-t="reset">reset</button></div></div></div>';
+    var d = $('.digits', root), tl = $('.timer', root), go = $('[data-t=go]', root);
+    $('.tl2', root).textContent = root.dataset.label || 'timer';
+    function draw() { d.textContent = Math.floor(left / 60) + ':' + (left % 60 < 10 ? '0' : '') + (left % 60); tl.classList.toggle('low', left <= 30 && left > 0); tl.classList.toggle('out', left === 0); }
+    function remaining() { return tick ? Math.max(0, Math.ceil((end - Date.now()) / 1000)) : left; }
+    function stop() { left = remaining(); clearInterval(tick); tick = null; go.textContent = 'start'; draw(); }
+    function step() { left = remaining(); draw(); if (left === 0) { clearInterval(tick); tick = null; go.textContent = 'start'; } }
+    root.addEventListener('click', function (e) {
+      var a = e.target.dataset && e.target.dataset.t; if (!a) return;
+      if (a === 'reset') { clearInterval(tick); tick = null; go.textContent = 'start'; left = total; draw(); return; }
+      if (tick) { stop(); return; }
+      if (left === 0) left = total;
+      end = Date.now() + left * 1000;
+      go.textContent = 'pause';
+      tick = setInterval(step, 250);
+      draw();
+    });
+    draw();
+    root.__timer = { get: remaining, setLeft: function (v) { left = v; if (tick) end = Date.now() + v * 1000; draw(); } };
+  }
+
   function initWidgets() {
     $$('[data-widget]').forEach(function (el) {
       var w = el.dataset.widget;
-      if (w === 'git') gitWidget(el); else if (w === 'conflict') conflictWidget(el); else if (w === 'scorer') scorerWidget(el);
+      if (w === 'git') gitWidget(el); else if (w === 'conflict') conflictWidget(el); else if (w === 'scorer') scorerWidget(el); else if (w === 'timer') timerWidget(el);
     });
   }
 

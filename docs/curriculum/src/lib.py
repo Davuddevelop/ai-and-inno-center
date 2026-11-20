@@ -213,8 +213,9 @@ def task_slide(title, due, items, key, lede="", mins=4, notes="", evaluates=""):
 
 
 class Deck:
-    def __init__(self, id_, week, date, date_label, title, deadline="2027-01-20"):
+    def __init__(self, id_, week, date, date_label, title, deadline="2027-01-20", live=True):
         self.id, self.week, self.date, self.date_label, self.title, self.deadline = id_, week, date, date_label, title, deadline
+        self.live = live          # False for the take-home week: no 90-minute timing check
         self.slides = []
 
     def add(self, *slides):
@@ -239,14 +240,15 @@ def TIMELINE(items):
     return Raw(f'<div class="tl">{"".join(out)}</div>')
 
 
-def GANTT(rows, total):
+def GANTT(rows, total, unit="H"):
     """rows: (start_h, end_h, label, detail[, warn]); bars are drawn to scale."""
     out = []
     for r in rows:
         a, b, label, detail = r[0], r[1], r[2], r[3]
         warn = len(r) > 4 and r[4]
         left, width = a / total * 100, (b - a) / total * 100
-        out.append(f'<div class="row{" w" if warn else ""}"><div class="t">H{a}-{b}</div>'
+        label_t = f"H{a}-{b}" if unit == "H" else f"{a}-{b}{unit}"
+        out.append(f'<div class="row{" w" if warn else ""}"><div class="t">{label_t}</div>'
                    f'<div class="track"><div class="fill" style="left:{left:.2f}%;width:{width:.2f}%"></div></div>'
                    f'<div class="x">{fmt(label)}<small>{fmt(detail)}</small></div></div>')
     return Raw(f'<div class="gantt">{"".join(out)}</div>')
@@ -260,3 +262,7 @@ def FLOW(boxes, arrows, highlight=None, tight=False):
         if k < len(arrows):
             out.append(f'<div class="fa"><em>{esc(arrows[k])}</em><i></i></div>')
     return Raw(f'<div class="flow{" tight" if tight else ""}">{"".join(out)}</div>')
+
+
+def TIMER(seconds, label="timer"):
+    return Raw(f'<div data-widget="timer" data-seconds="{int(seconds)}" data-label="{html.escape(label, quote=True)}"></div>')

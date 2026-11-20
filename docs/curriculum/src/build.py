@@ -77,7 +77,7 @@ def check(deck):
                 problems.append(f"slide {i}: forbidden glyph U+{ord(ch):04X} ({FORBIDDEN[ch]})")
             elif not covered(ch):
                 problems.append(f"slide {i}: glyph U+{ord(ch):04X} {ch!r} is not in the bundled fonts")
-    if not 75 <= total <= 95:
+    if deck.live and not 75 <= total <= 95:
         warns.append(f"planned time is {total:.0f} min (target 80-90)")
     return problems, warns, total
 

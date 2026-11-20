@@ -94,6 +94,30 @@ for (let k = 0; k < 6; k++) await page.fill(`${inputs} >> nth=${k}`, '5');
 const t = await tot(); ok(t[1] === 100 && t[0] === 60, 'all-5 idea scores 100', JSON.stringify(t));
 ok(await page.evaluate(() => document.querySelector('.slide.active .scorer tbody tr:nth-child(2)').classList.contains('top')), 'highest idea is highlighted');
 
+// --- pitch timer: counts to a wall-clock deadline, so throttled timers cannot make it run slow
+const tp = await ctx.newPage(); const terrs = []; tp.on('pageerror', e => terrs.push(String(e)));
+await tp.clock.install(); await tp.goto(url); await tp.evaluate(() => document.fonts.ready);
+await tp.evaluate(() => { const i = [...document.querySelectorAll('.slide')].findIndex(s => s.dataset.title.includes('pitch clock')); window.__deck.show(i); });
+const digits = () => tp.textContent('.slide.active .timer .digits');
+ok(await digits() === '3:00', 'timer starts at the full time', await digits());
+await tp.click('.slide.active .timer [data-t=go]');
+await tp.clock.runFor(2000);
+ok(await digits() === '2:58', 'timer counts down while running', await digits());
+await tp.clock.fastForward(60000);   // one big jump, like a tab that was throttled in the background
+await tp.clock.runFor(300);
+ok(await digits() === '1:58', 'timer stays correct after a long gap (no drift)', await digits());
+await tp.click('.slide.active .timer [data-t=go]');   // pause
+const held = await digits(); await tp.clock.runFor(5000);
+ok(await digits() === held, 'pause holds the time', `${held} -> ${await digits()}`);
+await tp.evaluate(() => document.querySelector('.slide.active [data-widget=timer]').__timer.setLeft(25));
+ok(await tp.evaluate(() => document.querySelector('.slide.active .timer').classList.contains('low')), 'last 30 seconds are flagged');
+await tp.click('.slide.active .timer [data-t=go]');   // resume
+await tp.clock.runFor(26000);
+ok(await digits() === '0:00' && await tp.evaluate(() => document.querySelector('.slide.active .timer').classList.contains('out')), 'timer stops at zero and flags it', await digits());
+await tp.click('.slide.active .timer [data-t=reset]');
+ok(await digits() === '3:00', 'reset restores the full time', await digits());
+ok(terrs.length === 0, 'timer page has no JavaScript errors', terrs.join(' | '));
+
 // --- presenter view stays in sync with the main window
 const main = await ctx.newPage(); await main.goto(url + '#3'); await main.evaluate(() => document.fonts.ready);
 const pres = await ctx.newPage(); await pres.goto(url + '?presenter#3'); await pres.waitForTimeout(300);

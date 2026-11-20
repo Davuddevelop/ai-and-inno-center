@@ -40,7 +40,7 @@ DECK.add(
                     watch=["Students will say 'it is faster to push to main'. It is, until the day it breaks the demo. Hold the line."])),
 
     slide("Anatomy of a good _pull request_", COLS(
-        CODE("## What changed\n- Added a send button to the chat page\n\n## Why\nFixes #7\n\n## How to test\n1. Open the preview link\n2. Type a message, press Send\n3. It appears in the list\n\n## Screenshots\n(drag an image here)", label="the template every PR starts from", sm=True),
+        CODE("## What changed\n- Added a send button to the chat page\n\n## Why\nFixes #7\n\n## How to test\n1. Run the branch (or the preview link)\n2. Type a message, press Send\n3. It appears in the list\n\n## Screenshots\n(drag an image here)", label="the template every PR starts from", sm=True),
         UL(["**Small.** One idea per PR. If you cannot explain it in a sentence, split it.", "**Linked.** `Fixes #7` closes the issue when it merges.", "**Testable.** Say how someone checks it works.", "**Visual.** A screenshot for anything the user sees."], cls="sm"),
         kind="split"),
         kicker="01 — The team loop", mins=5,
@@ -50,7 +50,7 @@ DECK.add(
                     watch=["Students will open PRs titled 'update' with no description. Send those back, kindly, until it becomes a habit."])),
 
     slide("Reviewing a teammate's _work_", B(
-        COLS(STEPS(["Read the description. What is this meant to do?", "Open **Files changed**. Read every line.", "**Run it**, from the preview link or on your machine", "Comment on specific lines. Then **Approve** or **Request changes**"], cls="sm"),
+        COLS(STEPS(["Read the description. What is this meant to do?", "Open **Files changed**. Read every line.", "**Run it** on your machine, or from a preview link if you have one", "Comment on specific lines. Then **Approve** or **Request changes**"], cls="sm"),
              B(TABLE(["Prefix", "Means"], [["question:", "I do not understand this part"], ["nit:", "Tiny, optional, your call"], ["blocking:", "Must change before merging"]]),
                CALLOUT("Review the code, not the person. Say what you would do, not what they did wrong.")), kind="split")),
         kicker="01 — The team loop", mins=5,

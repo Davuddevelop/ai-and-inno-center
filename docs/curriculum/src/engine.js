@@ -272,10 +272,37 @@
     root.addEventListener('input', calc); calc();
   }
 
+
+  function timerWidget(root) {
+    // Counts against a wall-clock deadline, not by decrementing once per tick:
+    // browsers throttle timers in background tabs, which would make a ticked clock run slow.
+    var total = parseInt(root.dataset.seconds, 10), left = total, end = 0, tick = null;
+    root.innerHTML = '<div class="widget"><div class="timer"><div><div class="tl2"></div><div class="digits">0:00</div></div>' +
+      '<div class="wbtns"><button class="btn p" data-t="go">start</button><button class="btn" data-t="reset">reset</button></div></div></div>';
+    var d = $('.digits', root), tl = $('.timer', root), go = $('[data-t=go]', root);
+    $('.tl2', root).textContent = root.dataset.label || 'timer';
+    function draw() { d.textContent = Math.floor(left / 60) + ':' + (left % 60 < 10 ? '0' : '') + (left % 60); tl.classList.toggle('low', left <= 30 && left > 0); tl.classList.toggle('out', left === 0); }
+    function remaining() { return tick ? Math.max(0, Math.ceil((end - Date.now()) / 1000)) : left; }
+    function stop() { left = remaining(); clearInterval(tick); tick = null; go.textContent = 'start'; draw(); }
+    function step() { left = remaining(); draw(); if (left === 0) { clearInterval(tick); tick = null; go.textContent = 'start'; } }
+    root.addEventListener('click', function (e) {
+      var a = e.target.dataset && e.target.dataset.t; if (!a) return;
+      if (a === 'reset') { clearInterval(tick); tick = null; go.textContent = 'start'; left = total; draw(); return; }
+      if (tick) { stop(); return; }
+      if (left === 0) left = total;
+      end = Date.now() + left * 1000;
+      go.textContent = 'pause';
+      tick = setInterval(step, 250);
+      draw();
+    });
+    draw();
+    root.__timer = { get: remaining, setLeft: function (v) { left = v; if (tick) end = Date.now() + v * 1000; draw(); } };
+  }
+
   function initWidgets() {
     $$('[data-widget]').forEach(function (el) {
       var w = el.dataset.widget;
-      if (w === 'git') gitWidget(el); else if (w === 'conflict') conflictWidget(el); else if (w === 'scorer') scorerWidget(el);
+      if (w === 'git') gitWidget(el); else if (w === 'conflict') conflictWidget(el); else if (w === 'scorer') scorerWidget(el); else if (w === 'timer') timerWidget(el);
     });
   }
 

@@ -109,7 +109,7 @@ DECK.add(
         ["Design", "Figma or paper, AI interface generators", "Week 5"],
         ["Build", "VS Code, AI coding assistants, Python", "Weeks 4, 5"],
         ["Version", "Git and GitHub", "Weeks 2, 3"],
-        ["Ship", "Vercel, Streamlit, environment variables", "Week 5"],
+        ["Ship", "GitHub Pages, Streamlit, environment variables", "Week 5"],
         ["Pitch", "Slides, screen recording, a timer", "Weeks 7, 8"]]),
         kicker="02 — What wins", mins=4,
         notes=NOTES(say=["This is the map for the whole program. Every tool here shows up once and then keeps showing up.",
