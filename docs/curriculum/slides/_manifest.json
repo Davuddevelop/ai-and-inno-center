@@ -1,1 +1,18 @@
-[]
+[
+ {
+  "week": 1,
+  "date": "2026-11-26",
+  "label": "Thu, Nov 26",
+  "title": "How hackathons are won",
+  "file": "week-01-how-hackathons-are-won.html",
+  "slides": 20
+ },
+ {
+  "week": 2,
+  "date": "2026-12-03",
+  "label": "Thu, Dec 3",
+  "title": "Git and GitHub from zero",
+  "file": "week-02-git-and-github-from-zero.html",
+  "slides": 21
+ }
+]

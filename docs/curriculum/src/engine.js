@@ -175,7 +175,7 @@
 
   function gitWidget(root) {
     root.innerHTML = '<div class="widget"><div class="wt"><span>Git sandbox</span><span>nothing here touches a real repo</span></div>' +
-      '<svg class="git" viewBox="0 0 760 230" preserveAspectRatio="xMidYMid meet"></svg>' +
+      '<svg class="git" viewBox="0 0 1000 215" preserveAspectRatio="xMidYMid meet"></svg>' +
       '<div class="wbtns"><button class="btn p" data-a="commit">commit</button>' +
       '<input class="btn" data-a="name" value="feature-1" aria-label="new branch name"><button class="btn" data-a="branch">new branch</button>' +
       '<select class="btn" data-a="sw"></select><button class="btn" data-a="switch">switch</button>' +
@@ -189,10 +189,10 @@
     function lane(name) { return S.order.indexOf(name); }
     function add(parents, ln) { var c = { id: S.c.length, p: parents, lane: ln }; S.c.push(c); return c.id; }
     function draw() {
-      var W = 760, H = 230, depth = [], lanes = S.order.length;
+      var W = 1000, H = 215, depth = [], lanes = S.order.length;
       S.c.forEach(function (c) { depth[c.id] = c.p.length ? Math.max.apply(null, c.p.map(function (i) { return depth[i]; })) + 1 : 0; });
       var maxD = Math.max.apply(null, depth), gap = Math.min(72, (W - 150) / Math.max(maxD, 1));
-      var lg = lanes > 1 ? Math.min(58, (H - 120) / (lanes - 1)) : 0, y0 = lanes > 1 ? 78 : 118;
+      var lg = lanes > 1 ? Math.min(58, (H - 120) / (lanes - 1)) : 0, y0 = lanes > 1 ? 74 : 112;
       var X = function (c) { return 56 + depth[c.id] * gap; }, Y = function (c) { return y0 + c.lane * lg; };
       var tips = {}; Object.keys(S.br).forEach(function (n) { (tips[S.br[n]] = tips[S.br[n]] || []).push(n); });
       var h = '';

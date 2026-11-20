@@ -70,21 +70,21 @@ def COLS(*cols, kind="c2", top=False):
     return Raw(f'<div class="cols {kind}{" top" if top else ""}">{body}</div>')
 
 
-def CARD(title, text="", tag=None, hl=False, sm=False):
-    cls = "card" + (" hl" if hl else "") + (" sm" if sm else "")
+def CARD(title, text="", tag=None, hl=False, sm=False, lg=False):
+    cls = "card" + (" hl" if hl else "") + (" sm" if sm else "") + (" lg" if lg else "")
     t = f'<div class="ct">{esc(tag)}</div>' if tag else ""
     p = f"<p>{fmt(text)}</p>" if text else ""
     return Raw(f'<div class="{cls}">{t}<h3>{fmt(title)}</h3>{p}</div>')
 
 
-def CARDS(items, kind="c3", sm=False):
+def CARDS(items, kind="c3", sm=False, lg=False):
     """items: (title, text[, tag[, hl]])."""
     cards = []
     for it in items:
         title, text = it[0], it[1]
         tag = it[2] if len(it) > 2 else None
         hl = it[3] if len(it) > 3 else False
-        cards.append(CARD(title, text, tag, hl, sm))
+        cards.append(CARD(title, text, tag, hl, sm, lg))
     return Raw(f'<div class="cols cards {kind}">{"".join(cards)}</div>')
 
 
@@ -225,3 +225,38 @@ class Deck:
 def B(*parts):
     """Concatenate components into one body."""
     return Raw("".join(str(p) for p in parts))
+
+
+def TIMELINE(items):
+    """items: (date, title, sub, state) where state is '', 'now', 'x' (holiday) or 'end'."""
+    out = []
+    for it in items:
+        d, w = it[0], it[1]
+        s = it[2] if len(it) > 2 else ""
+        st = it[3] if len(it) > 3 else ""
+        out.append(f'<div class="n {st}"><div class="d">{esc(d)}</div><div class="w">{fmt(w)}</div>'
+                   f'{"<div class=s>" + fmt(s) + "</div>" if s else ""}</div>')
+    return Raw(f'<div class="tl">{"".join(out)}</div>')
+
+
+def GANTT(rows, total):
+    """rows: (start_h, end_h, label, detail[, warn]); bars are drawn to scale."""
+    out = []
+    for r in rows:
+        a, b, label, detail = r[0], r[1], r[2], r[3]
+        warn = len(r) > 4 and r[4]
+        left, width = a / total * 100, (b - a) / total * 100
+        out.append(f'<div class="row{" w" if warn else ""}"><div class="t">H{a}-{b}</div>'
+                   f'<div class="track"><div class="fill" style="left:{left:.2f}%;width:{width:.2f}%"></div></div>'
+                   f'<div class="x">{fmt(label)}<small>{fmt(detail)}</small></div></div>')
+    return Raw(f'<div class="gantt">{"".join(out)}</div>')
+
+
+def FLOW(boxes, arrows, highlight=None):
+    """boxes: (title, sub); arrows: labels between them. highlight: index of a box to outline."""
+    out = []
+    for k, (t, sub) in enumerate(boxes):
+        out.append(f'<div class="fb{" hl" if k == highlight else ""}"><b>{fmt(t)}</b><span>{fmt(sub)}</span></div>')
+        if k < len(arrows):
+            out.append(f'<div class="fa"><em>{esc(arrows[k])}</em><i></i></div>')
+    return Raw(f'<div class="flow">{"".join(out)}</div>')

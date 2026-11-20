@@ -1,5 +1,6 @@
 """Design test deck: one slide per component. Not part of the program."""
 from lib import *
+from config import ORG
 
 DECK = Deck("sample", 0, "2026-11-26", "Nov 26", "Design test")
 n = lambda s: NOTES(say=[s])
