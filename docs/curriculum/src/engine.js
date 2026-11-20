@@ -281,6 +281,7 @@
       '<div class="wbtns"><button class="btn p" data-t="go">start</button><button class="btn" data-t="reset">reset</button></div></div></div>';
     var d = $('.digits', root), tl = $('.timer', root), go = $('[data-t=go]', root);
     $('.tl2', root).textContent = root.dataset.label || 'timer';
+    if (root.dataset.size === 'sm') tl.classList.add('sm');
     function draw() { d.textContent = Math.floor(left / 60) + ':' + (left % 60 < 10 ? '0' : '') + (left % 60); tl.classList.toggle('low', left <= 30 && left > 0); tl.classList.toggle('out', left === 0); }
     function remaining() { return tick ? Math.max(0, Math.ceil((end - Date.now()) / 1000)) : left; }
     function stop() { left = remaining(); clearInterval(tick); tick = null; go.textContent = 'start'; draw(); }

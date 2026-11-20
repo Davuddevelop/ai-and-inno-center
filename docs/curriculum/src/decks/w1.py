@@ -18,7 +18,7 @@ DECK.add(
         ("Dec 10", "Teamwork", "PRs, reviews, merge conflicts"),
         ("Dec 17", "AI tools", "Prompting, AI in the product, Python glue"),
         ("Dec 24", "Interfaces", "UI, deployment, secrets"),
-        ("Dec 31", "Async sprint", "Public holiday: you ship alone, at home", "x"),
+        ("Dec 31", "Async sprint", "Public holiday: your team ships at home", "x"),
         ("Jan 7", "Strategy", "Idea, scope, pitch, roles"),
         ("Jan 14", "Demo day", "Mock judging, final checklist"),
         ("Jan 20", "Deadline", "Show up ready", "end")]),

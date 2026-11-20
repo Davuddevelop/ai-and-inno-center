@@ -118,6 +118,13 @@ await tp.click('.slide.active .timer [data-t=reset]');
 ok(await digits() === '3:00', 'reset restores the full time', await digits());
 ok(terrs.length === 0, 'timer page has no JavaScript errors', terrs.join(' | '));
 
+// --- two compact timers on one slide (Demo Day): independent of each other
+await tp.evaluate(() => { const i = [...document.querySelectorAll('.slide')].findIndex(s => s.dataset.title.includes('Two clocks')); window.__deck.show(i); });
+ok(await tp.locator('.slide.active .timer.sm').count() === 2, 'compact timers render at the small size');
+const both = () => tp.evaluate(() => [...document.querySelectorAll('.slide.active .timer .digits')].map(e => e.textContent));
+await tp.locator('.slide.active .timer [data-t=go]').first().click(); await tp.clock.runFor(3000);
+const bt = await both(); ok(bt[0] === '2:57' && bt[1] === '2:00', 'starting one timer does not start the other', JSON.stringify(bt));
+
 // --- presenter view stays in sync with the main window
 const main = await ctx.newPage(); await main.goto(url + '#3'); await main.evaluate(() => document.fonts.ready);
 const pres = await ctx.newPage(); await pres.goto(url + '?presenter#3'); await pres.waitForTimeout(300);

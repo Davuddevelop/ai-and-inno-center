@@ -41,4 +41,5 @@ DECK.add(
           kicker="Next", notes=n("callout warn")),
     task_slide("Week 0 tasks", "Wed, Dec 2", ["Install **Git** and run `git --version`", "Create a GitHub account with **two-factor authentication** on", ("Make a repo called `hello-yourname`", "Add a README with three lines about you"), "Post the repo link in the group"], "t-demo", evaluates="Git fluency, follow-through", notes=n("task slide")),
     slide("The pitch _clock_", TIMER(180, "3-minute pitch"), kicker="Demo day", notes=n("timer")),
+    slide("Two _clocks_", B(TIMER(180, "pitch", small=True), TIMER(120, "questions", small=True)), kicker="Demo day", notes=n("two compact timers")),
 )

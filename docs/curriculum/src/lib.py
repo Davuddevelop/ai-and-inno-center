@@ -237,7 +237,8 @@ def TIMELINE(items):
         st = it[3] if len(it) > 3 else ""
         out.append(f'<div class="n {st}"><div class="d">{esc(d)}</div><div class="w">{fmt(w)}</div>'
                    f'{"<div class=s>" + fmt(s) + "</div>" if s else ""}</div>')
-    return Raw(f'<div class="tl">{"".join(out)}</div>')
+    few = " few" if len(items) <= 6 else ""
+    return Raw(f'<div class="tl{few}" style="--n:{len(items)}">{"".join(out)}</div>')
 
 
 def GANTT(rows, total, unit="H"):
@@ -264,5 +265,6 @@ def FLOW(boxes, arrows, highlight=None, tight=False):
     return Raw(f'<div class="flow{" tight" if tight else ""}">{"".join(out)}</div>')
 
 
-def TIMER(seconds, label="timer"):
-    return Raw(f'<div data-widget="timer" data-seconds="{int(seconds)}" data-label="{html.escape(label, quote=True)}"></div>')
+def TIMER(seconds, label="timer", small=False):
+    size = ' data-size="sm"' if small else ""
+    return Raw(f'<div data-widget="timer" data-seconds="{int(seconds)}" data-label="{html.escape(label, quote=True)}"{size}></div>')
