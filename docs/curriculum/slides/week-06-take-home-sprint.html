@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 06 - Take-home sprint | AI &amp; Innovation Center</title>
+<style>@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url(fonts/fraunces-italic-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url(fonts/fraunces-italic-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(fonts/fraunces-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(fonts/fraunces-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(fonts/geist-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(fonts/geist-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url(fonts/geist-mono-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url(fonts/geist-mono-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* AI & Innovation Center -- class decks.
+   Tokens come from the site (src/app/globals.css): same lime accent, same three
+   typefaces, same mono-kicker and film-grain devices. The one deliberate change
+   is the ground: navy instead of black, per the brief. */
+
+:root {
+  --bg: #0a1226;
+  --bg2: #0f1b3a;
+  --bg3: #15264d;
+  --text: #f2f5ee;
+  --muted: #93a3c4;
+  --dim: #62749c;
+  --accent: #b9ff4b;
+  --accent-dim: rgba(185, 255, 75, 0.12);
+  --accent-ink: #0a1226;
+  --line: rgba(170, 195, 255, 0.14);
+  --line2: rgba(170, 195, 255, 0.3);
+  --warn: #ffb454;
+  --bad: #ff7b7b;
+  --sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --display: 'Fraunces', Georgia, 'Times New Roman', serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+/* film grain, same trick the site uses so flat navy never reads as a generated gradient */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 90; pointer-events: none;
+  opacity: 0.06; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* ------------------------------------------------------------- stage */
+.deck { position: fixed; inset: 0; overflow: hidden; }
+.stage {
+  position: absolute; left: 0; top: 0; width: 1280px; height: 720px;
+  transform-origin: 0 0; background: var(--bg); overflow: hidden;
+}
+.slide {
+  position: absolute; inset: 0; opacity: 0; visibility: hidden;
+  transition: opacity 140ms ease;
+}
+.slide.active { opacity: 1; visibility: visible; }
+.inner { position: absolute; inset: 0; padding: 92px 76px 58px; display: flex; flex-direction: column; }
+.notes { display: none; }
+
+/* running chrome */
+.chrome { position: absolute; left: 0; right: 0; z-index: 5; font-family: var(--mono); font-size: 12px;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); pointer-events: none; }
+.chrome.top { top: 30px; padding: 0 76px; display: flex; justify-content: space-between; }
+.chrome.top b { color: var(--muted); font-weight: 500; }
+.chrome.bottom { bottom: 22px; padding: 0 76px; display: flex; justify-content: space-between; }
+.progress { position: absolute; left: 0; bottom: 0; height: 3px; background: var(--accent); width: 0; z-index: 6; transition: width 200ms ease; }
+.rule { position: absolute; left: 76px; right: 76px; top: 58px; height: 1px; background: var(--line); z-index: 4; }
+
+/* ------------------------------------------------------- typography */
+.kicker { font-family: var(--mono); font-size: 15px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+h2.title { font-family: var(--display); font-weight: 500; font-size: 50px; line-height: 1.08; letter-spacing: -0.015em; margin-top: 14px; max-width: 1020px; text-wrap: balance; }
+h2.title em { font-style: italic; color: var(--accent); font-weight: 400; }
+.lede { font-size: 27px; line-height: 1.42; color: var(--muted); margin-top: 16px; max-width: 980px; text-wrap: pretty; }
+.body { margin-top: 30px; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 20px; }
+p.t { font-size: 26px; line-height: 1.45; text-wrap: pretty; }
+p.t.m, .muted { color: var(--muted); }
+p.t b, li b, td b, .card b { color: var(--text); font-weight: 600; }
+.acc { color: var(--accent); }
+code, .code { font-family: var(--mono); font-size: 0.86em; background: rgba(170, 195, 255, 0.1); padding: 2px 7px; border-radius: 6px; }
+kbd { font-family: var(--mono); font-size: 0.8em; border: 1px solid var(--line2); border-bottom-width: 2px; border-radius: 6px; padding: 1px 8px; background: var(--bg2); }
+
+ul.list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+ul.list li { font-size: 26px; line-height: 1.38; padding-left: 30px; position: relative; text-wrap: pretty; }
+ul.list li::before { content: ""; position: absolute; left: 0; top: 0.58em; width: 11px; height: 11px; background: var(--accent); border-radius: 2px; }
+ul.list.sm li { font-size: 22px; gap: 10px; }
+ul.list.sm li::before { width: 9px; height: 9px; top: 0.55em; }
+ul.list.sm { gap: 10px; }
+ul.list.muted li::before { background: var(--dim); }
+ul.list li small { display: block; color: var(--muted); font-size: 0.78em; margin-top: 3px; }
+
+/* ---------------------------------------------------------- layout */
+.cols { display: grid; gap: 28px; flex: 1; min-height: 0; }
+.cols.c2 { grid-template-columns: 1fr 1fr; }
+.cols.c3 { grid-template-columns: repeat(3, 1fr); }
+.cols.c4 { grid-template-columns: repeat(4, 1fr); }
+.cols.c5 { grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.cols.split { grid-template-columns: 1.25fr 1fr; }
+.cols.split2 { grid-template-columns: 1fr 1.25fr; }
+.col { display: flex; flex-direction: column; gap: 18px; min-height: 0; }
+.cols.top, .cols.cards { align-items: start; }
+.cols.cards { flex: none; }
+
+.card { background: var(--bg2); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+.card .ct { font-family: var(--mono); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+.card h3 { font-family: var(--display); font-weight: 500; font-size: 28px; line-height: 1.15; }
+.card p { font-size: 21px; line-height: 1.4; color: var(--muted); text-wrap: pretty; }
+.card.hl { border-color: var(--accent); background: linear-gradient(0deg, var(--accent-dim), var(--accent-dim)), var(--bg2); }
+.card.sm p { font-size: 18px; }
+.card.sm h3 { font-size: 22px; }
+
+.tag { display: inline-block; font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; border: 1px solid var(--line2); border-radius: 999px; padding: 4px 12px; color: var(--muted); }
+.tag.a { color: var(--accent); border-color: rgba(185, 255, 75, 0.4); }
+.tag.w { color: var(--warn); border-color: rgba(255, 180, 84, 0.4); }
+
+.callout { border-left: 3px solid var(--accent); background: var(--accent-dim); padding: 16px 24px; border-radius: 0 10px 10px 0; font-size: 24px; line-height: 1.4; text-wrap: pretty; }
+.callout.warn { border-color: var(--warn); background: rgba(255, 180, 84, 0.1); }
+.callout.bad { border-color: var(--bad); background: rgba(255, 123, 123, 0.1); }
+.callout b { color: var(--text); }
+.callout .ct { display: block; font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.callout.warn .ct { color: var(--warn); } .callout.bad .ct { color: var(--bad); }
+
+table.tbl { width: 100%; border-collapse: collapse; font-size: 21px; }
+table.tbl th { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 0 16px 10px 0; border-bottom: 1px solid var(--line2); font-weight: 500; }
+table.tbl td { padding: 11px 16px 11px 0; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.35; }
+table.tbl td:first-child { color: var(--text); font-weight: 600; white-space: nowrap; }
+table.tbl td { color: var(--muted); }
+
+ol.steps { list-style: none; counter-reset: s; display: flex; flex-direction: column; gap: 14px; }
+ol.steps li { counter-increment: s; display: grid; grid-template-columns: 52px 1fr; gap: 14px; font-size: 24px; line-height: 1.38; align-items: start; text-wrap: pretty; }
+ol.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--display); font-size: 34px; line-height: 1; color: var(--accent); padding-top: 1px; }
+ol.steps.sm li { font-size: 21px; gap: 10px; grid-template-columns: 44px 1fr; }
+ol.steps.sm li::before { font-size: 28px; }
+ol.steps li small { display: block; color: var(--muted); font-size: 0.8em; margin-top: 2px; }
+
+.big { font-family: var(--display); font-size: 120px; line-height: 0.95; color: var(--accent); letter-spacing: -0.02em; }
+.bigl { font-family: var(--mono); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
+
+/* terminal -- a real one, not a decorative one */
+.term { background: #060c1d; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; position: relative; }
+.term .th { display: flex; justify-content: space-between; align-items: center; padding: 9px 16px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+.term pre { font-family: var(--mono); font-size: 21px; line-height: 1.55; padding: 16px 20px; white-space: pre-wrap; word-break: break-word; color: #dfe7f7; }
+.term pre .p { color: var(--accent); user-select: none; }
+.term pre .c { color: var(--dim); }
+.term pre .o { color: #aab9d8; }
+.term pre .k { color: #7fb5ff; } .term pre .s { color: #ffd479; } .term pre .g { color: var(--accent); } .term pre .r { color: var(--bad); }
+.term.sm pre { font-size: 18px; line-height: 1.5; padding: 12px 16px; }
+.copy { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; background: none; border: 1px solid var(--line2); color: var(--muted); border-radius: 6px; padding: 3px 9px; cursor: pointer; pointer-events: auto; }
+.copy:hover { color: var(--accent); border-color: var(--accent); }
+
+/* fragments */
+.step { opacity: 0; transform: translateY(8px); transition: opacity 160ms ease, transform 160ms ease; pointer-events: none; }
+.step.shown { opacity: 1; transform: none; pointer-events: auto; }
+body.handout .step, body.print .step { opacity: 1; transform: none; pointer-events: auto; }
+
+/* ------------------------------------------------------------ cover */
+.cover .inner { justify-content: flex-end; padding-bottom: 76px; }
+.cover .mark { position: absolute; right: 72px; top: 96px; width: 330px; height: 330px; object-fit: contain; opacity: 0.95; }
+.cover .glow { position: absolute; right: -140px; top: -80px; width: 760px; height: 760px; background: radial-gradient(closest-side, rgba(185, 255, 75, 0.26), rgba(185, 255, 75, 0) 72%); }
+.cover h1 { font-family: var(--display); font-weight: 500; font-size: 92px; line-height: 1.02; letter-spacing: -0.025em; margin-top: 22px; max-width: 740px; text-wrap: balance; }
+.cover h1 em { font-style: italic; font-weight: 400; color: var(--accent); }
+.cover .sub { font-size: 28px; line-height: 1.4; color: var(--muted); margin-top: 24px; max-width: 700px; }
+.cover .meta { display: flex; gap: 14px; margin-top: 34px; align-items: center; }
+.cover .count { margin-left: auto; text-align: right; }
+.cover .count .n { font-family: var(--display); font-size: 64px; line-height: 1; color: var(--accent); }
+.cover .count .l { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+
+/* section divider */
+.sect .inner { justify-content: center; }
+.sect .num { font-family: var(--display); font-size: 220px; line-height: 0.85; color: var(--accent); letter-spacing: -0.03em; }
+.sect h2 { font-family: var(--display); font-weight: 500; font-size: 64px; line-height: 1.05; letter-spacing: -0.02em; margin-top: 26px; max-width: 920px; text-wrap: balance; }
+.sect p { font-size: 28px; color: var(--muted); margin-top: 18px; max-width: 800px; line-height: 1.4; }
+
+/* ------------------------------------------------------------- quiz */
+.quiz { display: flex; flex-direction: column; gap: 12px; }
+.quiz .q { font-family: var(--display); font-size: 36px; line-height: 1.18; font-weight: 500; margin-bottom: 8px; max-width: 1000px; text-wrap: balance; }
+.quiz .opt { text-align: left; font: inherit; font-size: 23px; line-height: 1.35; color: var(--text); background: var(--bg2); border: 1px solid var(--line2); border-radius: 12px; padding: 15px 22px; cursor: pointer; display: grid; grid-template-columns: 34px 1fr; gap: 14px; align-items: start; transition: border-color 120ms, background 120ms; }
+.quiz .opt i { font-style: normal; font-family: var(--mono); color: var(--accent); font-size: 18px; padding-top: 2px; }
+.quiz .opt:hover { border-color: var(--accent); }
+.quiz.done .opt { cursor: default; }
+.quiz.done .opt:hover { border-color: var(--line2); }
+.quiz .opt.right { border-color: var(--accent); background: var(--accent-dim); }
+.quiz .opt.wrong { border-color: var(--bad); background: rgba(255, 123, 123, 0.1); }
+.quiz .why { display: none; font-size: 22px; line-height: 1.4; color: var(--muted); border-left: 3px solid var(--accent); padding: 4px 0 4px 18px; margin-top: 6px; text-wrap: pretty; }
+.quiz.done .why { display: block; }
+
+/* -------------------------------------------------------- checklist */
+ul.check { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+ul.check li label { display: grid; grid-template-columns: 34px 1fr; gap: 16px; align-items: start; font-size: 24px; line-height: 1.38; cursor: pointer; text-wrap: pretty; }
+ul.check input { appearance: none; -webkit-appearance: none; width: 28px; height: 28px; border: 2px solid var(--line2); border-radius: 7px; background: var(--bg2); margin-top: 2px; cursor: pointer; position: relative; flex: none; }
+ul.check input:checked { background: var(--accent); border-color: var(--accent); }
+ul.check input:checked::after { content: ""; position: absolute; left: 8px; top: 3px; width: 7px; height: 14px; border: solid var(--accent-ink); border-width: 0 3px 3px 0; transform: rotate(45deg); }
+ul.check input:checked + span { color: var(--dim); text-decoration: line-through; text-decoration-color: var(--dim); }
+ul.check small { display: block; color: var(--muted); font-size: 0.8em; margin-top: 2px; }
+ul.check.sm li label { font-size: 21px; gap: 12px; grid-template-columns: 28px 1fr; }
+ul.check.sm input { width: 24px; height: 24px; }
+ul.check.sm input:checked::after { left: 6px; top: 2px; width: 6px; height: 12px; }
+
+/* task slide */
+.task-head { display: flex; align-items: center; gap: 14px; }
+.due { font-family: var(--mono); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warn); border: 1px solid rgba(255, 180, 84, 0.45); border-radius: 999px; padding: 4px 14px; }
+.eval { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); }
+
+/* ---------------------------------------------------------- widgets */
+.widget { background: var(--bg2); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+.widget .wt { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; display: flex; justify-content: space-between; }
+.wbtns { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+.btn { font-family: var(--mono); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; background: transparent; color: var(--text); border: 1px solid var(--line2); border-radius: 999px; padding: 9px 18px; cursor: pointer; transition: border-color 120ms, background 120ms, color 120ms; }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.p { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.p:hover { background: var(--text); border-color: var(--text); color: var(--accent-ink); }
+select.btn, input.btn { appearance: none; -webkit-appearance: none; background: var(--bg); padding-right: 18px; }
+input.btn { text-transform: none; letter-spacing: 0; width: 150px; cursor: text; }
+.wmsg { font-size: 19px; color: var(--muted); min-height: 46px; margin-top: 8px; line-height: 1.35; }
+.wmsg b { color: var(--accent); font-weight: 500; }
+svg.git { width: 100%; height: auto; display: block; }
+svg.git .edge { stroke: var(--dim); stroke-width: 2.5; fill: none; }
+svg.git .node { fill: var(--bg3); stroke: var(--muted); stroke-width: 2.5; }
+svg.git .node.tip { stroke: var(--accent); }
+svg.git .node.merge { fill: var(--accent); stroke: var(--accent); }
+svg.git text { font-family: var(--mono); font-size: 13px; fill: var(--muted); }
+svg.git .bl { fill: var(--bg); stroke: var(--line2); }
+svg.git .bl.head { fill: var(--accent); stroke: var(--accent); }
+svg.git text.bt { fill: var(--text); font-size: 13px; }
+svg.git text.bt.head { fill: var(--accent-ink); font-weight: 600; }
+
+.conflict pre { font-family: var(--mono); font-size: 18px; line-height: 1.55; background: #060c1d; border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; white-space: pre-wrap; }
+.conflict .mk { color: var(--warn); } .conflict .cur { color: #7fb5ff; } .conflict .inc { color: #ffd479; }
+.conflict .res { color: var(--accent); }
+
+.scorer table { width: 100%; border-collapse: collapse; font-size: 17px; }
+.scorer th { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; text-align: center; padding: 0 4px 8px; }
+.scorer th:first-child { text-align: left; }
+.scorer td { padding: 5px 4px; text-align: center; border-top: 1px solid var(--line); }
+.scorer td input[type=text] { width: 100%; background: transparent; border: 0; border-bottom: 1px dashed var(--line2); color: var(--text); font: inherit; font-size: 18px; padding: 3px 0; }
+.scorer td input[type=number] { width: 46px; background: var(--bg); border: 1px solid var(--line2); border-radius: 6px; color: var(--text); font: inherit; text-align: center; padding: 4px 0; }
+.scorer .tot { font-family: var(--display); font-size: 26px; color: var(--text); }
+.scorer tr.top .tot { color: var(--accent); }
+
+/* ----------------------------------------------------------- overlays */
+.overlay { position: fixed; inset: 0; background: rgba(6, 10, 24, 0.94); z-index: 100; display: none; padding: 40px; overflow: auto; }
+.overlay.on { display: block; }
+.ov-h { font-family: var(--mono); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 22px; }
+.grid-ov { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+.grid-ov button { text-align: left; font: inherit; color: var(--text); background: var(--bg2); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; cursor: pointer; min-height: 88px; }
+.grid-ov button:hover, .grid-ov button.cur { border-color: var(--accent); }
+.grid-ov button span { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 6px; }
+.grid-ov button b { font-weight: 500; font-size: 15px; line-height: 1.3; }
+.help { max-width: 560px; margin: 8vh auto 0; }
+.help table { width: 100%; font-size: 17px; border-collapse: collapse; }
+.help td { padding: 9px 0; border-bottom: 1px solid var(--line); color: var(--muted); }
+.help td:first-child { white-space: nowrap; padding-right: 24px; }
+
+/* --------------------------------------------------------- presenter */
+body.presenter .deck { display: none; }
+.pv { display: none; position: fixed; inset: 0; padding: 26px 32px; overflow: auto; background: var(--bg); }
+body.presenter .pv { display: grid; grid-template-columns: 1.5fr 1fr; grid-template-rows: auto 1fr; gap: 20px 32px; }
+.pv .bar { grid-column: 1 / 3; display: flex; gap: 18px; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 16px; font-family: var(--mono); font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.pv .bar .tm { font-family: var(--display); font-size: 40px; letter-spacing: 0; text-transform: none; color: var(--text); }
+.pv .bar .tm.late { color: var(--warn); }
+.pv .bar .sp { margin-left: auto; display: flex; gap: 10px; }
+.pv .cur .now { font-family: var(--display); font-size: 40px; line-height: 1.1; margin: 8px 0 20px; }
+.pv .nt h4 { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin: 18px 0 6px; font-weight: 500; }
+.pv .nt ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.pv .nt li { font-size: 20px; line-height: 1.4; color: #dbe3f5; padding-left: 18px; position: relative; }
+.pv .nt li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 7px; height: 7px; background: var(--accent); border-radius: 2px; }
+.pv .nx { border-left: 1px solid var(--line); padding-left: 28px; }
+.pv .nx .next { font-family: var(--display); font-size: 28px; line-height: 1.15; margin: 8px 0 18px; color: var(--muted); }
+
+/* ----------------------------------------- handout (phones, reading) */
+body.handout { overflow: auto; }
+body.handout .deck { position: static; overflow: visible; }
+body.handout .stage { position: static; width: min(860px, 100%); height: auto; transform: none !important; margin: 0 auto; padding: 18px 0 80px; overflow: visible; background: transparent; }
+body.handout .slide { position: relative; opacity: 1; visibility: visible; margin: 0 14px 20px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg); overflow: hidden; }
+body.handout .inner { position: relative; inset: auto; padding: 30px 28px 32px; }
+body.handout .chrome, body.handout .progress, body.handout .rule, body.handout .cover .glow { display: none; }
+body.handout h2.title { font-size: 34px; } body.handout .lede { font-size: 20px; }
+body.handout p.t, body.handout ul.list li, body.handout ol.steps li, body.handout ul.check li label { font-size: 19px; }
+body.handout .cover h1 { font-size: 46px; } body.handout .cover .sub { font-size: 20px; }
+body.handout .cover .mark { position: static; width: 120px; height: 120px; margin-bottom: 16px; }
+body.handout .cover .inner { padding-bottom: 32px; }
+body.handout .sect .num { font-size: 90px; } body.handout .sect h2 { font-size: 36px; } body.handout .sect p { font-size: 19px; }
+body.handout .cols.c2, body.handout .cols.c3, body.handout .cols.c4, body.handout .cols.c5, body.handout .cols.split, body.handout .cols.split2 { grid-template-columns: 1fr; }
+body.handout .quiz .q { font-size: 26px; } body.handout .quiz .opt { font-size: 18px; }
+body.handout .term pre { font-size: 15px; } body.handout .card h3 { font-size: 22px; } body.handout .card p { font-size: 17px; }
+body.handout .callout { font-size: 18px; } body.handout table.tbl { font-size: 16px; }
+body.handout .big { font-size: 70px; } body.handout .cover .meta { flex-wrap: wrap; }
+body.handout .cover .count { margin-left: 0; text-align: left; }
+body.handout svg.git { height: 200px; }
+
+/* ------------------------------------------------------------- print */
+@page { size: 1280px 720px; margin: 0; }
+@media print {
+  html, body { overflow: visible; height: auto; background: var(--bg); }
+  body::after, .chrome.bottom, .progress { display: none; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .deck { position: static; overflow: visible; }
+  .stage { position: static; transform: none !important; height: auto; overflow: visible; width: 1280px; }
+  .slide { position: relative; opacity: 1; visibility: visible; width: 1280px; height: 720px; page-break-after: always; break-after: page; overflow: hidden; }
+  .overlay, .pv { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) { .slide, .step, .progress { transition: none; } }
+
+/* timeline (schedule) */
+.tl { display: grid; grid-template-columns: repeat(9, 1fr); margin-top: 26px; }
+.tl .n { border-top: 2px solid var(--line2); padding: 16px 10px 0 0; position: relative; }
+.tl .n::before { content: ""; position: absolute; top: -8px; left: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 2px solid var(--muted); }
+.tl .n.now::before { background: var(--accent); border-color: var(--accent); }
+.tl .n.x::before { border-color: var(--warn); }
+.tl .n.end { border-top-color: var(--accent); }
+.tl .n.end::before { background: var(--accent); border-color: var(--accent); width: 18px; height: 18px; top: -10px; }
+.tl .d { font-family: var(--mono); font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.tl .n.end .d { color: var(--accent); }
+.tl .w { font-family: var(--display); font-size: 21px; line-height: 1.15; margin-top: 8px; }
+.tl .s { font-size: 15px; line-height: 1.3; color: var(--muted); margin-top: 6px; }
+.tl .n.x .s { color: var(--warn); }
+body.handout .tl { grid-template-columns: 1fr; gap: 6px; }
+body.handout .tl .n { border-top: 0; border-left: 2px solid var(--line2); padding: 4px 0 8px 16px; }
+body.handout .tl .n::before { top: 6px; left: -8px; }
+
+/* gantt (hour plan) */
+.gantt { display: flex; flex-direction: column; gap: 11px; }
+.gantt .row { display: grid; grid-template-columns: 112px 1fr 470px; gap: 20px; align-items: center; }
+.gantt .t { font-family: var(--mono); font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.gantt .track { position: relative; height: 16px; background: var(--bg2); border-radius: 8px; border: 1px solid var(--line); }
+.gantt .fill { position: absolute; top: -1px; bottom: -1px; background: var(--accent); border-radius: 8px; }
+.gantt .row.w .fill { background: var(--warn); }
+.gantt .x { font-size: 21px; line-height: 1.25; }
+.gantt .x small { display: block; color: var(--muted); font-size: 0.78em; margin-top: 2px; }
+body.handout .gantt .row { grid-template-columns: 1fr; gap: 6px; }
+
+.card.lg { padding: 28px 30px; gap: 12px; }
+.card.lg h3 { font-size: 36px; line-height: 1.1; }
+.card.lg p { font-size: 25px; line-height: 1.38; color: var(--muted); }
+
+/* flow diagram */
+.flow { display: flex; align-items: stretch; margin: 6px 0; }
+.flow .fb { flex: 1; background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.flow .fb.hl { border-color: var(--accent); }
+.flow .fb b { font-family: var(--display); font-weight: 500; font-size: 27px; line-height: 1.1; }
+.flow .fb span { font-size: 18px; color: var(--muted); line-height: 1.3; }
+.flow .fa { width: 132px; flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; }
+.flow .fa em { font-style: normal; font-family: var(--mono); font-size: 15px; color: var(--accent); white-space: nowrap; }
+.flow .fa i { display: block; width: 100%; height: 2px; background: var(--accent); position: relative; }
+.flow .fa i::after { content: ""; position: absolute; right: -1px; top: -6px; border-left: 12px solid var(--accent); border-top: 7px solid transparent; border-bottom: 7px solid transparent; }
+body.handout .flow { flex-direction: column; gap: 6px; }
+body.handout .flow .fa { width: auto; flex-direction: row; justify-content: flex-start; padding: 4px 0; }
+body.handout .flow .fa i { width: 40px; }
+
+.flow.tight .fa { width: 78px; }
+.flow.tight .fa em { font-size: 12.5px; }
+.flow.tight .fb { padding: 16px 14px 18px; }
+.flow.tight .fb b { font-size: 25px; }
+.flow.tight .fb span { font-size: 17px; }
+
+.term.xs pre { font-size: 16px; line-height: 1.45; padding: 10px 16px; }
+
+/* timer widget */
+.timer { display: flex; align-items: center; gap: 36px; }
+.timer .digits { font-family: var(--display); font-size: 170px; line-height: 0.9; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.timer.low .digits { color: var(--warn); }
+.timer.out .digits { color: var(--bad); }
+.timer .tl2 { font-family: var(--mono); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+body.handout .timer .digits { font-size: 80px; }
+</style></head>
+<body>
+<div class="deck"><div class="stage">
+<div class="chrome top"><span><b>AI &amp; Innovation Center</b></span><span>Week 06 &nbsp;/&nbsp; Thu, Dec 31</span><span id="c-pos"></span></div>
+<div class="rule"></div>
+<section class="slide cover" data-title="Three hours, one product" data-section="Cover" data-mins="1" data-kind="cover"><div class="glow"></div><img class="mark" src="logo-mark.png" alt=""><div class="inner"><div class="kicker">Take-home sprint</div><h1>Three hours, one <em>product</em></h1><p class="sub">No meeting today. Your team ships one tiny product, from idea to live URL, in a single sitting.</p><div class="meta"><span class="tag a">Week 06</span><span class="tag">Thu, Dec 31</span><div class="count"><div class="n" data-countdown="2027-01-20">0</div><div class="l">days to Jan 20</div></div></div></div><aside class="notes"><h4>Say</h4><ul><li>This deck is for the team to read on their own. Everything they need is in it: the brief, the clock, the rules, what to hand in.</li><li>Dec 31 is a public holiday, so there is no meeting. That is a feature: the team has to run itself, which is what a hackathon is.</li></ul><h4>Do</h4><ul><li>Send the link to the group by Dec 24 at the latest, so absent members have it too.</li><li>Be reachable for questions for the three-hour window. Tell the teams exactly when you will check messages.</li><li>Deployment pre-flight: before Dec 31, try a test repo in the center's GitHub organization with Pages and with Streamlit Community Cloud, with two people committing. Know what breaks before they do.</li></ul><h4>Watch for</h4><ul><li>Some teams will not find a shared three-hour slot over the holidays. The window runs to Jan 5. Do not let a team skip the sprint, but let them choose the day.</li></ul></aside></section><section class="slide std" data-title="What this is" data-section="Start here" data-mins="2" data-kind="std"><div class="inner"><div class="kicker">Start here</div><h2 class="title">What this <em>is</em></h2><div class="body"><ul class="list "><li>A <b>rehearsal for January 20</b>. Every skill from the last five weeks, used once, in order.</li><li><b>Graded on whether your team shipped</b>, together, on time. Not on how clever the idea is.</li><li>Do it in <b>one sitting of three hours</b>, any time from Dec 31 to Jan 5, with everyone present, in person or on a call.</li></ul><div class="callout "><span class="ct">Why we do this</span>A tiny product that works and is live beats a big one that does not. The point is to learn where your team gets stuck, while it is safe to get stuck.</div></div></div><aside class="notes"><h4>Say</h4><ul><li>Say plainly that it is not a competition between teams. Each team is competing with its own clock.</li><li>The best outcome is a team that discovers a real problem, like a deploy that fails with two committers, and writes it down.</li></ul><h4>Watch for</h4><ul><li>Do not let a team treat the three hours as a suggestion and spread it across a week. The time pressure is the lesson.</li></ul></aside></section><section class="slide std" data-title="Before you start" data-section="Start here" data-mins="2" data-kind="std"><div class="inner"><div class="kicker">Start here</div><h2 class="title">Before you <em>start</em></h2><div class="body"><ul class="check" data-key="w6-pre"><li><label><input type="checkbox"><span>Everyone has <b>Git, VS Code and a GitHub account</b> that works (Weeks 1 and 2)</span></label></li><li><label><input type="checkbox"><span>Everyone is in the <b>team repo</b> with write access</span></label></li><li><label><input type="checkbox"><span>Everyone has a <b>charged laptop</b>, and the team has one <b>call link</b> if anyone is remote</span></label></li><li><label><input type="checkbox"><span>You agreed <b>one three-hour window</b> and put it in everyone's calendar</span></label></li><li><label><input type="checkbox"><span>You know <b>where your team repo lives</b>: see the next slide</span></label></li></ul><div class="callout "><span class="ct">The clock starts later</span>Setup problems in hour 1 are normal. Fix them, write down what broke, and carry on. Do not start the clock until all five boxes are ticked.</div></div></div><aside class="notes"><h4>Say</h4><ul><li>Ticking the boxes is saved in the browser on each person's own device, so each person ticks their own.</li></ul><h4>Watch for</h4><ul><li>If someone cannot get Git working, pair them with a teammate on one laptop. They still wear a hat.</li></ul></aside></section><section class="slide std" data-title="Where the team repo lives" data-section="Start here" data-mins="2" data-kind="std"><div class="inner"><div class="kicker">Start here</div><h2 class="title">Where the team repo <em>lives</em></h2><p class="lede">Hosts treat organization repos and personal repos differently, and free plans change. This is the one thing we cannot be sure of in advance.</p><div class="body"><div class="cols c2"><div class="col"><div class="card hl"><div class="ct">option A</div><h3>Try this first</h3><p>Create the repo in the <b>ai-innovation-center</b> GitHub organization, public, with a README. Everyone is invited with write access. Connect GitHub Pages or Streamlit to it, exactly as in Week 5.</p></div></div><div class="col"><div class="card"><div class="ct">option B</div><h3>If the host will not connect</h3><p>One teammate creates a <b>public repo on a personal account</b> and adds the others as collaborators. The host connects to that person's account. Then tell me what happened.</p></div></div></div></div></div><aside class="notes"><h4>Say</h4><ul><li>This slide exists because it is the most likely thing to go wrong on the real day, and it is cheap to find out now.</li><li>If a team uses option B, ask them to write down exactly what the host said when it refused the organization repo. That text is gold.</li></ul><h4>Do</h4><ul><li>Before Dec 31, run both options yourself with a test repo so you can answer the question when it is asked.</li></ul><h4>Watch for</h4><ul><li>Whichever option they pick, the Wednesday deliverable is the same: a live URL that opens in a private window.</li></ul></aside></section><section class="slide sect" data-title="The brief" data-section="Part 01" data-mins="0" data-kind="sect"><div class="inner"><div class="num">01</div><h2>The <em>brief</em></h2><p>What you are building, and the rules it has to follow.</p></div><aside class="notes"><h4>Say</h4><ul><li>Short section. Fifteen minutes of the sprint is for choosing, so read this before the clock starts.</li></ul></aside></section><section class="slide std" data-title="Pick one of three, or propose your own" data-section="01 — The brief" data-mins="2" data-kind="std"><div class="inner"><div class="kicker">01 — The brief</div><h2 class="title">Pick one of three, or <em>propose</em> your own</h2><p class="lede">You may propose your own if the whole team agrees it follows the rules on the next slide. Decide in <b>15 minutes</b>. Do not debate for an hour.</p><div class="body"><div class="cols c3"><div class="col"><div class="card sm"><div class="ct">idea A</div><h3>A. Turn it into a plan</h3><p>Paste a messy to-do or homework list, get a clean evening schedule.</p></div></div><div class="col"><div class="card sm"><div class="ct">idea B</div><h3>B. Explain it back</h3><p>Paste your notes, get five quiz questions to test yourself.</p></div></div><div class="col"><div class="card sm"><div class="ct">idea C</div><h3>C. Find it fast</h3><p>A short list of places or things near school, filterable in two taps.</p></div></div></div></div></div><aside class="notes"><h4>Say</h4><ul><li>The three ideas are deliberately small. They each have one user, one input and one output, so the work is in shipping and not in inventing.</li><li>A team that proposes its own idea should be asked the Week 5 question: what is the one flow, and what are the three screens?</li></ul><h4>Watch for</h4><ul><li>The AI feature is optional. If a team wants a model in the product, they can use the Week 4 pattern with the offline fallback. A working product without AI beats a broken one with it.</li></ul></aside></section><section class="slide std" data-title="Rules the product must follow" data-section="01 — The brief" data-mins="2" data-kind="std"><div class="inner"><div class="kicker">01 — The brief</div><h2 class="title">Rules the product must <em>follow</em></h2><div class="body"><ul class="list "><li><b>One user, one flow, three screens.</b> Start, do the thing, see the result</li><li>Works on a <b>phone</b>, opens in a <b>private window</b>, no login</li><li>A real <b>live URL</b>, not a localhost link and not a screenshot</li><li>An AI feature is welcome and <b>not required</b></li><li><b>No real personal data</b> anywhere. Use made-up names and examples when you test</li><li>No payments, no accounts, no scraping anyone's website</li></ul></div></div><aside class="notes"><h4>Say</h4><ul><li>The no real personal data rule protects them and their friends. Tell them to make up names for every test.</li><li>No login keeps the scope small and keeps a whole class of security mistakes out of a first project.</li></ul></aside></section><section class="slide sect" data-title="The clock" data-section="Part 02" data-mins="0" data-kind="sect"><div class="inner"><div class="num">02</div><h2>The <em>clock</em></h2><p>One sitting. Three hours. Here is how to spend them.</p></div><aside class="notes"><h4>Say</h4><ul><li>This is the 24-hour hackathon from Week 1, shrunk to three hours. The proportions are the same.</li></ul></aside></section><section class="slide std" data-title="Spend the three hours like this" data-section="02 — The clock" data-mins="3" data-kind="std"><div class="inner"><div class="kicker">02 — The clock</div><h2 class="title">Spend the <em>three hours</em> like this</h2><div class="body"><div class="gantt"><div class="row w"><div class="t">0-15 min</div><div class="track"><div class="fill" style="left:0.00%;width:8.33%"></div></div><div class="x">Agree the idea<small>One sentence, one user, one flow</small></div></div><div class="row w"><div class="t">15-30 min</div><div class="track"><div class="fill" style="left:8.33%;width:8.33%"></div></div><div class="x">Repo and skeleton live<small>Issues on the board. Hello-world on a real URL</small></div></div><div class="row"><div class="t">30-120 min</div><div class="track"><div class="fill" style="left:16.67%;width:50.00%"></div></div><div class="x">Build the hero flow<small>At least two PRs, each reviewed by someone else</small></div></div><div class="row"><div class="t">120-150 min</div><div class="track"><div class="fill" style="left:66.67%;width:16.67%"></div></div><div class="x">Polish and test like a judge<small>Empty states, errors, phone, private window</small></div></div><div class="row"><div class="t">150-170 min</div><div class="track"><div class="fill" style="left:83.33%;width:11.11%"></div></div><div class="x">Freeze. Record the demo<small>No new features. 60-second video</small></div></div><div class="row"><div class="t">170-180 min</div><div class="track"><div class="fill" style="left:94.44%;width:5.56%"></div></div><div class="x">Retro and hand in<small>Five questions, then post the links</small></div></div></div></div></div><aside class="notes"><h4>Say</h4><ul><li>The two orange bars are where teams usually lose time: choosing an idea for too long, and leaving deployment until the end. A live skeleton in the first half hour means deployment problems show up early, when they are cheap to fix.</li><li>Notice the freeze. After minute 150 nobody adds a feature, no matter how good the idea is.</li></ul><h4>Watch for</h4><ul><li>Teams will want to spend the first hour choosing. Fifteen minutes. If they cannot agree, flip a coin and move on.</li></ul></aside></section><section class="slide std" data-title="Checkpoints, and what to cut" data-section="02 — The clock" data-mins="3" data-kind="std"><div class="inner"><div class="kicker">02 — The clock</div><h2 class="title">Checkpoints, and what to <em>cut</em></h2><div class="body"><table class="tbl"><thead><tr><th>Minute</th><th>This must be true</th><th>If it is not</th></tr></thead><tbody><tr><td>30</td><td>A skeleton page is live on a real URL</td><td>Stop building. Fix deployment first. Nothing else matters until this works</td></tr><tr><td>75</td><td>The hero flow works on your own laptop, with fake data</td><td>Cut the AI part. Hard-code the answer and finish the screens</td></tr><tr><td>120</td><td>The hero flow works on the live URL</td><td>Cut every screen except the one the demo needs</td></tr><tr><td>150</td><td>Nothing is half-finished on <code>main</code></td><td>Revert or delete the unfinished part. Freeze</td></tr></tbody></table></div></div><aside class="notes"><h4>Say</h4><ul><li>Read the right-hand column aloud to yourself before you start. Cutting scope is a skill, and the middle of a sprint is the worst time to decide when to do it.</li><li>On a real hackathon day these same checkpoints scale up. The rule does not change: if you are behind, cut.</li></ul><h4>Watch for</h4><ul><li>Cutting the AI part feels like failure. It is not. A judge cares that the product works.</li></ul></aside></section><section class="slide std" data-title="Wear hats for the day" data-section="02 — The clock" data-mins="2" data-kind="std"><div class="inner"><div class="kicker">02 — The clock</div><h2 class="title">Wear <em>hats</em> for the day</h2><div class="body"><div class="cols cards c5"><div class="card"><div class="ct">hat 1</div><h3>Product</h3><p>Keeps the scope, writes the README, plans the demo.</p></div><div class="card"><div class="ct">hat 2</div><h3>Interface</h3><p>Owns the screens: layout, states, phone.</p></div><div class="card hl"><div class="ct">hat 3</div><h3>Logic</h3><p>Owns the code that does the thing, with AI help.</p></div><div class="card"><div class="ct">hat 4</div><h3>Platform</h3><p>Owns the repo, PRs, deploys and secrets.</p></div><div class="card"><div class="ct">hat 5</div><h3>Demo</h3><p>Owns the video, the checklist and the retro notes.</p></div></div><div class="callout "><span class="ct">Not permanent</span>A team of three means some people wear two hats. Pick hats you have <b>not</b> tried yet, so you learn something. We use what we see in Week 7 to match people to roles.</div></div></div><aside class="notes"><h4>Say</h4><ul><li>These are the five roles from Week 1 with lighter names, because nobody is assigned to one yet. They are a way to divide ownership, not to divide the work.</li><li>I will read the retros before Week 7, and your hat choices help me see what you are curious about.</li></ul><h4>Watch for</h4><ul><li>If a team wants the strongest coder to take Logic and Platform, push back gently. Hats are for learning.</li></ul></aside></section><section class="slide std" data-title="Working rules" data-section="02 — The clock" data-mins="3" data-kind="std"><div class="inner"><div class="kicker">02 — The clock</div><h2 class="title">Working <em>rules</em></h2><div class="body"><ul class="check" data-key="w6-rules"><li><label><input type="checkbox"><span>Every change goes through a <b>branch and a pull request</b>. Nobody pushes straight to <code>main</code></span></label></li><li><label><input type="checkbox"><span><b>Someone else reviews</b> your PR, and runs it. Use <code>question:</code>, <code>nit:</code> and <code>blocking:</code></span></label></li><li><label><input type="checkbox"><span><b>Squash and merge</b>, with a clear title</span></label></li><li><label><input type="checkbox"><span>Keys live in <b><code>.env</code></b> locally and in the host's <b>Secrets</b> online. Never in the repo</span></label></li><li><label><input type="checkbox"><span>Keep an <b>AI log</b> in the README: prompts that worked, mistakes the AI made, what you changed</span></label></li><li><label><input type="checkbox"><span>If you are stuck for <b>15 minutes</b>, ask the team. Then ask the AI with the exact error text</span></label></li></ul></div></div><aside class="notes"><h4>Say</h4><ul><li>Every one of these comes from a week of the course. It is the first time all six are used on one project at once.</li><li>The AI log is what turns AI use from a shortcut into evidence that you understood the work.</li></ul></aside></section><section class="slide std" data-title="When it goes wrong" data-section="02 — The clock" data-mins="2" data-kind="std"><div class="inner"><div class="kicker">02 — The clock</div><h2 class="title">When it goes <em>wrong</em></h2><div class="body"><table class="tbl"><thead><tr><th>What happened</th><th>Do this</th></tr></thead><tbody><tr><td>A merge conflict</td><td>Do not panic. Open the file, read both sides, decide together (Week 3)</td></tr><tr><td>The deploy fails</td><td>Read the last lines of the build log. Missing package? Wrong case? (Week 5)</td></tr><tr><td>The AI gives broken code</td><td>Paste the exact error back. Re-read the spec. Read the code before you run it (Week 4)</td></tr><tr><td>A teammate disappears</td><td>Cut a hat, cut the scope, ship the smaller thing</td></tr><tr><td>You are running out of time</td><td>Ship less. A smaller product that works beats a bigger one that does not</td></tr></tbody></table></div></div><aside class="notes"><h4>Say</h4><ul><li>Each row points back to the week that covered it, so they know where to look.</li><li>Teammate disappearing is rare and real. Make sure they know the team's job is the same on a smaller scale.</li></ul></aside></section><section class="slide sect" data-title="Hand it in" data-section="Part 03" data-mins="0" data-kind="sect"><div class="inner"><div class="num">03</div><h2>Hand it <em>in</em></h2><p>What you submit, and how to make the video and the retro quick.</p></div><aside class="notes"><h4>Say</h4><ul><li>This part is mostly checklists. The video and retro are where the learning from the sprint gets locked in.</li></ul></aside></section><section class="slide std" data-title="The README, in a dozen lines" data-section="03 — Hand it in" data-mins="2" data-kind="std"><div class="inner"><div class="kicker">03 — Hand it in</div><h2 class="title">The README, in <em>a dozen lines</em></h2><div class="body"><div class="cols split"><div class="col"><div class="term xs"><div class="th"><span>README.md</span><button class="copy" data-copy="# Project name
+One sentence: who it is for, what it does.
+
+**Live:** https://...
+
+## Who did what
+- Name: hat, and what they built
+
+## What AI did
+- Prompts that worked, mistakes we caught
+
+## What we cut
+- ...">copy</button></div><pre># Project name
+One sentence: who it is for, what it does.
+
+**Live:** https://...
+
+## Who did what
+- Name: hat, and what they built
+
+## What AI did
+- Prompts that worked, mistakes we caught
+
+## What we cut
+- ...</pre></div></div><div class="col"><ul class="list sm"><li>The <b>live URL</b> is on line three, where a judge looks</li><li>Say who did what. Honestly. Everyone has a line</li><li><b>What we cut</b> shows judgement, which is a good thing</li></ul><div class="callout "><span class="ct">Remember</span>A judge who opens your repo reads the README and nothing else.</div></div></div></div></div><aside class="notes"><h4>Say</h4><ul><li>The README is the second thing a judge opens after the demo. It should work with the video off.</li><li>This template will also be in the templates folder.</li></ul></aside></section><section class="slide std" data-title="A 60-second demo video" data-section="03 — Hand it in" data-mins="2" data-kind="std"><div class="inner"><div class="kicker">03 — Hand it in</div><h2 class="title">A 60-second demo <em>video</em></h2><div class="body"><div class="cols split"><div class="col"><ol class="steps sm"><li><div><b>0-10 s</b> The problem, in one sentence, for one person</div></li><li><div><b>10-45 s</b> Use the product, live, on a phone. One flow</div></li><li><div><b>45-55 s</b> What you would build next</div></li><li><div><b>55-60 s</b> Say the URL</div></li></ol></div><div class="col"><ul class="list sm"><li>Record the <b>screen</b> with the phone's screen recorder or your laptop's</li><li>No music, no effects, <b>voice only</b></li><li>Do <b>one take</b>, then maybe a second. Not ten</li><li>It is also your <b>backup</b> if the live demo breaks</li></ul></div></div></div></div><aside class="notes"><h4>Say</h4><ul><li>The video has two jobs: it is the hand-in, and it is the backup that saves you when the Wi-Fi dies on demo day. Teams should practise making one now.</li><li>Voice only is the easiest to record and the easiest to listen to.</li></ul><h4>Watch for</h4><ul><li>Do not accept a video that is two minutes of explanation and ten seconds of product. The product has to be on the screen.</li></ul></aside></section><section class="slide std" data-title="The five-question retro" data-section="03 — Hand it in" data-mins="2" data-kind="std"><div class="inner"><div class="kicker">03 — Hand it in</div><h2 class="title">The five-question <em>retro</em></h2><p class="lede">Blameless. Name problems, not people. This is the most valuable part of the sprint.</p><div class="body"><ul class="check" data-key="w6-retro"><li><label><input type="checkbox"><span><b>What shipped?</b> In one sentence, what a user can do now</span></label></li><li><label><input type="checkbox"><span><b>What did we cut,</b> and was it the right thing to cut?</span></label></li><li><label><input type="checkbox"><span><b>Where did we wait on each other?</b> For a review, a deploy, a decision</span></label></li><li><label><input type="checkbox"><span><b>What is one rule we would change</b> before January 20?</span></label></li><li><label><input type="checkbox"><span><b>What did each person learn?</b> One thing each, written down</span></label></li></ul></div></div><aside class="notes"><h4>Say</h4><ul><li>The retro answers are what I read first. They tell me where each team is weakest, and they shape Weeks 7 and 8.</li><li>Be honest about waiting. Most teams find that the review step is the bottleneck, which is a useful discovery.</li></ul><h4>Do</h4><ul><li>Read every retro before Jan 7. Note which problems repeat across teams.</li></ul></aside></section><section class="slide std" data-title="Week 6 hand-in" data-section="Tasks" data-mins="2" data-kind="std"><div class="inner"><div class="kicker">Your tasks</div><h2 class="title">Week 6 <em>hand-in</em></h2><div class="body"><div class="task-head"><span class="due">Due Wed, Jan 6</span><span class=eval>Shows: teamwork, shipping, honesty about what went wrong</span></div><ul class="check" data-key="w6-tasks"><li><label><input type="checkbox"><span>The team's <b>live URL</b><small>Opens on a phone, in a private window, no login.</small></span></label></li><li><label><input type="checkbox"><span>The team repo with a README<small>Live link, who did what, the AI log, what you cut.</small></span></label></li><li><label><input type="checkbox"><span>A 60-second demo video<small>A link, or a file in the group. Voice only is fine.</small></span></label></li><li><label><input type="checkbox"><span>The retro, five answers<small>One shared note, posted in the group.</small></span></label></li><li><label><input type="checkbox"><span>Individually: at least one merged PR and one review you wrote<small>Linked in the team's retro note.</small></span></label></li></ul></div></div><aside class="notes"><h4>Say</h4><ul><li>Five things from the team, one thing from each person. The individual part is so that every member has a trail on the repo.</li><li>If a team cannot ship a live URL, they hand in what they did get working, plus a retro that names the blocker. That is still a pass.</li></ul><h4>Do</h4><ul><li>Check each repo on Jan 1 to 6 for commits and PRs, so a stuck team is found early, not on Jan 7.</li></ul></aside></section><section class="slide std" data-title="Next: strategy and the pitch" data-section="Next" data-mins="1" data-kind="std"><div class="inner"><div class="kicker">Next</div><h2 class="title">Next: strategy and the <em>pitch</em></h2><div class="body"><ul class="list "><li><b>Thursday, Jan 7.</b> We read the retros, then work on what wins: strategy, scoring ideas, and the three-minute pitch.</li><li>We <b>assign roles</b> for the real hackathon, using what you showed in the sprint and what you said you want.</li><li>Bring your <b>retro note</b> and the <b>live URL</b>. We will open every project.</li></ul><div class="callout "><span class="ct">Week 7</span>Bring a charged laptop. Every project goes on the big screen, and every project gets one honest comment.</div></div></div><aside class="notes"><h4>Say</h4><ul><li>Close by saying: whatever happened, you now know your team's real weak spot. That is worth more than a perfect sprint.</li></ul></aside></section>
+<div class="chrome bottom"><span id="c-sec"></span><span>Take-home sprint</span></div>
+<div class="progress"></div>
+</div></div>
+<div class="overlay" id="ov-grid"><div class="ov-h">Slides</div><div class="grid-ov"></div></div>
+<div class="overlay" id="ov-help"><div class="help"><div class="ov-h">Keyboard</div><table><tr><td>Right / Space / Enter</td><td>next step or slide</td></tr><tr><td>Left / Backspace</td><td>back</td></tr><tr><td>G</td><td>slide overview</td></tr><tr><td>P</td><td>presenter view (notes + timer)</td></tr><tr><td>H</td><td>handout / reading mode</td></tr><tr><td>F</td><td>fullscreen</td></tr><tr><td>Home / End</td><td>first / last slide</td></tr><tr><td>?</td><td>this help</td></tr><tr><td>Esc</td><td>close overlays</td></tr></table></div></div>
+<script type="application/json" id="meta">{"id": "w6", "week": 6, "date": "2026-12-31", "title": "Take-home sprint", "deadline": "2027-01-20"}</script>
+<script>/* Deck engine. Vanilla JS, no dependencies, works from a file:// URL. */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var META = JSON.parse($('#meta').textContent);
+  var stage = $('.stage'), slides = $$('.slide');
+  var N = slides.length, idx = 0;
+  var shown = slides.map(function () { return 0; });       // revealed steps per slide
+  var steps = slides.map(function (s) { return $$('.step', s); });
+  var store = {
+    get: function (k) { try { return JSON.parse(localStorage.getItem('aic:' + META.id + ':' + k)); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem('aic:' + META.id + ':' + k, JSON.stringify(v)); } catch (e) {} }
+  };
+  var q = new URLSearchParams(location.search);
+  var isPresenter = q.has('presenter');
+  var chan = null;
+  try { chan = new BroadcastChannel('aic-deck-' + META.id); } catch (e) {}
+
+  /* -------------------------------------------------------------- modes */
+  function setHandout(on) {
+    document.body.classList.toggle('handout', on);
+    if (on) { stage.style.transform = ''; stage.style.left = ''; stage.style.top = ''; slides.forEach(function (s) { s.classList.add('active'); }); }
+    else { fit(); show(idx, true); }
+  }
+  function fit() {
+    if (document.body.classList.contains('handout')) return;
+    var s = Math.min(innerWidth / 1280, innerHeight / 720);
+    stage.style.transform = 'scale(' + s + ')';
+    stage.style.left = (innerWidth - 1280 * s) / 2 + 'px';
+    stage.style.top = (innerHeight - 720 * s) / 2 + 'px';
+  }
+
+  /* --------------------------------------------------------- navigation */
+  function show(i, silent) {
+    idx = Math.max(0, Math.min(N - 1, i));
+    slides.forEach(function (s, k) { s.classList.toggle('active', k === idx); });
+    steps[idx].forEach(function (el, k) { el.classList.toggle('shown', k < shown[idx]); });
+    var s = slides[idx];
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    $('#c-pos').textContent = pad(idx + 1) + ' / ' + pad(N);
+    $('#c-sec').textContent = s.dataset.section || '';
+    $('.progress').style.width = (N > 1 ? idx / (N - 1) * 100 : 100) + '%';
+    stage.dataset.kind = s.dataset.kind || '';
+    if (history.replaceState) history.replaceState(null, '', '#' + (idx + 1));
+    if (!silent) broadcast();
+    if (isPresenter) renderPresenter();
+  }
+  function next() {
+    if (shown[idx] < steps[idx].length) { shown[idx]++; show(idx); return; }
+    if (idx < N - 1) show(idx + 1);
+  }
+  function prev() {
+    if (shown[idx] > 0) { shown[idx]--; show(idx); return; }
+    if (idx > 0) { shown[idx - 1] = steps[idx - 1].length; show(idx - 1); }
+  }
+  function broadcast() { if (chan) chan.postMessage({ t: 'state', idx: idx, step: shown[idx] }); }
+  if (chan) chan.onmessage = function (e) {
+    var m = e.data || {};
+    if (m.t === 'cmd' && !isPresenter) { if (m.c === 'next') next(); else if (m.c === 'prev') prev(); else if (m.c === 'goto') show(m.i); }
+    if (m.t === 'hello' && !isPresenter) broadcast();
+    if (m.t === 'state' && isPresenter) { idx = m.idx; shown[idx] = m.step; renderPresenter(); }
+  };
+
+  document.addEventListener('keydown', function (e) {
+    if (/INPUT|TEXTAREA|SELECT/.test((e.target.tagName || ''))) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key, relay = isPresenter && chan;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Enter') { e.preventDefault(); relay ? chan.postMessage({ t: 'cmd', c: 'next' }) : next(); }
+    else if (k === 'ArrowLeft' || k === 'PageUp' || k === 'Backspace') { e.preventDefault(); relay ? chan.postMessage({ t: 'cmd', c: 'prev' }) : prev(); }
+    else if (k === 'Home') show(0);
+    else if (k === 'End') show(N - 1);
+    else if (k === 'g' || k === 'G') toggleOv('ov-grid');
+    else if (k === '?' ) toggleOv('ov-help');
+    else if (k === 'h' || k === 'H') setHandout(!document.body.classList.contains('handout'));
+    else if (k === 'f' || k === 'F') { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); }
+    else if (k === 'p' || k === 'P') { if (!isPresenter) window.open(location.pathname + '?presenter#' + (idx + 1), 'aic-presenter', 'width=1000,height=760'); }
+    else if (k === 'Escape') { $$('.overlay.on').forEach(function (o) { o.classList.remove('on'); }); }
+  });
+  var tx = null;
+  stage.addEventListener('touchstart', function (e) { tx = e.touches[0].clientX; }, { passive: true });
+  stage.addEventListener('touchend', function (e) {
+    if (tx === null) return; var dx = e.changedTouches[0].clientX - tx; tx = null;
+    if (Math.abs(dx) > 60) { dx < 0 ? next() : prev(); }
+  }, { passive: true });
+
+  /* ------------------------------------------------------------ overlays */
+  function toggleOv(id) { var o = $('#' + id); o.classList.toggle('on'); }
+  function buildOverlays() {
+    var g = $('#ov-grid .grid-ov');
+    slides.forEach(function (s, k) {
+      var b = document.createElement('button');
+      b.innerHTML = '<span>' + (k + 1 < 10 ? '0' : '') + (k + 1) + ' · ' + (s.dataset.section || '').toUpperCase() + '</span><b></b>';
+      $('b', b).textContent = s.dataset.title || '';
+      b.addEventListener('click', function () { $('#ov-grid').classList.remove('on'); show(k); });
+      g.appendChild(b);
+    });
+    $$('.overlay').forEach(function (o) { o.addEventListener('click', function (e) { if (e.target === o) o.classList.remove('on'); }); });
+  }
+
+  /* ----------------------------------------------------------- presenter */
+  var t0 = null, tick = null;
+  function fmt(sec) { var s = Math.abs(sec), m = Math.floor(s / 60); return (sec < 0 ? '-' : '') + m + ':' + (s % 60 < 10 ? '0' : '') + (s % 60); }
+  function plannedBefore(i) { var t = 0; for (var k = 0; k < i; k++) t += parseFloat(slides[k].dataset.mins || 0); return t * 60; }
+  function buildPresenter() {
+    var pv = document.createElement('div'); pv.className = 'pv';
+    pv.innerHTML = '<div class="bar"><span>Presenter</span><span class="tm" id="pv-time">0:00</span><span id="pv-plan"></span>' +
+      '<span class="sp"><button class="btn" id="pv-prev">Back</button><button class="btn p" id="pv-next">Next</button><button class="btn" id="pv-reset">Reset timer</button></span></div>' +
+      '<div class="cur"><div class="kicker" id="pv-pos"></div><div class="now" id="pv-title"></div><div class="nt" id="pv-notes"></div></div>' +
+      '<div class="nx"><div class="kicker">Up next</div><div class="next" id="pv-nt"></div><div class="nt" id="pv-nn"></div></div>';
+    document.body.appendChild(pv);
+    $('#pv-next').onclick = function () { chan && chan.postMessage({ t: 'cmd', c: 'next' }); if (!chan) next(); };
+    $('#pv-prev').onclick = function () { chan && chan.postMessage({ t: 'cmd', c: 'prev' }); if (!chan) prev(); };
+    $('#pv-reset').onclick = function () { t0 = Date.now(); };
+    tick = setInterval(function () {
+      if (t0 === null) { if (idx > 0) t0 = Date.now(); else return; }
+      var el = Math.floor((Date.now() - t0) / 1000), plan = plannedBefore(idx);
+      var tm = $('#pv-time'); tm.textContent = fmt(el);
+      var d = el - plan; tm.classList.toggle('late', d > 120);
+      $('#pv-plan').textContent = (d > 60 ? fmt(d) + ' behind plan' : d < -60 ? fmt(-d) + ' ahead' : 'on plan');
+    }, 500);
+    if (chan) chan.postMessage({ t: 'hello' });
+  }
+  function renderPresenter() {
+    var s = slides[idx], nx = slides[idx + 1];
+    $('#pv-pos').textContent = 'Slide ' + (idx + 1) + ' of ' + N + ' · ' + (s.dataset.mins || 0) + ' min';
+    $('#pv-title').textContent = s.dataset.title || '';
+    var n = $('.notes', s);
+    $('#pv-notes').innerHTML = n ? n.innerHTML : '<p class="muted">No notes for this slide.</p>';
+    $('#pv-nt').textContent = nx ? nx.dataset.title : 'End of deck';
+    var nn = nx && $('.notes', nx); $('#pv-nn').innerHTML = nn ? nn.innerHTML : '';
+  }
+
+  /* -------------------------------------------------- generic components */
+  function initQuiz() {
+    $$('.quiz').forEach(function (qz) {
+      var correct = parseInt(qz.dataset.correct, 10);
+      $$('.opt', qz).forEach(function (o, k) {
+        o.addEventListener('click', function () {
+          if (qz.classList.contains('done')) return;
+          qz.classList.add('done');
+          o.classList.add(k === correct ? 'right' : 'wrong');
+          $$('.opt', qz)[correct].classList.add('right');
+        });
+      });
+    });
+  }
+  function initChecks() {
+    $$('ul.check').forEach(function (ul) {
+      var key = 'chk-' + ul.dataset.key, saved = store.get(key) || [];
+      $$('input', ul).forEach(function (cb, k) {
+        cb.checked = !!saved[k];
+        cb.addEventListener('change', function () { store.set(key, $$('input', ul).map(function (c) { return c.checked; })); });
+      });
+    });
+  }
+  function initCopy() {
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('.copy'); if (!b) return;
+      var text = b.dataset.copy || '';
+      var done = function () { var o = b.textContent; b.textContent = 'copied'; setTimeout(function () { b.textContent = o; }, 1100); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, done);
+      else { var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (er) {} ta.remove(); done(); }
+    });
+  }
+  function initCountdown() {
+    $$('[data-countdown]').forEach(function (el) {
+      var d = new Date(el.dataset.countdown + 'T00:00:00'), n = new Date(); n.setHours(0, 0, 0, 0);
+      el.textContent = Math.max(0, Math.round((d - n) / 864e5));
+    });
+  }
+
+  /* ------------------------------------------------------------- widgets */
+  function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); }
+
+  function gitWidget(root) {
+    root.innerHTML = '<div class="widget"><div class="wt"><span>Git sandbox</span><span>nothing here touches a real repo</span></div>' +
+      '<svg class="git" viewBox="0 0 1000 215" preserveAspectRatio="xMidYMid meet"></svg>' +
+      '<div class="wbtns"><button class="btn p" data-a="commit">commit</button>' +
+      '<input class="btn" data-a="name" value="feature-1" aria-label="new branch name"><button class="btn" data-a="branch">new branch</button>' +
+      '<select class="btn" data-a="sw"></select><button class="btn" data-a="switch">switch</button>' +
+      '<select class="btn" data-a="mg"></select><button class="btn" data-a="merge">merge into current</button>' +
+      '<button class="btn" data-a="reset">reset</button></div>' +
+      '<div class="wmsg"></div></div>';
+    var svg = $('svg', root), msg = $('.wmsg', root), S;
+    function reset() { var nm = $('[data-a=name]', root); if (nm) nm.value = 'feature-1'; S = { c: [{ id: 0, p: [], lane: 0 }, { id: 1, p: [0], lane: 0 }, { id: 2, p: [1], lane: 0 }], br: { main: 2 }, order: ['main'], head: 'main', k: 3 }; say('Three commits on <b>main</b>. Press <b>commit</b> to add one, or make a <b>new branch</b> first.'); draw(); }
+    function say(h) { msg.innerHTML = h; }
+    function anc(a, b) { var seen = {}, st = [b]; while (st.length) { var x = st.pop(); if (x === a) return true; if (seen[x]) continue; seen[x] = 1; S.c[x].p.forEach(function (p) { st.push(p); }); } return false; }
+    function lane(name) { return S.order.indexOf(name); }
+    function add(parents, ln) { var c = { id: S.c.length, p: parents, lane: ln }; S.c.push(c); return c.id; }
+    function draw() {
+      var W = 1000, H = 215, depth = [], lanes = S.order.length;
+      S.c.forEach(function (c) { depth[c.id] = c.p.length ? Math.max.apply(null, c.p.map(function (i) { return depth[i]; })) + 1 : 0; });
+      var maxD = Math.max.apply(null, depth), gap = Math.min(72, (W - 150) / Math.max(maxD, 1));
+      var lg = lanes > 1 ? Math.min(58, (H - 120) / (lanes - 1)) : 0, y0 = lanes > 1 ? 74 : 112;
+      var X = function (c) { return 56 + depth[c.id] * gap; }, Y = function (c) { return y0 + c.lane * lg; };
+      var tips = {}; Object.keys(S.br).forEach(function (n) { (tips[S.br[n]] = tips[S.br[n]] || []).push(n); });
+      var h = '';
+      S.c.forEach(function (c) { c.p.forEach(function (pid) { var p = S.c[pid], x1 = X(p), y1 = Y(p), x2 = X(c), y2 = Y(c);
+        h += y1 === y2 ? '<line class="edge" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '"/>' :
+          '<path class="edge" d="M' + x1 + ' ' + y1 + ' C' + (x1 + gap / 2) + ' ' + y1 + ',' + (x2 - gap / 2) + ' ' + y2 + ',' + x2 + ' ' + y2 + '"/>'; }); });
+      S.c.forEach(function (c) { h += '<circle class="node' + (tips[c.id] ? ' tip' : '') + (c.p.length > 1 ? ' merge' : '') + '" cx="' + X(c) + '" cy="' + Y(c) + '" r="12"/>'; });
+      Object.keys(tips).forEach(function (cid) { var c = S.c[cid]; tips[cid].forEach(function (n, k) {
+        var isHead = n === S.head, label = (isHead ? 'HEAD > ' : '') + n, w = 16 + label.length * 8.1, x = X(c) - w / 2, y = Y(c) - 46 - k * 28;
+        h += '<rect class="bl' + (isHead ? ' head' : '') + '" x="' + x + '" y="' + y + '" width="' + w + '" height="23" rx="11.5"/><text class="bt' + (isHead ? ' head' : '') + '" x="' + (X(c)) + '" y="' + (y + 16) + '" text-anchor="middle">' + esc(label) + '</text>'; }); });
+      svg.innerHTML = h;
+      var opts = Object.keys(S.br).map(function (n) { return '<option>' + esc(n) + '</option>'; }).join('');
+      var sw = $('[data-a=sw]', root), mg = $('[data-a=mg]', root), a = sw.value, b = mg.value;
+      sw.innerHTML = opts; mg.innerHTML = opts; sw.value = S.br[a] !== undefined ? a : S.head; mg.value = S.br[b] !== undefined ? b : S.order[S.order.length - 1];
+    }
+    root.addEventListener('click', function (e) {
+      var a = e.target.dataset && e.target.dataset.a; if (!a || a === 'name' || a === 'sw' || a === 'mg') return;
+      if (a === 'reset') { reset(); return; }
+      if (a === 'commit') { var id = add([S.br[S.head]], lane(S.head)); S.br[S.head] = id; say('<b>git commit</b>: a snapshot was added, and <b>' + esc(S.head) + '</b> moved forward to it.'); }
+      if (a === 'branch') {
+        var nm = $('[data-a=name]', root).value.trim().replace(/[^\w\/.-]/g, '-') || 'feature';
+        if (S.br[nm] !== undefined) { say('A branch called <b>' + esc(nm) + '</b> already exists. Pick another name.'); return; }
+        S.br[nm] = S.br[S.head]; S.order.push(nm); S.head = nm; $('[data-a=name]', root).value = 'feature-' + (S.order.length);
+        say('<b>git switch -c ' + esc(nm) + '</b>: a new label on the same commit. Nothing was copied. Commits now go onto <b>' + esc(nm) + '</b>.');
+      }
+      if (a === 'switch') { S.head = $('[data-a=sw]', root).value; say('<b>git switch ' + esc(S.head) + '</b>: HEAD moved. New commits will extend <b>' + esc(S.head) + '</b>.'); }
+      if (a === 'merge') {
+        var src = $('[data-a=mg]', root).value, th = S.br[S.head], ts = S.br[src];
+        if (src === S.head) say('You are already on <b>' + esc(src) + '</b>. Switch to the branch that should receive the changes first.');
+        else if (anc(ts, th)) say('<b>Already up to date.</b> Everything on ' + esc(src) + ' is already in ' + esc(S.head) + '.');
+        else if (anc(th, ts)) { S.br[S.head] = ts; say('<b>Fast-forward.</b> ' + esc(S.head) + ' had nothing new, so Git just moved the label. No merge commit.'); }
+        else { var m = add([th, ts], lane(S.head)); S.br[S.head] = m; say('<b>Merge commit.</b> Both branches had new work, so Git made one commit with two parents. If both had edited the same lines, this is where a conflict would stop you.'); }
+      }
+      draw();
+    });
+    reset();
+  }
+
+  function conflictWidget(root) {
+    root.innerHTML = '<div class="widget conflict"><div class="wt"><span>Resolve the conflict</span><span>what VS Code shows you</span></div>' +
+      '<pre><span class="mk">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD (current change, yours)</span>\n<span class="cur">team_name = "Aurora"</span>\n<span class="mk">=======</span>\n<span class="inc">team_name = "Nova"</span>\n<span class="mk">&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/rename (incoming change)</span></pre>' +
+      '<div class="wbtns"><button class="btn" data-r="cur">Accept current</button><button class="btn" data-r="inc">Accept incoming</button><button class="btn" data-r="both">Accept both</button><button class="btn" data-r="reset">reset</button></div>' +
+      '<pre class="res-box" style="margin-top:12px;display:none"></pre><div class="wmsg"></div></div>';
+    var box = $('.res-box', root), msg = $('.wmsg', root);
+    root.addEventListener('click', function (e) {
+      var r = e.target.dataset && e.target.dataset.r; if (!r) return;
+      if (r === 'reset') { box.style.display = 'none'; msg.innerHTML = ''; return; }
+      var out = { cur: 'team_name = "Aurora"', inc: 'team_name = "Nova"', both: 'team_name = "Aurora"\nteam_name = "Nova"' }[r];
+      box.style.display = 'block'; box.innerHTML = '<span class="res">' + esc(out) + '</span>';
+      msg.innerHTML = r === 'both' ? '<b>Careful.</b> This file now sets the name twice. It will run, but the second line silently wins. Accept both only when both lines belong.' :
+        'Markers gone. Now <b>save</b>, <b>run the app</b> to check it still works, then <b>git add</b> and <b>git commit</b>. Resolving is a decision, not a click.';
+    });
+  }
+
+  function scorerWidget(root) {
+    var crit = [['Pain', 3], ['Demo', 3], ['24h build', 3], ['AI fit', 2], ['Unique', 2], ['Theme', 2]];
+    var saved = store.get('scorer') || [['Idea A', 3, 3, 3, 3, 3, 3], ['Idea B', 3, 3, 3, 3, 3, 3], ['Idea C', 3, 3, 3, 3, 3, 3]];
+    var h = '<div class="widget scorer"><div class="wt"><span>Idea scorer</span><span>score 1 to 5 · weight shown under each column</span></div><table><thead><tr><th>Idea</th>';
+    crit.forEach(function (c) { h += '<th>' + c[0] + '<br>x' + c[1] + '</th>'; });
+    h += '<th>Score</th></tr></thead><tbody>';
+    saved.forEach(function (row, r) {
+      h += '<tr data-r="' + r + '"><td><input type="text" value="' + esc(row[0]) + '"></td>';
+      crit.forEach(function (c, k) { h += '<td><input type="number" min="1" max="5" value="' + row[k + 1] + '"></td>'; });
+      h += '<td class="tot">0</td></tr>';
+    });
+    root.innerHTML = h + '</tbody></table><div class="wmsg">Highest score wins the discussion, not the decision. If the top two are within a few points, pick the one you can demo.</div></div>';
+    function calc() {
+      var best = -1, bi = 0, rows = $$('tbody tr', root), data = [];
+      rows.forEach(function (tr, r) {
+        var ins = $$('input', tr), name = ins[0].value, sc = ins.slice(1).map(function (i) { return Math.max(1, Math.min(5, parseInt(i.value, 10) || 1)); });
+        var tot = Math.round(sc.reduce(function (a, v, k) { return a + v * crit[k][1]; }, 0) / (5 * crit.reduce(function (a, c) { return a + c[1]; }, 0)) * 100);
+        $('.tot', tr).textContent = tot; data.push([name].concat(sc)); if (tot > best) { best = tot; bi = r; }
+      });
+      rows.forEach(function (tr, r) { tr.classList.toggle('top', r === bi); });
+      store.set('scorer', data);
+    }
+    root.addEventListener('input', calc); calc();
+  }
+
+
+  function timerWidget(root) {
+    // Counts against a wall-clock deadline, not by decrementing once per tick:
+    // browsers throttle timers in background tabs, which would make a ticked clock run slow.
+    var total = parseInt(root.dataset.seconds, 10), left = total, end = 0, tick = null;
+    root.innerHTML = '<div class="widget"><div class="timer"><div><div class="tl2"></div><div class="digits">0:00</div></div>' +
+      '<div class="wbtns"><button class="btn p" data-t="go">start</button><button class="btn" data-t="reset">reset</button></div></div></div>';
+    var d = $('.digits', root), tl = $('.timer', root), go = $('[data-t=go]', root);
+    $('.tl2', root).textContent = root.dataset.label || 'timer';
+    function draw() { d.textContent = Math.floor(left / 60) + ':' + (left % 60 < 10 ? '0' : '') + (left % 60); tl.classList.toggle('low', left <= 30 && left > 0); tl.classList.toggle('out', left === 0); }
+    function remaining() { return tick ? Math.max(0, Math.ceil((end - Date.now()) / 1000)) : left; }
+    function stop() { left = remaining(); clearInterval(tick); tick = null; go.textContent = 'start'; draw(); }
+    function step() { left = remaining(); draw(); if (left === 0) { clearInterval(tick); tick = null; go.textContent = 'start'; } }
+    root.addEventListener('click', function (e) {
+      var a = e.target.dataset && e.target.dataset.t; if (!a) return;
+      if (a === 'reset') { clearInterval(tick); tick = null; go.textContent = 'start'; left = total; draw(); return; }
+      if (tick) { stop(); return; }
+      if (left === 0) left = total;
+      end = Date.now() + left * 1000;
+      go.textContent = 'pause';
+      tick = setInterval(step, 250);
+      draw();
+    });
+    draw();
+    root.__timer = { get: remaining, setLeft: function (v) { left = v; if (tick) end = Date.now() + v * 1000; draw(); } };
+  }
+
+  function initWidgets() {
+    $$('[data-widget]').forEach(function (el) {
+      var w = el.dataset.widget;
+      if (w === 'git') gitWidget(el); else if (w === 'conflict') conflictWidget(el); else if (w === 'scorer') scorerWidget(el); else if (w === 'timer') timerWidget(el);
+    });
+  }
+
+  /* --------------------------------------------------------------- boot */
+  buildOverlays(); initQuiz(); initChecks(); initCopy(); initCountdown(); initWidgets();
+  addEventListener('resize', fit);
+  var start = parseInt((location.hash || '').slice(1), 10);
+  if (isPresenter) { document.body.classList.add('presenter'); buildPresenter(); idx = isNaN(start) ? 0 : start - 1; renderPresenter(); }
+  else {
+    var small = matchMedia('(max-width: 820px)').matches;
+    if (q.has('print')) { document.body.classList.add('print'); slides.forEach(function (s) { s.classList.add('active'); }); }
+    else if (small || q.has('handout')) { setHandout(true); }
+    else { fit(); show(isNaN(start) ? 0 : start - 1, true); }
+  }
+  window.__deck = { show: show, next: next, prev: prev, count: N, handout: setHandout, state: function () { return { idx: idx, shown: shown[idx], steps: steps[idx].length }; } };
+})();
+</script>
+</body></html>

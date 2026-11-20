@@ -38,5 +38,13 @@
   "title": "Make it real",
   "file": "week-05-make-it-real.html",
   "slides": 21
+ },
+ {
+  "week": 6,
+  "date": "2026-12-31",
+  "label": "Thu, Dec 31",
+  "title": "Take-home sprint",
+  "file": "week-06-take-home-sprint.html",
+  "slides": 19
  }
 ]

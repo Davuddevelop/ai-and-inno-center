@@ -140,7 +140,7 @@ DECK.add(
         ["Old version still showing", "Did the push reach `main`? Did the build finish?"],
         ["Very slow the first time", "Free apps sleep. Open it once before you demo"]]),
         kicker="02 — Deploying", mins=4,
-        notes=NOTES(say=["Five causes cover most deploy problems. The case-sensitivity one catches everybody who builds on Windows or Mac.",
+        notes=NOTES(say=["These five show up again and again, so check them first. The case-sensitivity one catches people who build on Windows or Mac, where file names are usually not case-sensitive.",
                          "The last one is a demo killer: a sleeping app takes a long time to wake. Open it a few minutes before you present."])),
 
     slide("Preview links on every _PR_", B(
