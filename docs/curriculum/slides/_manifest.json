@@ -14,5 +14,21 @@
   "title": "Git and GitHub from zero",
   "file": "week-02-git-and-github-from-zero.html",
   "slides": 21
+ },
+ {
+  "week": 3,
+  "date": "2026-12-10",
+  "label": "Thu, Dec 10",
+  "title": "Shipping together",
+  "file": "week-03-shipping-together.html",
+  "slides": 19
+ },
+ {
+  "week": 4,
+  "date": "2026-12-17",
+  "label": "Thu, Dec 17",
+  "title": "AI as a teammate",
+  "file": "week-04-ai-as-a-teammate.html",
+  "slides": 22
  }
 ]

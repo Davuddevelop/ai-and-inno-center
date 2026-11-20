@@ -109,11 +109,11 @@ def TERM(lines, label="terminal", sm=False):
     return Raw(f'<div class="term{" sm" if sm else ""}"><div class="th"><span>{esc(label)}</span>{btn}</div><pre>{body}</pre></div>')
 
 
-def CODE(text, label="code", sm=False):
+def CODE(text, label="code", sm=False, xs=False):
     lines = text.strip("\n").split("\n")
     body = "\n".join(esc(l) for l in lines)
     btn = f'<button class="copy" data-copy="{html.escape(text.strip(chr(10)), quote=True)}">copy</button>'
-    return Raw(f'<div class="term{" sm" if sm else ""}"><div class="th"><span>{esc(label)}</span>{btn}</div><pre>{body}</pre></div>')
+    return Raw(f'<div class="term{" sm" if sm else ""}{" xs" if xs else ""}"><div class="th"><span>{esc(label)}</span>{btn}</div><pre>{body}</pre></div>')
 
 
 def CALLOUT(text, kind="", title=None):
@@ -252,11 +252,11 @@ def GANTT(rows, total):
     return Raw(f'<div class="gantt">{"".join(out)}</div>')
 
 
-def FLOW(boxes, arrows, highlight=None):
+def FLOW(boxes, arrows, highlight=None, tight=False):
     """boxes: (title, sub); arrows: labels between them. highlight: index of a box to outline."""
     out = []
     for k, (t, sub) in enumerate(boxes):
         out.append(f'<div class="fb{" hl" if k == highlight else ""}"><b>{fmt(t)}</b><span>{fmt(sub)}</span></div>')
         if k < len(arrows):
             out.append(f'<div class="fa"><em>{esc(arrows[k])}</em><i></i></div>')
-    return Raw(f'<div class="flow">{"".join(out)}</div>')
+    return Raw(f'<div class="flow{" tight" if tight else ""}">{"".join(out)}</div>')

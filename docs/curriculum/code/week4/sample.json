@@ -1,0 +1,6 @@
+{
+  "latitude": 40.4,
+  "longitude": 49.9,
+  "current_units": { "temperature_2m": "°C" },
+  "current": { "time": "2026-12-17T10:00", "interval": 900, "temperature_2m": 7.3 }
+}
