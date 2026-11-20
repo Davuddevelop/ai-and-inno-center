@@ -89,6 +89,14 @@ def load(path):
     return mod.DECK
 
 
+def build_board():
+    """team-board.html sits one level above slides/, so its font URLs point into slides/fonts/."""
+    src = (HERE / "board.html").read_text()
+    fonts = FONTS.replace("url(fonts/", "url(slides/fonts/")
+    (ROOT / "team-board.html").write_text(src.replace("/*FONTS*/", fonts))
+    print("ok   team-board.html")
+
+
 def main():
     OUT.mkdir(exist_ok=True)
     logo = HERE.parent.parent.parent / "public" / "logo-mark.png"
@@ -111,6 +119,7 @@ def main():
             print("       problem:", p); failed = True
         for w in warns:
             print("       note:   ", w)
+    build_board()
     (OUT / "_manifest.json").write_text(json.dumps([{"week": d.week, "date": d.date, "label": d.date_label, "title": d.title, "file": n + ".html", "slides": len(d.slides)} for d, n in built if n != "_sample"], indent=1))
     sys.exit(1 if failed else 0)
 

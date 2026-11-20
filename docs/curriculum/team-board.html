@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team board | AI &amp; Innovation Center</title>
+<style>@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url(slides/fonts/fraunces-italic-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url(slides/fonts/fraunces-italic-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(slides/fonts/fraunces-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(slides/fonts/fraunces-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(slides/fonts/geist-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(slides/fonts/geist-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url(slides/fonts/geist-mono-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url(slides/fonts/geist-mono-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --bg: #0a1226; --bg2: #0f1b3a; --bg3: #15264d; --text: #f2f5ee; --muted: #93a3c4; --dim: #62749c;
+  --accent: #b9ff4b; --accent-dim: rgba(185,255,75,.12); --accent-ink: #0a1226;
+  --line: rgba(170,195,255,.14); --line2: rgba(170,195,255,.3); --warn: #ffb454; --bad: #ff7b7b;
+  --sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --display: 'Fraunces', Georgia, 'Times New Roman', serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--text); }
+body { font-family: var(--sans); -webkit-font-smoothing: antialiased; line-height: 1.45; padding: 40px 0 80px; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+.kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--display); font-weight: 500; font-size: clamp(34px, 5vw, 52px); line-height: 1.05; letter-spacing: -.02em; margin: 10px 0 12px; }
+h1 em, h2 em { font-style: italic; color: var(--accent); font-weight: 400; }
+h2 { font-family: var(--display); font-weight: 500; font-size: 28px; letter-spacing: -.01em; margin: 0 0 6px; }
+.lede { color: var(--muted); font-size: 18px; max-width: 720px; }
+.sec { margin-top: 48px; }
+.sec .k { font-family: var(--mono); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.sec .sub { color: var(--muted); margin-bottom: 18px; max-width: 760px; }
+.notice { margin-top: 20px; padding: 14px 18px; border-left: 3px solid var(--warn); background: rgba(255,180,84,.08); border-radius: 0 10px 10px 0; color: var(--text); max-width: 820px; font-size: 15px; }
+.notice b { color: var(--warn); }
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; align-items: center; }
+button, .btn { font: inherit; font-size: 14px; color: var(--text); background: transparent; border: 1px solid var(--line2); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+button.p { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+button.danger:hover { border-color: var(--bad); color: var(--bad); }
+button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#msg { font-size: 14px; color: var(--muted); min-height: 20px; margin-left: 6px; }
+#msg.err { color: var(--bad); }
+
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--bg2); }
+table.people { border-collapse: collapse; width: 100%; min-width: 1100px; font-size: 14px; }
+.people th, .people td { padding: 6px 6px; text-align: center; border-bottom: 1px solid var(--line); }
+.people thead th { font-family: var(--mono); font-weight: 400; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); vertical-align: bottom; }
+.people thead tr.grp th { color: var(--accent); border-bottom: 1px solid var(--line2); padding-top: 12px; }
+.people td.l, .people th.l { text-align: left; }
+.people input[type=text] { width: 100%; min-width: 110px; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 6px 9px; font: inherit; font-size: 14px; }
+.people select { background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 5px 4px; font: inherit; font-size: 14px; width: 52px; text-align: center; }
+.people select.dupe { border-color: var(--bad); background: rgba(255,123,123,.12); }
+.people td.sep, .people th.sep { border-left: 1px solid var(--line2); }
+.people .del { padding: 4px 9px; font-size: 13px; }
+.empty { padding: 28px; text-align: center; color: var(--muted); }
+.hint { font-size: 13px; color: var(--dim); margin-top: 10px; max-width: 900px; }
+
+.teams { display: grid; grid-template-columns: repeat(auto-fit, minmax(440px, 1fr)); gap: 22px; }
+.team { border: 1px solid var(--line); border-radius: 16px; background: var(--bg2); padding: 20px 22px; }
+.team h3 { font-family: var(--display); font-weight: 500; font-size: 24px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.team h3 small { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
+.row { display: grid; grid-template-columns: 150px 1fr; gap: 14px; padding: 12px 0; border-top: 1px solid var(--line); margin-top: 10px; align-items: start; }
+.row:first-of-type { margin-top: 14px; }
+.row .role { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); padding-top: 4px; }
+.row .who { font-family: var(--display); font-size: 20px; }
+.row .why { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.bar { height: 6px; border-radius: 3px; background: var(--bg); margin-top: 8px; overflow: hidden; border: 1px solid var(--line); }
+.bar i { display: block; height: 100%; background: var(--accent); }
+.flags { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+.flag { font-size: 13.5px; padding: 7px 12px; border-radius: 8px; border-left: 3px solid var(--line2); background: var(--bg); color: var(--muted); }
+.flag.warn { border-left-color: var(--warn); color: var(--text); background: rgba(255,180,84,.08); }
+details.alt { margin-top: 14px; font-size: 13.5px; color: var(--muted); }
+details.alt summary { cursor: pointer; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+details.alt ol { margin: 8px 0 0 20px; display: flex; flex-direction: column; gap: 6px; }
+
+.settings { display: grid; grid-template-columns: 1fr 1.3fr; gap: 28px; align-items: start; }
+.card { border: 1px solid var(--line); border-radius: 16px; background: var(--bg2); padding: 20px 22px; }
+.card h3 { font-family: var(--display); font-weight: 500; font-size: 20px; margin-bottom: 6px; }
+.card p { color: var(--muted); font-size: 14px; margin-bottom: 12px; }
+input[type=range] { width: 100%; accent-color: var(--accent); }
+.rv { font-family: var(--display); font-size: 36px; color: var(--accent); }
+table.mix { border-collapse: collapse; width: 100%; font-size: 13px; }
+.mix th, .mix td { padding: 5px 4px; text-align: center; border-bottom: 1px solid var(--line); }
+.mix th { font-family: var(--mono); font-weight: 400; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.mix td.l { text-align: left; color: var(--text); }
+.mix input { width: 54px; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 4px; font: inherit; font-size: 13px; text-align: center; }
+details.how { margin-top: 36px; border: 1px solid var(--line); border-radius: 16px; background: var(--bg2); padding: 18px 22px; }
+details.how summary { cursor: pointer; font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+details.how .b { margin-top: 14px; color: var(--muted); font-size: 15px; max-width: 800px; }
+details.how .b p { margin-bottom: 10px; }
+details.how code { font-family: var(--mono); font-size: 13px; background: var(--bg); padding: 1px 6px; border-radius: 5px; color: var(--text); }
+@media (max-width: 900px) { .settings { grid-template-columns: 1fr; } .teams { grid-template-columns: 1fr; } .row { grid-template-columns: 1fr; gap: 4px; } }
+@media print { body { background: #fff; color: #111; } .toolbar, .sec#people, .sec#settings, details.how, .notice { display: none; } .team { border-color: #999; background: #fff; } * { color: #111 !important; } }
+</style></head>
+<body>
+<div class="wrap">
+<header>
+  <div class="kicker">AI &amp; Innovation Center &nbsp;/&nbsp; Team board</div>
+  <h1>Who is best for <em>what</em></h1>
+  <p class="lede">A decision aid for assigning hackathon roles. It shows its reasoning and its close alternatives. You make the call.</p>
+  <div class="notice"><b>Privacy.</b> This page stores names and ratings of students, many of whom are minors. Everything stays in this browser's local storage. Nothing is sent anywhere. Do not commit exported files to the repository, and clear the data when the program ends.</div>
+  <div class="toolbar">
+    <button class="p" id="b-add">Add person</button>
+    <button id="b-demo">Load demo teams</button>
+    <button id="b-copy">Copy summary</button>
+    <button id="b-export">Export JSON</button>
+    <button id="b-import">Import JSON</button>
+    <input type="file" id="f-import" accept="application/json,.json" hidden>
+    <button class="danger" id="b-clear">Clear all</button>
+    <span id="msg" role="status" aria-live="polite"></span>
+  </div>
+</header>
+
+<section class="sec" id="people">
+  <div class="k">01 — People</div>
+  <h2>What you <em>observed</em>, and what they <em>want</em></h2>
+  <p class="sub">Rate each signal from 1 to 5 using your notes from Weeks 1 to 7. Leave a cell blank if you have no evidence: it counts as a neutral 3 and is flagged. Students rank the five roles on their slip, 1 for the one they are most curious about.</p>
+  <div class="tablewrap"><table class="people" id="tbl"></table></div>
+  <p class="hint">Signals: <b>Decides</b> cuts scope and makes the call. <b>Interface</b> screens, flow and critique. <b>Technical</b> reads and debugs AI output and code. <b>Reliable</b> Git, PRs, deploys, finishes on time. <b>Story</b> pitch, README, video. Roles: PL Product Lead, IB Interface Builder, AI AI Engineer, PC Platform Captain, DP Demo Producer.</p>
+</section>
+
+<section class="sec" id="teams-sec">
+  <div class="k">02 — Suggestions</div>
+  <h2>The best fit for <em>each team</em></h2>
+  <p class="sub">Teams of 3 to 5 people. Smaller teams combine roles. Read the flags and the alternatives before you accept anything.</p>
+  <div class="teams" id="teams"></div>
+</section>
+
+<section class="sec" id="settings">
+  <div class="k">03 — Settings</div>
+  <h2>The <em>weights</em> are a judgment. Change them.</h2>
+  <p class="sub">The defaults are a starting guess, not a fact about people. If the output feels wrong, the weights are the first place to look.</p>
+  <div class="settings">
+    <div class="card">
+      <h3>How much does "want" count?</h3>
+      <p>0% means only what you observed. 100% means only what they ranked. The Week 7 slide promises 50%.</p>
+      <div class="rv" id="rv">50%</div>
+      <input type="range" id="wwant" min="0" max="100" step="5" value="50" aria-label="Weight of what the student wants">
+      <p style="margin-top:14px">Teams of 3 combine Product Lead + Demo Producer, and AI Engineer + Platform Captain. Teams of 4 combine Product Lead + Demo Producer.</p>
+      <button id="b-reset">Reset all weights</button>
+    </div>
+    <div class="card">
+      <h3>What each role needs from the signals</h3>
+      <p>Each row is normalised, so only the proportions matter. A row of zeros is ignored for that role (treated as neutral).</p>
+      <table class="mix" id="mix"></table>
+    </div>
+  </div>
+</section>
+
+<details class="how">
+  <summary>How the score works</summary>
+  <div class="b">
+    <p>For one person and one role: <code>fit = (1 - w) x observed + w x want</code>, on a scale of 1 to 5.</p>
+    <p><code>observed</code> is the weighted average of that person's five signals, using the role's row in the table above. A missing rating counts as 3. <code>want</code> is 5 for the role they ranked first, down to 1 for the one they ranked last. An unranked role counts as 3.</p>
+    <p>For a team, the board tries every way of giving each person one job and adds the fits. It shows the best arrangement and the next two. If the top two are close, the choice is yours, and it says so.</p>
+    <p>What it cannot know: who works well together, who is shy, who is having a bad month. Those matter more than a point of fit. Use the board to check your own thinking, then explain your decision to the team.</p>
+  </div>
+</details>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var ROLES = ['Product Lead', 'Interface Builder', 'AI Engineer', 'Platform Captain', 'Demo Producer'];
+  var SHORT = ['PL', 'IB', 'AI', 'PC', 'DP'];
+  var SIGNALS = ['Decides', 'Interface', 'Technical', 'Reliable', 'Story'];
+  // rows: roles. columns: Decides, Interface, Technical, Reliable, Story
+  var DEFAULT_MIX = [[0.5, 0, 0, 0.2, 0.3], [0, 0.6, 0.25, 0.15, 0], [0.15, 0, 0.65, 0.2, 0], [0.15, 0, 0.25, 0.6, 0], [0, 0.25, 0, 0.15, 0.6]];
+  // how roles are combined when a team has fewer than five people (indexes into ROLES)
+  var BUNDLES = { 3: [[0, 4], [1], [2, 3]], 4: [[0, 4], [1], [2], [3]], 5: [[0], [1], [2], [3], [4]] };
+  var STORE = 'aic-team-board-v1';
+
+  function clone(x) { return JSON.parse(JSON.stringify(x)); }
+  function defaults() { return { people: [], settings: { wWant: 0.5, mix: clone(DEFAULT_MIX) } }; }
+  function str(v, n) { return (typeof v === 'string' ? v : '').slice(0, n); }
+  function arr5(a, lo, hi) {
+    var r = [];
+    for (var i = 0; i < 5; i++) {
+      var v = Array.isArray(a) ? a[i] : null;
+      v = (typeof v === 'number' && isFinite(v)) ? Math.round(v) : null;
+      r.push(v !== null && v >= lo && v <= hi ? v : null);
+    }
+    return r;
+  }
+  function uid() { return Math.random().toString(36).slice(2, 10); }
+  function sanitize(d) {
+    if (!d || typeof d !== 'object' || !Array.isArray(d.people)) return null;
+    var out = defaults();
+    out.people = d.people.slice(0, 200).filter(function (p) { return p && typeof p === 'object'; }).map(function (p) {
+      return { id: (typeof p.id === 'string' && /^[a-z0-9]{3,16}$/.test(p.id)) ? p.id : uid(), name: str(p.name, 60), team: str(p.team, 40), obs: arr5(p.obs, 1, 5), rank: arr5(p.rank, 1, 5), note: str(p.note, 200) };
+    });
+    var s = d.settings;
+    if (s && typeof s === 'object') {
+      if (typeof s.wWant === 'number' && isFinite(s.wWant)) out.settings.wWant = Math.max(0, Math.min(1, s.wWant));
+      if (Array.isArray(s.mix) && s.mix.length === 5 && s.mix.every(function (r) { return Array.isArray(r) && r.length === 5 && r.every(function (v) { return typeof v === 'number' && isFinite(v) && v >= 0 && v <= 1; }); })) out.settings.mix = clone(s.mix);
+    }
+    return out;
+  }
+  var state = (function () {
+    try { var raw = localStorage.getItem(STORE); if (raw) { var s = sanitize(JSON.parse(raw)); if (s) return s; } } catch (e) {}
+    return defaults();
+  })();
+  function save() { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) {} }
+
+  /* ------------------------------------------------------------ scoring */
+  function observed(p, r, mix) {
+    var num = 0, den = 0;
+    for (var k = 0; k < 5; k++) { var w = mix[r][k]; if (w > 0) { num += w * (p.obs[k] === null ? 3 : p.obs[k]); den += w; } }
+    return den > 0 ? num / den : 3;
+  }
+  function want(p, r) { return p.rank[r] === null ? 3 : 6 - p.rank[r]; }
+  function fit(p, r, s) { return (1 - s.wWant) * observed(p, r, s.mix) + s.wWant * want(p, r); }
+  function slotFit(p, slot, s) { var t = 0; slot.forEach(function (r) { t += fit(p, r, s); }); return t / slot.length; }
+
+  function perms(n) {
+    var out = [], a = [];
+    for (var i = 0; i < n; i++) a.push(i);
+    (function rec(k) {
+      if (k === n) { out.push(a.slice()); return; }
+      for (var i = k; i < n; i++) { var t = a[k]; a[k] = a[i]; a[i] = t; rec(k + 1); t = a[k]; a[k] = a[i]; a[i] = t; }
+    })(0);
+    return out;
+  }
+  // returns the best arrangements (up to `top`), or null if the team size is not supported
+  function assign(members, s, top) {
+    var n = members.length, slots = BUNDLES[n];
+    if (!slots) return null;
+    var res = perms(n).map(function (pm) {
+      var pairs = slots.map(function (slot, i) { var p = members[pm[i]]; return { slot: slot, person: p, fit: slotFit(p, slot, s) }; });
+      var total = 0, min = 5; pairs.forEach(function (x) { total += x.fit; if (x.fit < min) min = x.fit; });
+      return { pairs: pairs, total: total, min: min };
+    });
+    res.sort(function (a, b) { return (Math.abs(b.total - a.total) > 1e-9 ? b.total - a.total : b.min - a.min); });
+    return res.slice(0, top || 3);
+  }
+
+  /* ---------------------------------------------------------------- dom */
+  function h(tag, props) {
+    var el = document.createElement(tag);
+    if (props) Object.keys(props).forEach(function (k) {
+      if (k === 'cls') el.className = props[k]; else if (k === 'text') el.textContent = props[k]; else el.setAttribute(k, props[k]);
+    });
+    for (var i = 2; i < arguments.length; i++) { var c = arguments[i]; if (c != null) el.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); }
+    return el;
+  }
+  var $ = function (s) { return document.querySelector(s); };
+  function say(t, err) { var m = $('#msg'); m.textContent = t; m.className = err ? 'err' : ''; }
+
+  function selectCell(values, current, cb, label) {
+    var sel = h('select', { 'aria-label': label });
+    sel.appendChild(h('option', { value: '', text: '-' }));
+    values.forEach(function (v) { var o = h('option', { value: String(v), text: String(v) }); if (v === current) o.selected = true; sel.appendChild(o); });
+    sel.addEventListener('change', function () { cb(sel.value === '' ? null : parseInt(sel.value, 10), sel); });
+    return sel;
+  }
+  function renderPeople() {
+    var t = $('#tbl'); t.textContent = '';
+    var thead = h('thead'), g = h('tr', { cls: 'grp' });
+    g.appendChild(h('th', { cls: 'l', colspan: '2' }));
+    g.appendChild(h('th', { colspan: '5', cls: 'sep', text: 'What you observed (1 to 5)' }));
+    g.appendChild(h('th', { colspan: '5', cls: 'sep', text: 'What they want (1 = most curious)' }));
+    g.appendChild(h('th', { colspan: '2', cls: 'sep' }));
+    var hr = h('tr');
+    hr.appendChild(h('th', { cls: 'l', text: 'Name' })); hr.appendChild(h('th', { cls: 'l', text: 'Team' }));
+    SIGNALS.forEach(function (s, i) { hr.appendChild(h('th', { cls: i === 0 ? 'sep' : '', text: s })); });
+    SHORT.forEach(function (s, i) { hr.appendChild(h('th', { cls: i === 0 ? 'sep' : '', title: ROLES[i], text: s })); });
+    hr.appendChild(h('th', { cls: 'l sep', text: 'Note' })); hr.appendChild(h('th'));
+    thead.appendChild(g); thead.appendChild(hr); t.appendChild(thead);
+    var tb = h('tbody');
+    if (!state.people.length) {
+      var er = h('tr'); er.appendChild(h('td', { colspan: '14', cls: 'empty', text: 'No one yet. Add a person, or load the demo teams to see how the board behaves.' })); tb.appendChild(er);
+    }
+    state.people.forEach(function (p) {
+      var tr = h('tr', { 'data-id': p.id });
+      var name = h('input', { type: 'text', 'aria-label': 'Name', maxlength: '60' }); name.value = p.name;
+      name.addEventListener('input', function () { p.name = name.value; save(); renderTeams(); });
+      var team = h('input', { type: 'text', 'aria-label': 'Team', maxlength: '40' }); team.value = p.team;
+      team.addEventListener('input', function () { p.team = team.value; save(); renderTeams(); });
+      tr.appendChild(h('td', { cls: 'l' }, name)); tr.appendChild(h('td', { cls: 'l' }, team));
+      SIGNALS.forEach(function (s, k) {
+        tr.appendChild(h('td', { cls: k === 0 ? 'sep' : '' }, selectCell([1, 2, 3, 4, 5], p.obs[k], function (v) { p.obs[k] = v; save(); renderTeams(); }, s + ' for ' + (p.name || 'person'))));
+      });
+      ROLES.forEach(function (r, k) {
+        tr.appendChild(h('td', { cls: k === 0 ? 'sep' : '' }, selectCell([1, 2, 3, 4, 5], p.rank[k], function (v) { p.rank[k] = v; save(); markDupes(tr, p); renderTeams(); }, 'Rank for ' + r)));
+      });
+      var note = h('input', { type: 'text', 'aria-label': 'Note', maxlength: '200' }); note.value = p.note;
+      note.addEventListener('input', function () { p.note = note.value; save(); });
+      tr.appendChild(h('td', { cls: 'l sep' }, note));
+      var del = h('button', { cls: 'del danger', 'aria-label': 'Remove ' + (p.name || 'person'), text: 'x' });
+      del.addEventListener('click', function () { state.people = state.people.filter(function (q) { return q !== p; }); save(); renderPeople(); renderTeams(); });
+      tr.appendChild(h('td', null, del));
+      tb.appendChild(tr); markDupes(tr, p);
+    });
+    t.appendChild(tb);
+  }
+  function dupeRanks(p) { var seen = {}, d = {}; p.rank.forEach(function (v) { if (v !== null) { if (seen[v]) d[v] = true; seen[v] = true; } }); return d; }
+  function markDupes(tr, p) {
+    var d = dupeRanks(p), sels = tr.querySelectorAll('td select');
+    for (var k = 0; k < 5; k++) { var s = sels[5 + k]; if (s) s.classList.toggle('dupe', p.rank[k] !== null && !!d[p.rank[k]]); }
+  }
+
+  function teamsMap() {
+    var m = {}, order = [];
+    state.people.forEach(function (p) { var t = p.team.trim(); if (!t) return; if (!m[t]) { m[t] = []; order.push(t); } m[t].push(p); });
+    return order.sort().map(function (t) { return { name: t, members: m[t] }; });
+  }
+  function nm(p) { return p.name.trim() || '(no name)'; }
+  function wantText(p, slot) { return slot.map(function (r) { return p.rank[r] === null ? 'unranked' : '#' + p.rank[r]; }).join(' / '); }
+  function analyse(members, best, alts) {
+    var flags = [];
+    best.pairs.forEach(function (x) {
+      var ranks = x.slot.map(function (r) { return x.person.rank[r]; }).filter(function (v) { return v !== null; });
+      if (ranks.length && Math.min.apply(null, ranks) >= 4) flags.push({ warn: true, text: nm(x.person) + ' is placed in a role they ranked #' + Math.min.apply(null, ranks) + '. Talk to them before you publish.' });
+    });
+    members.forEach(function (p) {
+      if (p.rank.every(function (v) { return v === null; })) flags.push({ text: nm(p) + ' has no ranking yet. Their wants count as neutral.' });
+      var miss = p.obs.filter(function (v) { return v === null; }).length;
+      if (miss > 0) flags.push({ text: nm(p) + ': ' + miss + ' of 5 observations missing (counted as 3).' });
+      if (Object.keys(dupeRanks(p)).length) flags.push({ warn: true, text: nm(p) + ' used the same rank twice. Check their slip.' });
+    });
+    var first = {};
+    members.forEach(function (p) { var i = p.rank.indexOf(1); if (i >= 0) (first[i] = first[i] || []).push(nm(p)); });
+    Object.keys(first).forEach(function (i) { if (first[i].length > 1) flags.push({ text: first[i].join(' and ') + ' both ranked ' + ROLES[i] + ' first. Only one can have it.' }); });
+    if (alts.length > 1 && best.total - alts[1].total < 0.15) flags.push({ warn: true, text: 'The top two arrangements are within ' + (best.total - alts[1].total).toFixed(2) + ' points. This is your judgment call, not the board\'s.' });
+    return flags;
+  }
+  function renderTeams() {
+    var box = $('#teams'); box.textContent = '';
+    var teams = teamsMap();
+    var loose = state.people.filter(function (p) { return !p.team.trim(); }).length;
+    if (!teams.length) { box.appendChild(h('div', { cls: 'card', text: state.people.length ? 'Give people a team name to see suggestions.' : 'Add people and team names to see suggestions.' })); return; }
+    teams.forEach(function (T) {
+      var card = h('div', { cls: 'team' }), n = T.members.length;
+      card.appendChild(h('h3', null, T.name, h('small', { text: n + (n === 1 ? ' person' : ' people') })));
+      var res = assign(T.members, state.settings, 3);
+      if (!res) {
+        card.appendChild(h('div', { cls: 'flags' }, h('div', { cls: 'flag warn', text: n < 3 ? 'Too small. A team needs 3 to 5 people.' : 'Too large. Teams are 3 to 5 people. Split it or add a second team.' })));
+        box.appendChild(card); return;
+      }
+      var best = res[0];
+      best.pairs.forEach(function (x) {
+        var row = h('div', { cls: 'row' });
+        row.appendChild(h('div', { cls: 'role', text: x.slot.map(function (r) { return ROLES[r]; }).join(' + ') }));
+        var obs = x.slot.map(function (r) { return observed(x.person, r, state.settings.mix); });
+        var obsAvg = obs.reduce(function (a, b) { return a + b; }, 0) / obs.length;
+        var bar = h('div', { cls: 'bar' }); var fill = h('i'); fill.style.width = Math.round(x.fit / 5 * 100) + '%'; bar.appendChild(fill);
+        row.appendChild(h('div', null, h('div', { cls: 'who', text: nm(x.person) }),
+          h('div', { cls: 'why', text: 'fit ' + x.fit.toFixed(1) + ' / 5  ·  observed ' + obsAvg.toFixed(1) + '  ·  wants it: ' + wantText(x.person, x.slot) }), bar));
+        card.appendChild(row);
+      });
+      card.appendChild(h('div', { cls: 'why', style: 'margin-top:10px;font-size:13px;color:var(--muted)', text: 'Total fit ' + best.total.toFixed(2) + ' of ' + (n * 5) }));
+      var flags = analyse(T.members, best, res);
+      if (flags.length) { var fl = h('div', { cls: 'flags' }); flags.forEach(function (f) { fl.appendChild(h('div', { cls: 'flag' + (f.warn ? ' warn' : ''), text: f.text })); }); card.appendChild(fl); }
+      if (res.length > 1) {
+        var det = h('details', { cls: 'alt' }, h('summary', { text: 'Other arrangements' })), ol = h('ol');
+        res.slice(1).forEach(function (r) {
+          ol.appendChild(h('li', { text: r.pairs.map(function (x) { return nm(x.person) + ' as ' + x.slot.map(function (i) { return SHORT[i]; }).join('+'); }).join(', ') + '   (total ' + r.total.toFixed(2) + ', ' + (best.total - r.total).toFixed(2) + ' lower)' }));
+        });
+        det.appendChild(ol); card.appendChild(det);
+      }
+      box.appendChild(card);
+    });
+    if (loose) box.appendChild(h('div', { cls: 'card', text: loose + ' ' + (loose === 1 ? 'person has' : 'people have') + ' no team name yet.' }));
+  }
+
+  function renderSettings() {
+    var pct = Math.round(state.settings.wWant * 100);
+    $('#wwant').value = String(pct); $('#rv').textContent = pct + '%';
+    var t = $('#mix'); t.textContent = '';
+    var hr = h('tr'); hr.appendChild(h('th')); SIGNALS.forEach(function (s) { hr.appendChild(h('th', { text: s })); }); t.appendChild(h('thead', null, hr));
+    var tb = h('tbody');
+    ROLES.forEach(function (r, i) {
+      var tr = h('tr'); tr.appendChild(h('td', { cls: 'l', text: r }));
+      SIGNALS.forEach(function (s, k) {
+        var inp = h('input', { type: 'number', min: '0', max: '1', step: '0.05', 'aria-label': r + ' needs ' + s }); inp.value = String(state.settings.mix[i][k]);
+        inp.addEventListener('input', function () { var v = parseFloat(inp.value); if (isFinite(v) && v >= 0 && v <= 1) { state.settings.mix[i][k] = v; save(); renderTeams(); } });
+        tr.appendChild(h('td', null, inp));
+      });
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);
+  }
+
+  /* ------------------------------------------------------------ actions */
+  function addPerson(p) { state.people.push(p || { id: uid(), name: '', team: '', obs: [null, null, null, null, null], rank: [null, null, null, null, null], note: '' }); save(); renderPeople(); renderTeams(); }
+  function demo() {
+    var D = function (name, team, obs, rank) { return { id: uid(), name: name, team: team, obs: obs, rank: rank, note: '' }; };
+    // invented people: nobody here is real
+    var set = [
+      D('Demo One', 'Demo A', [5, 2, 3, 4, 4], [1, 4, 3, 5, 2]), D('Demo Two', 'Demo A', [2, 5, 3, 3, 3], [4, 1, 3, 5, 2]),
+      D('Demo Three', 'Demo A', [3, 3, 5, 3, 2], [3, 4, 1, 2, 5]), D('Demo Four', 'Demo A', [3, 2, 4, 5, 2], [4, 5, 2, 1, 3]),
+      D('Demo Five', 'Demo A', [3, 3, 2, 3, 5], [5, 3, 4, 2, 1]),
+      D('Demo Six', 'Demo B', [4, 3, 4, 3, 4], [1, 5, 2, 4, 3]), D('Demo Seven', 'Demo B', [2, 4, 5, 3, 2], [4, 2, 1, 3, 5]),
+      D('Demo Eight', 'Demo B', [3, 3, 4, 5, 3], [3, 5, 1, 2, 4]), D('Demo Nine', 'Demo B', [3, 4, 2, 3, 5], [5, 1, 4, 3, 2])];
+    state.people = state.people.concat(set); save(); renderPeople(); renderTeams(); say('Loaded 9 invented people in two teams. Demo B has a clash: two people want AI Engineer.');
+  }
+  function summaryText() {
+    var lines = [];
+    teamsMap().forEach(function (T) {
+      var res = assign(T.members, state.settings, 1);
+      lines.push(T.name);
+      if (!res) { lines.push('  (needs 3 to 5 people, has ' + T.members.length + ')'); return; }
+      res[0].pairs.forEach(function (x) { lines.push('  ' + x.slot.map(function (r) { return ROLES[r]; }).join(' + ') + ': ' + nm(x.person)); });
+    });
+    return lines.join('\n');
+  }
+  function exportJSON() { return JSON.stringify({ format: 'aic-team-board', version: 1, people: state.people, settings: state.settings }, null, 1); }
+  function importJSON(text) {
+    var d; try { d = JSON.parse(text); } catch (e) { return { ok: false, error: 'That file is not valid JSON.' }; }
+    var s = sanitize(d); if (!s) return { ok: false, error: 'That file is not a team board export.' };
+    state = s; save(); renderPeople(); renderTeams(); renderSettings(); return { ok: true, people: s.people.length };
+  }
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text);
+    return new Promise(function (res, rej) { var ta = h('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy') ? res() : rej(); } catch (e) { rej(e); } ta.remove(); });
+  }
+
+  $('#b-add').addEventListener('click', function () { addPerson(); var ins = document.querySelectorAll('#tbl tbody tr:last-child input[type=text]'); if (ins[0]) ins[0].focus(); });
+  $('#b-demo').addEventListener('click', demo);
+  $('#b-copy').addEventListener('click', function () {
+    var t = summaryText(); if (!t) { say('Nothing to copy yet.', true); return; }
+    copyText(t).then(function () { say('Summary copied.'); }, function () { say('Could not copy. Select the teams and copy by hand.', true); });
+  });
+  $('#b-export').addEventListener('click', function () {
+    var blob = new Blob([exportJSON()], { type: 'application/json' }), a = h('a', { href: URL.createObjectURL(blob), download: 'team-board-' + new Date().toISOString().slice(0, 10) + '.json' });
+    document.body.appendChild(a); a.click(); a.remove(); say('Exported. Keep the file private and out of the repository.');
+  });
+  $('#b-import').addEventListener('click', function () { $('#f-import').click(); });
+  $('#f-import').addEventListener('change', function (e) {
+    var f = e.target.files && e.target.files[0]; if (!f) return;
+    var rd = new FileReader(); rd.onload = function () { var r = importJSON(String(rd.result)); say(r.ok ? 'Imported ' + r.people + ' people.' : r.error, !r.ok); }; rd.readAsText(f); e.target.value = '';
+  });
+  $('#b-clear').addEventListener('click', function () {
+    if (!state.people.length || confirm('Remove all ' + state.people.length + ' people from this browser? This cannot be undone. Export first if you need a copy.')) { state.people = []; save(); renderPeople(); renderTeams(); say('Cleared.'); }
+  });
+  $('#wwant').addEventListener('input', function (e) { state.settings.wWant = parseInt(e.target.value, 10) / 100; $('#rv').textContent = e.target.value + '%'; save(); renderTeams(); });
+  $('#b-reset').addEventListener('click', function () { state.settings = defaults().settings; save(); renderSettings(); renderTeams(); say('Weights reset to the defaults.'); });
+
+  renderPeople(); renderTeams(); renderSettings();
+  window.__board = { assign: assign, fit: fit, observed: observed, want: want, sanitize: sanitize, exportJSON: exportJSON, importJSON: importJSON, state: function () { return state; }, defaults: defaults, ROLES: ROLES };
+})();
+</script>
+</body></html>

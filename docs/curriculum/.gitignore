@@ -1,0 +1,3 @@
+# Exports from the team board contain student names and ratings. Never commit them.
+team-board-*.json
+*.board.json
