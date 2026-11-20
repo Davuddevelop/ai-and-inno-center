@@ -1,5 +1,6 @@
 // Drives the real decks. Fails loudly if any interaction is broken.
-import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
+// Uses a normal 'npm i playwright'; falls back to the global install this was written against.
+const { chromium } = await import('playwright').catch(() => import('/opt/node22/lib/node_modules/playwright/index.mjs'));
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));

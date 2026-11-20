@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Classes | AI &amp; Innovation Center</title>
+<style>@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url(fonts/fraunces-italic-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url(fonts/fraunces-italic-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(fonts/fraunces-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(fonts/fraunces-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(fonts/geist-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(fonts/geist-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url(fonts/geist-mono-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url(fonts/geist-mono-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --bg: #0a1226; --bg2: #0f1b3a; --bg3: #15264d; --text: #f2f5ee; --muted: #93a3c4; --dim: #7789b0;
+  --accent: #b9ff4b; --accent-ink: #0a1226; --line: rgba(170,195,255,.14); --line2: rgba(170,195,255,.3); --warn: #ffb454;
+  --sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --display: 'Fraunces', Georgia, 'Times New Roman', serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--text); }
+body { font-family: var(--sans); -webkit-font-smoothing: antialiased; line-height: 1.45; padding: 48px 0 80px; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--display); font-weight: 500; font-size: clamp(36px, 6vw, 60px); line-height: 1.05; letter-spacing: -.02em; margin: 12px 0 14px; }
+h1 em { font-style: italic; color: var(--accent); font-weight: 400; }
+.lede { color: var(--muted); font-size: 19px; max-width: 640px; }
+.count { display: flex; align-items: baseline; gap: 14px; margin-top: 28px; }
+.count b { font-family: var(--display); font-weight: 500; font-size: 64px; color: var(--accent); line-height: 1; }
+.count span { font-family: var(--mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+h2 { font-family: var(--mono); font-weight: 400; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin: 52px 0 16px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+.card { border: 1px solid var(--line); border-radius: 16px; background: var(--bg2); padding: 18px 20px 16px; display: flex; flex-direction: column; gap: 6px; }
+.card.next { border-color: var(--accent); background: #12284a; }
+.card .w { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; }
+.card .nx { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-top: 4px; }
+.card h3 { font-family: var(--display); font-weight: 500; font-size: 24px; line-height: 1.15; margin: 4px 0 2px; }
+.card .m { color: var(--muted); font-size: 13.5px; }
+.card .a { margin-top: auto; padding-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+a.btn { font-size: 14px; text-decoration: none; color: var(--text); border: 1px solid var(--line2); border-radius: 999px; padding: 7px 16px; }
+a.btn:hover { border-color: var(--accent); }
+a.btn.p { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tool { display: flex; gap: 16px; align-items: center; justify-content: space-between; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 16px; background: var(--bg2); padding: 18px 22px; }
+.tool h3 { font-family: var(--display); font-weight: 500; font-size: 22px; }
+.tool p { color: var(--muted); font-size: 14px; max-width: 560px; margin-top: 2px; }
+table { border-collapse: collapse; width: 100%; max-width: 640px; font-size: 14px; }
+td { padding: 8px 0; border-bottom: 1px solid var(--line); color: var(--muted); }
+td:first-child { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; color: var(--text); padding-right: 24px; white-space: nowrap; }
+.note { margin-top: 36px; color: var(--dim); font-size: 13.5px; max-width: 720px; }
+</style></head>
+<body><div class="wrap">
+<div class="kicker">AI &amp; Innovation Center</div>
+<h1>Eight Thursdays to <em>Jan 20</em></h1>
+<p class="lede">One deck per meeting. Open it on the projector, and press <b>P</b> for the presenter view with notes and a timer.</p>
+<div class="count"><b id="days">--</b><span>days to Jan 20</span></div>
+
+<h2>The weeks</h2>
+<div class="grid">
+<div class="card" data-date="2026-11-26"><div class="w"><span>Week 01</span><b>Thu, Nov 26</b></div><h3>How hackathons are won</h3><div class="m">20 slides, about 90 min</div><div class="a"><a class="btn p" href="week-01-how-hackathons-are-won.html">Open</a><a class="btn" href="week-01-how-hackathons-are-won.html?handout">Handout</a></div></div>
+<div class="card" data-date="2026-12-03"><div class="w"><span>Week 02</span><b>Thu, Dec 3</b></div><h3>Git and GitHub from zero</h3><div class="m">21 slides, about 85 min</div><div class="a"><a class="btn p" href="week-02-git-and-github-from-zero.html">Open</a><a class="btn" href="week-02-git-and-github-from-zero.html?handout">Handout</a></div></div>
+<div class="card" data-date="2026-12-10"><div class="w"><span>Week 03</span><b>Thu, Dec 10</b></div><h3>Shipping together</h3><div class="m">19 slides, about 88 min</div><div class="a"><a class="btn p" href="week-03-shipping-together.html">Open</a><a class="btn" href="week-03-shipping-together.html?handout">Handout</a></div></div>
+<div class="card" data-date="2026-12-17"><div class="w"><span>Week 04</span><b>Thu, Dec 17</b></div><h3>AI as a teammate</h3><div class="m">22 slides, about 89 min</div><div class="a"><a class="btn p" href="week-04-ai-as-a-teammate.html">Open</a><a class="btn" href="week-04-ai-as-a-teammate.html?handout">Handout</a></div></div>
+<div class="card" data-date="2026-12-24"><div class="w"><span>Week 05</span><b>Thu, Dec 24</b></div><h3>Make it real</h3><div class="m">21 slides, about 90 min</div><div class="a"><a class="btn p" href="week-05-make-it-real.html">Open</a><a class="btn" href="week-05-make-it-real.html?handout">Handout</a></div></div>
+<div class="card" data-date="2026-12-31"><div class="w"><span>Week 06</span><b>Thu, Dec 31</b></div><h3>Take-home sprint</h3><div class="m">self-guided, for the team to read</div><div class="a"><a class="btn p" href="week-06-take-home-sprint.html">Open</a><a class="btn" href="week-06-take-home-sprint.html?handout">Handout</a></div></div>
+<div class="card" data-date="2027-01-07"><div class="w"><span>Week 07</span><b>Thu, Jan 7</b></div><h3>Strategy and the pitch</h3><div class="m">25 slides, about 89 min</div><div class="a"><a class="btn p" href="week-07-strategy-and-the-pitch.html">Open</a><a class="btn" href="week-07-strategy-and-the-pitch.html?handout">Handout</a></div></div>
+<div class="card" data-date="2027-01-14"><div class="w"><span>Week 08</span><b>Thu, Jan 14</b></div><h3>Demo Day</h3><div class="m">14 slides, about 81 min</div><div class="a"><a class="btn p" href="week-08-demo-day.html">Open</a><a class="btn" href="week-08-demo-day.html?handout">Handout</a></div></div>
+</div>
+
+<h2>Tools</h2>
+<div class="tool">
+  <div><h3>Team board</h3><p>Assign hackathon roles from what you observed and what students want. Everything stays in this browser.</p></div>
+  <a class="btn p" href="../team-board.html">Open the board</a>
+</div>
+
+<h2>Keys</h2>
+<table>
+<tr><td>Right, Space, Enter</td><td>next step or slide</td></tr>
+<tr><td>Left</td><td>back</td></tr>
+<tr><td>P</td><td>presenter view: notes, timer, next slide (opens a second window)</td></tr>
+<tr><td>G</td><td>slide overview</td></tr>
+<tr><td>H</td><td>handout mode, a plain page to read or print</td></tr>
+<tr><td>F</td><td>fullscreen</td></tr>
+<tr><td>?</td><td>help</td></tr>
+</table>
+<p class="note">Handouts open on a phone automatically. The decks work from a file, with no internet. If a deck looks plain, the <code>fonts</code> folder is missing next to it.</p>
+</div>
+<script>
+(function () {
+  var end = new Date(2027, 0, 20), now = new Date(), t0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  document.getElementById('days').textContent = Math.max(0, Math.round((end - t0) / 86400000));
+  var cards = [].slice.call(document.querySelectorAll('.card[data-date]')), found = false;
+  cards.forEach(function (c) {
+    var p = c.dataset.date.split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]);
+    if (!found && d >= t0) { c.classList.add('next'); var tag = document.createElement('span'); tag.className = 'nx'; tag.textContent = 'Next session'; c.insertBefore(tag, c.querySelector('h3')); found = true; }
+  });
+})();
+</script>
+</body></html>

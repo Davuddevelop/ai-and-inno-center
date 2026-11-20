@@ -1,6 +1,7 @@
 // Layout QA. For every slide in every deck: does anything spill outside the safe area?
 //   node docs/curriculum/src/qa.mjs [--shots DIR] [deck.html ...]
-import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
+// Uses a normal 'npm i playwright'; falls back to the global install this was written against.
+const { chromium } = await import('playwright').catch(() => import('/opt/node22/lib/node_modules/playwright/index.mjs'));
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

@@ -89,6 +89,22 @@ def load(path):
     return mod.DECK
 
 
+def build_launcher(built):
+    """slides/index.html: one page that opens every week. The list is inlined, because a file:// page cannot fetch a JSON file."""
+    cards = []
+    for deck, name, total in built:
+        if name == "_sample":
+            continue
+        meta = "self-guided, for the team to read" if not deck.live else f"{len(deck.slides)} slides, about {int(round(total))} min"
+        cards.append(
+            f'<div class="card" data-date="{esc(deck.date)}"><div class="w"><span>Week {deck.week:02d}</span><b>{esc(deck.date_label)}</b></div>'
+            f'<h3>{esc(deck.title)}</h3><div class="m">{esc(meta)}</div>'
+            f'<div class="a"><a class="btn p" href="{name}.html">Open</a><a class="btn" href="{name}.html?handout">Handout</a></div></div>')
+    src = (HERE / "launcher.html").read_text()
+    (OUT / "index.html").write_text(src.replace("/*FONTS*/", FONTS).replace("<!--WEEKS-->", "\n".join(cards)))
+    print("ok   index.html")
+
+
 def build_board():
     """team-board.html sits one level above slides/, so its font URLs point into slides/fonts/."""
     src = (HERE / "board.html").read_text()
@@ -112,15 +128,16 @@ def main():
         problems, warns, total = check(deck)
         name = "_sample" if f.stem == "_sample" else slug(deck)
         (OUT / f"{name}.html").write_text(page(deck))
-        built.append((deck, name))
+        built.append((deck, name, total))
         flag = "FAIL" if problems else "ok  "
         print(f"{flag} {name:48s} {len(deck.slides):3d} slides  {total:4.0f} min")
         for p in problems:
             print("       problem:", p); failed = True
         for w in warns:
             print("       note:   ", w)
+    build_launcher(built)
     build_board()
-    (OUT / "_manifest.json").write_text(json.dumps([{"week": d.week, "date": d.date, "label": d.date_label, "title": d.title, "file": n + ".html", "slides": len(d.slides)} for d, n in built if n != "_sample"], indent=1))
+    (OUT / "_manifest.json").write_text(json.dumps([{"week": d.week, "date": d.date, "label": d.date_label, "title": d.title, "file": n + ".html", "slides": len(d.slides)} for d, n, _ in built if n != "_sample"], indent=1))
     sys.exit(1 if failed else 0)
 
 
